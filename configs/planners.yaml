@@ -1,0 +1,5 @@
+planner:
+  type: rule
+
+# Set `type: llm` and inject a StructuredLLMClient at application composition time.
+# The planner still emits the exact same immutable RetrievalPlan contract.
