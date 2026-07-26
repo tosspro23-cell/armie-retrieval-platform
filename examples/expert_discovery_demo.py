@@ -44,21 +44,21 @@ def build_runtime() -> tuple[RetrievalRuntime, frozenset[str], ProviderRegistry]
     provider = InMemoryKnowledgeProvider(EXPERTS)
     dense, sparse = DenseRetriever(provider), SparseRetriever(provider)
     retrievers = RetrieverRegistry()
-    retrievers.register("dense", dense, capabilities={"dense"}, version="0.2.0", priority=80)
-    retrievers.register("sparse", sparse, capabilities={"sparse"}, version="0.2.0", priority=70)
-    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.0", priority=100)
+    retrievers.register("dense", dense, capabilities={"dense"}, version="0.2.1", priority=80)
+    retrievers.register("sparse", sparse, capabilities={"sparse"}, version="0.2.1", priority=70)
+    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.1", priority=100)
     providers = ProviderRegistry()
-    providers.register("in_memory", provider, capabilities=provider.capabilities, version="0.2.0", priority=100)
+    providers.register("in_memory", provider, capabilities=provider.capabilities, version="0.2.1", priority=100)
     try:
         graph_provider = NetworkXKnowledgeGraphProvider.from_experts(EXPERTS)
         graph = GraphRetriever(graph_provider)
-        retrievers.register("graph", graph, capabilities={"graph"}, version="0.2.0", priority=90)
-        providers.register("networkx_graph", graph_provider, capabilities=graph_provider.capabilities, version="0.2.0", priority=90)
+        retrievers.register("graph", graph, capabilities={"graph"}, version="0.2.1", priority=90)
+        providers.register("networkx_graph", graph_provider, capabilities=graph_provider.capabilities, version="0.2.1", priority=90)
     except RuntimeError as error:
         print(f"Graph capability unavailable: {error}")
     processors = ProcessorRegistry()
     for processor in (DeduplicateProcessor(), MetadataFilterProcessor(), ExpertRerankProcessor()):
-        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.0")
+        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.1")
     return RetrievalRuntime(retrievers, processors), retrievers.capabilities(), providers
 
 

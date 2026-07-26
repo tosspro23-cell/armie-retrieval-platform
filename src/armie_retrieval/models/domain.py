@@ -76,6 +76,7 @@ class EvaluationResult:
     reciprocal_rank: float
     latency_ms: float
     result_count: int
+    ndcg_at_k: float = 0.0
 
 
 @dataclass(frozen=True)

@@ -19,6 +19,9 @@ dist/
 coverage.xml
 htmlcov/
 
+# Locally generated offline index artifacts
+.artifacts/
+
 # IDE, editor, OS, and temporary artifacts
 .DS_Store
 *.swp

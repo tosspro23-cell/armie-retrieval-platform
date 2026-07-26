@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+import pickle
+from pathlib import Path
 from typing import Iterable
 
 from armie_retrieval.models import ResultItem
@@ -50,3 +53,21 @@ class NetworkXKnowledgeGraphProvider:
 
     def expert_items(self) -> dict[str, ResultItem]:
         return self._experts
+
+    @classmethod
+    def from_artifact(cls, artifact_directory: str | Path) -> "NetworkXKnowledgeGraphProvider":
+        """Load an offline graph artifact; runtime never rebuilds it."""
+        directory = Path(artifact_directory)
+        graph_path = directory / "graph.pkl"
+        items_path = directory / "experts.json"
+        if not graph_path.exists() or not items_path.exists():
+            raise FileNotFoundError(
+                f"Graph index artifacts are missing in {directory}. Run the offline GraphIndexBuilder first."
+            )
+        provider = cls()
+        with graph_path.open("rb") as handle:
+            provider.graph = pickle.load(handle)
+        provider._experts = {
+            entry["id"]: ResultItem(**entry) for entry in json.loads(items_path.read_text(encoding="utf-8"))
+        }
+        return provider

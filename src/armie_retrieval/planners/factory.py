@@ -6,6 +6,7 @@ from typing import Any, Mapping
 
 from armie_retrieval.models.domain import Policy
 from armie_retrieval.planners.llm import LLMPlanner, StructuredLLMClient
+from armie_retrieval.planners.ollama import OllamaStructuredLLMClient
 from armie_retrieval.planners.rule_based import RuleBasedPlanner
 
 
@@ -18,6 +19,14 @@ def create_planner(
         return RuleBasedPlanner(available_capabilities, policy)
     if planner_type == "llm":
         if llm_client is None:
-            raise ValueError("LLM planner selected but no StructuredLLMClient was supplied")
+            ollama = config.get("planner", {}).get("ollama", {})
+            model = ollama.get("model")
+            if not model:
+                raise ValueError("LLM planner selected but no StructuredLLMClient or planner.ollama.model was supplied")
+            llm_client = OllamaStructuredLLMClient(
+                model=model,
+                base_url=ollama.get("base_url", "http://127.0.0.1:11434"),
+                timeout_seconds=float(ollama.get("timeout_seconds", 90)),
+            )
         return LLMPlanner(llm_client, available_capabilities, policy)
     raise ValueError(f"Unsupported planner type: {planner_type}")

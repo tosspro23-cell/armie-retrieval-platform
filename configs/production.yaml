@@ -1,0 +1,15 @@
+planner:
+  type: llm
+  ollama:
+    model: qwen3:4b
+    base_url: http://127.0.0.1:11434
+    timeout_seconds: 90
+
+embedding:
+  provider: bge
+  model: BAAI/bge-m3
+  device: null
+  local_files_only: true
+
+artifacts:
+  root: .artifacts/production
