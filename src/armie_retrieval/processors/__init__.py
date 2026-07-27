@@ -1,3 +1,3 @@
-from .result_processors import DeduplicateProcessor, ExpertRerankProcessor, MetadataFilterProcessor
+from .result_processors import DeduplicateProcessor, ExpertRerankProcessor, MetadataFilterProcessor, QueryAwareRerankProcessor, RerankProcessor
 
-__all__ = ["DeduplicateProcessor", "ExpertRerankProcessor", "MetadataFilterProcessor"]
+__all__ = ["DeduplicateProcessor", "ExpertRerankProcessor", "MetadataFilterProcessor", "QueryAwareRerankProcessor", "RerankProcessor"]

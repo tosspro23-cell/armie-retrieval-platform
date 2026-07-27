@@ -1,0 +1,24 @@
+name: model-enhanced
+embedding:
+  type: bge_m3
+  model: BAAI/bge-m3
+planner:
+  type: ollama
+  model: qwen3:4b
+  base_url: http://127.0.0.1:11434
+  fallback_enabled: true
+  fallback: rule
+reranker:
+  type: bge_cross_encoder
+  model: BAAI/bge-reranker-v2-m3
+  device: auto
+  batch_size: 8
+  isolated: true
+  timeout_seconds: 120
+  fallback: metadata_boost
+candidate_pool:
+  retrieval_candidate_k: 20
+  rerank_candidate_k: 20
+  final_top_k: 5
+evaluation:
+  cutoffs: [1, 2, 3, 5, 10]

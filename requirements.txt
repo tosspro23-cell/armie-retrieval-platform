@@ -1,6 +1,7 @@
-# Runtime dependencies for the v0.2.1 production-validation release.
+# Runtime dependencies for the v0.2.3 model-enhanced retrieval release.
 faiss-cpu>=1.8.0
 networkx>=3.0
 numpy>=1.24,<2.0
 requests>=2.31
 sentence-transformers>=3.0
+PyYAML>=6.0

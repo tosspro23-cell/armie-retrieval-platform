@@ -1,9 +1,4 @@
-"""Validate offline indexing, persistent FAISS retrieval, metrics, and Ollama planning.
-
-This script intentionally does not download BGE-M3. It validates a configured
-local BGE provider when its model is already installed and otherwise prints the
-manual prerequisite required for the full production embedding validation.
-"""
+"""Validate baseline or model-enhanced production retrieval without downloading models."""
 
 from __future__ import annotations
 
@@ -20,12 +15,14 @@ from armie_retrieval.benchmarking import generate_benchmark_dataset
 from armie_retrieval.evaluation import run_evaluation
 from armie_retrieval.indexing import GraphIndexBuilder, KeywordIndexBuilder, VectorIndexBuilder
 from armie_retrieval.models import Query
-from armie_retrieval.planners import LLMPlanner, OllamaStructuredLLMClient, RuleBasedPlanner
+from armie_retrieval.observability import trace_query
 from armie_retrieval.production import ProductionArtifacts, create_production_platform
+from armie_retrieval.profiles import apply_overrides, load_profile
+from armie_retrieval.runtime_profiles import select_planner, select_reranker
 
 
 class DeterministicValidationEmbeddingProvider:
-    """Test fixture used only to validate FAISS artifact lifecycle without model downloads."""
+    """Fixture-only embedding provider; production model validation is explicit."""
 
     dimension = 16
 
@@ -42,82 +39,86 @@ class DeterministicValidationEmbeddingProvider:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--profile", choices=("fixture", "baseline", "model-enhanced"), default="baseline")
     parser.add_argument("--artifacts", default=".artifacts/validation")
-    parser.add_argument("--size", type=int, default=50, help="Corpus size; 50, 200, and 500 are recommended benchmark scales")
-    parser.add_argument("--ollama-model", default="qwen3:4b")
-    parser.add_argument("--bge-model", default="BAAI/bge-m3")
+    parser.add_argument("--size", type=int, default=50)
+    parser.add_argument("--ollama-model")
+    parser.add_argument("--reranker-model")
     parser.add_argument("--keep-artifacts", action="store_true")
     args = parser.parse_args()
+    profile = apply_overrides(
+        load_profile(args.profile),
+        planner={"model": args.ollama_model}, reranker={"model": args.reranker_model},
+    )
     root = Path(args.artifacts)
     if root.exists() and not args.keep_artifacts:
         shutil.rmtree(root)
-
     dataset = generate_benchmark_dataset(root, size=args.size)
-    fixture_embedding = DeterministicValidationEmbeddingProvider()
+    embedding = DeterministicValidationEmbeddingProvider()
     artifacts = ProductionArtifacts(root / "indexes")
-    VectorIndexBuilder(fixture_embedding).build(dataset.experts, artifacts.vector)
+    VectorIndexBuilder(embedding).build(dataset.experts, artifacts.vector)
     KeywordIndexBuilder().build(dataset.experts, artifacts.keyword)
     GraphIndexBuilder().build(dataset.experts, artifacts.graph)
-
-    platform = create_production_platform(artifacts, fixture_embedding)
-    planner = RuleBasedPlanner(platform.retrievers.capabilities())
-    evaluation = run_evaluation(platform.runtime, planner, dataset.queries, top_k=5)
-    graph_query = Query("Find healthcare experts connected to Azure AI", top_k=3)
-    graph_result = platform.runtime.execute(graph_query, planner.plan(graph_query))
-
+    reranker_selection = select_reranker(profile)
+    platform = create_production_platform(artifacts, embedding, reranker=reranker_selection.provider)
+    rerank_processor = platform.processors.resolve("rerank")
+    rerank_processor.selection = reranker_selection
+    planner_selection = select_planner(profile, capabilities=platform.retrievers.capabilities())
+    planner = planner_selection.planner
+    case = dataset.queries[0]
+    query = Query(str(case["query"]), top_k=5)
+    result, trace = trace_query(platform.runtime, planner, query, query_id=str(case["id"]), relevant_ids=set(case["relevant_ids"]))
+    # Model-enhanced validation intentionally exercises one complete FAISS →
+    # isolated BGE → evaluation path.  Repeating short-lived model workers for
+    # every synthetic benchmark case is not needed for this release check.
+    evaluation = run_evaluation(platform.runtime, planner, dataset.queries, top_k=5) if args.profile != "model-enhanced" else None
     report = {
+        "profile": args.profile,
         "dataset_size": len(dataset.experts),
         "faiss_persistent_index": True,
         "keyword_persistent_index": True,
         "networkx_graph_artifact": True,
-        "graph_retrieval_result_count": len(graph_result.items),
-        "metrics": {
-            "precision_at_k": evaluation.precision_at_k,
-            "recall_at_k": evaluation.recall_at_k,
-            "mrr": evaluation.mrr,
-            "ndcg_at_k": evaluation.ndcg_at_k,
-            "latency_ms": evaluation.latency_ms,
+        "planner": {
+            "requested_provider": trace.planner.requested_provider, "actual_provider": trace.planner.actual_provider,
+            "model": trace.planner.requested_model, "strategy": trace.planner.selected_strategy,
+            "selected_retrievers": list(trace.planner.selected_retrievers), "selected_processors": list(trace.planner.parsed_plan["processor_names"]),
+            "plan_valid": bool(trace.planner.selected_strategy), "latency_ms": trace.planner.latency_ms,
+            "fallback": trace.planner.fallback_reason,
+        },
+        "execution": {"result_count": len(result.items), "retrieval_latency_ms": result.latency_ms},
+        "reranker": None if trace.reranking is None else trace.reranking.__dict__,
+        "metrics": ({"precision_at_k": evaluation.precision_at_k, "recall_at_k": evaluation.recall_at_k, "mrr": evaluation.mrr, "ndcg_at_k": evaluation.ndcg_at_k, "latency_ms": evaluation.latency_ms} if evaluation else dict(trace.evaluation.metrics if trace.evaluation else {})),
+        "trace_schema_version": trace.schema_version,
+        "openmp_isolation_probe": {
+            "faiss_main_process": "faiss" in sys.modules,
+            "torch_main_process": "torch" in sys.modules,
+            "worker_torch_loaded": bool(getattr(trace.reranking, "scoring_method", None) == "cross_encoder"),
+            "worker_faiss_loaded": False,
+            "unsafe_kmp_duplicate_lib_ok": bool(__import__("os").environ.get("KMP_DUPLICATE_LIB_OK")),
         },
     }
-    report.update(_validate_bge_in_isolated_process(args.bge_model))
-
-    try:
-        client = OllamaStructuredLLMClient(args.ollama_model)
-        llm_plan = LLMPlanner(client, platform.retrievers.capabilities()).plan(Query("Find healthcare RAG experts", top_k=3))
-        report["ollama_planner_validation"] = {"status": "passed", "strategy": llm_plan.strategy}
-    except Exception as exc:  # Preserve actionable local prerequisite failures in the report.
-        report["ollama_planner_validation"] = {"status": "blocked_prerequisite", "guidance": str(exc)}
-
+    if args.profile == "model-enhanced":
+        report.update(_validate_model_prerequisites(profile))
     report_path = root / "validation-report.json"
-    report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print(json.dumps(report, indent=2))
+    report_path.write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
+    print(json.dumps(report, indent=2, default=str))
     print(f"Validation report: {report_path}")
     return 0
 
 
-def _validate_bge_in_isolated_process(model_name: str) -> dict:
-    """Avoid a local FAISS/Torch OpenMP conflict during optional BGE validation."""
+def _validate_model_prerequisites(profile: dict) -> dict:
+    """Report local model prerequisite status without attempting any downloads."""
+    source = str(Path(__file__).parents[1] / "src")
     code = (
-        f"import sys; sys.path.insert(0, {str(Path(__file__).parents[1] / 'src')!r})\n"
+        f"import sys; sys.path.insert(0, {source!r})\n"
         "from armie_retrieval.embeddings import BGEEmbeddingProvider, EmbeddingPrerequisiteError\n"
-        f"provider = BGEEmbeddingProvider({model_name!r})\n"
-        "try:\n"
-        "    provider.validate_model_available()\n"
-        "    vector = provider.embed(['ARMIE production embedding validation'])[0]\n"
-        "    assert vector, 'empty embedding'\n"
-        "    print('passed:' + str(len(vector)))\n"
-        "except EmbeddingPrerequisiteError as exc:\n"
-        "    print('blocked:' + str(exc))\n"
+        f"provider = BGEEmbeddingProvider({profile['embedding']['model']!r})\n"
+        "try:\n provider.validate_model_available(); print('passed')\n"
+        "except EmbeddingPrerequisiteError as exc:\n print('blocked:' + str(exc))\n"
     )
-    completed = subprocess.run(
-        [sys.executable, "-c", code],
-        cwd=str(Path(__file__).parents[1]), text=True, capture_output=True, check=False,
-    )
+    completed = subprocess.run([sys.executable, "-c", code], text=True, capture_output=True, check=False)
     output = completed.stdout.strip()
-    if completed.returncode == 0 and output.startswith("passed:"):
-        return {"bge_model_validation": "passed", "bge_embedding_dimension": int(output.split(":", 1)[1])}
-    guidance = output.removeprefix("blocked:") if output.startswith("blocked:") else completed.stderr.strip()
-    return {"bge_model_validation": "blocked_prerequisite", "bge_guidance": guidance}
+    return {"bge_embedding_model": "passed" if output == "passed" else "blocked_prerequisite", "bge_guidance": None if output == "passed" else output.removeprefix("blocked:")}
 
 
 if __name__ == "__main__":

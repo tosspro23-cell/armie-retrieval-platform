@@ -1,0 +1,16 @@
+name: baseline
+embedding:
+  type: bge_m3
+  model: BAAI/bge-m3
+planner:
+  type: rule
+  fallback_enabled: false
+reranker:
+  type: metadata_boost
+  fallback: none
+candidate_pool:
+  retrieval_candidate_k: 20
+  rerank_candidate_k: 20
+  final_top_k: 5
+evaluation:
+  cutoffs: [1, 2, 3, 5, 10]

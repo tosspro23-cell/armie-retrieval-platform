@@ -12,6 +12,11 @@ from armie_retrieval.providers import InMemoryKnowledgeProvider
 TOKEN = re.compile(r"[a-z0-9]+")
 
 
+def candidate_limit(plan: RetrievalPlan) -> int:
+    """Plan-visible retrieval boundary; legacy candidate_multiplier remains compatible."""
+    return int(plan.parameters.get("retrieval_candidate_k", plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))))
+
+
 def _tokens(text: str) -> list[str]:
     return TOKEN.findall(text.lower())
 
@@ -48,7 +53,7 @@ class SparseRetriever(_BaseInMemoryRetriever):
             if score:
                 scored.append(item.with_score(float(score), signals={"sparse": float(score)}))
         scored.sort(key=lambda value: value.score, reverse=True)
-        return self._result(plan, started, scored[: plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))], self.name)
+        return self._result(plan, started, scored[: candidate_limit(plan)], self.name)
 
 
 class DenseRetriever(_BaseInMemoryRetriever):
@@ -73,7 +78,7 @@ class DenseRetriever(_BaseInMemoryRetriever):
             if score > 0:
                 scored.append(item.with_score(score, signals={"dense": score}))
         scored.sort(key=lambda value: value.score, reverse=True)
-        return self._result(plan, started, scored[: plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))], self.name)
+        return self._result(plan, started, scored[: candidate_limit(plan)], self.name)
 
 
 class HybridRetriever:

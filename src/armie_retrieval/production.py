@@ -7,7 +7,8 @@ from pathlib import Path
 
 from armie_retrieval.embeddings import EmbeddingProvider
 from armie_retrieval.indexing import KeywordIndex
-from armie_retrieval.processors import DeduplicateProcessor, ExpertRerankProcessor, MetadataFilterProcessor
+from armie_retrieval.processors import DeduplicateProcessor, ExpertRerankProcessor, MetadataFilterProcessor, QueryAwareRerankProcessor
+from armie_retrieval.rerankers import MetadataBoostReranker, RerankerProvider
 from armie_retrieval.providers import NetworkXKnowledgeGraphProvider
 from armie_retrieval.registries import ProcessorRegistry, ProviderRegistry, RetrieverRegistry
 from armie_retrieval.retrievers import FaissDenseRetriever, GraphRetriever, HybridRetriever, IndexedSparseRetriever
@@ -40,7 +41,9 @@ class ProductionPlatform:
     providers: ProviderRegistry
 
 
-def create_production_platform(artifacts: ProductionArtifacts, embedding_provider: EmbeddingProvider) -> ProductionPlatform:
+def create_production_platform(
+    artifacts: ProductionArtifacts, embedding_provider: EmbeddingProvider, *, reranker: RerankerProvider | None = None,
+) -> ProductionPlatform:
     """Load prebuilt artifacts and register executable production components."""
     vector_store = FaissVectorStore(artifacts.vector)
     keyword_index = KeywordIndex(artifacts.keyword)
@@ -51,17 +54,20 @@ def create_production_platform(artifacts: ProductionArtifacts, embedding_provide
     graph = GraphRetriever(graph_provider)
 
     retrievers = RetrieverRegistry()
-    retrievers.register("faiss_dense", dense, capabilities={"dense"}, version="0.2.1", priority=100)
-    retrievers.register("indexed_sparse", sparse, capabilities={"sparse"}, version="0.2.1", priority=100)
-    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.1", priority=100)
-    retrievers.register("networkx_graph", graph, capabilities={"graph"}, version="0.2.1", priority=100)
+    retrievers.register("faiss_dense", dense, capabilities={"dense"}, version="0.2.3", priority=100)
+    retrievers.register("indexed_sparse", sparse, capabilities={"sparse"}, version="0.2.3", priority=100)
+    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.3", priority=100)
+    retrievers.register("networkx_graph", graph, capabilities={"graph"}, version="0.2.3", priority=100)
 
     processors = ProcessorRegistry()
-    for processor in (DeduplicateProcessor(), MetadataFilterProcessor(), ExpertRerankProcessor()):
-        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.1", priority=100)
+    for processor in (
+        DeduplicateProcessor(), MetadataFilterProcessor(), ExpertRerankProcessor(),
+        QueryAwareRerankProcessor(reranker or MetadataBoostReranker(), name="rerank"),
+    ):
+        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.3", priority=100)
 
     providers = ProviderRegistry()
     # Index artifacts are deliberately not registry entries. They are loaded by
     # retrievers as offline-built assets. The graph provider remains executable.
-    providers.register("networkx_graph", graph_provider, capabilities={"graph"}, version="0.2.1", priority=100)
+    providers.register("networkx_graph", graph_provider, capabilities={"graph"}, version="0.2.3", priority=100)
     return ProductionPlatform(RetrievalRuntime(retrievers, processors), retrievers, processors, providers)

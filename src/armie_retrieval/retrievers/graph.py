@@ -7,6 +7,7 @@ import time
 
 from armie_retrieval.models import Query, RetrievalPlan, RetrievalResult, ResultItem
 from armie_retrieval.providers.knowledge_graph import NetworkXKnowledgeGraphProvider
+from armie_retrieval.retrievers.in_memory import candidate_limit
 
 TOKEN = re.compile(r"[a-z0-9]+")
 
@@ -39,9 +40,8 @@ class GraphRetriever:
             if expert:
                 items.append(expert.with_score(score, signals={"graph": score}))
         items.sort(key=lambda item: item.score, reverse=True)
-        candidate_count = plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))
         return RetrievalResult(
-            items=tuple(items[:candidate_count]), plan_id=plan.plan_id, strategy=plan.strategy,
+            items=tuple(items[:candidate_limit(plan)]), plan_id=plan.plan_id, strategy=plan.strategy,
             latency_ms=(time.perf_counter() - started) * 1000,
             provenance={"retrievers": [self.name], "provider": self._provider.name},
             trace=("retrieved:graph",),

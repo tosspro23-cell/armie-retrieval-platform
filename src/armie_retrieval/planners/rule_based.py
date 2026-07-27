@@ -26,10 +26,12 @@ class RuleBasedPlanner:
         for processor in policy_processors:
             if processor not in processors:
                 processors.append(processor)
+        parameters = dict(self._policy.planner_defaults) if self._policy else {"candidate_multiplier": 3}
+        parameters.setdefault("candidate_multiplier", 3)
         return RetrievalPlan(
             strategy=strategy,
             processor_names=tuple(processors),
             top_k=query.top_k,
             filters=query.filters,
-            parameters={"candidate_multiplier": (self._policy.planner_defaults.get("candidate_multiplier", 3) if self._policy else 3)},
+            parameters=parameters,
         )

@@ -8,6 +8,7 @@ from armie_retrieval.embeddings import EmbeddingProvider
 from armie_retrieval.indexing import KeywordIndex
 from armie_retrieval.models import Query, RetrievalPlan, RetrievalResult
 from armie_retrieval.vectorstores import FaissVectorStore
+from armie_retrieval.retrievers.in_memory import candidate_limit
 
 
 class FaissDenseRetriever:
@@ -22,7 +23,7 @@ class FaissDenseRetriever:
 
     def retrieve(self, query: Query, plan: RetrievalPlan) -> RetrievalResult:
         started = time.perf_counter()
-        candidate_count = plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))
+        candidate_count = candidate_limit(plan)
         vector = self._embedding_provider.embed([query.text])[0]
         items = tuple(
             item.with_score(score, signals={"faiss_dense": score})
@@ -49,7 +50,7 @@ class IndexedSparseRetriever:
 
     def retrieve(self, query: Query, plan: RetrievalPlan) -> RetrievalResult:
         started = time.perf_counter()
-        candidate_count = plan.top_k * int(plan.parameters.get("candidate_multiplier", 1))
+        candidate_count = candidate_limit(plan)
         items = tuple(
             item.with_score(score, signals={"indexed_sparse": score})
             for item, score in self._keyword_index.search(query.text, candidate_count)

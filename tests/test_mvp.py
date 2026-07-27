@@ -33,11 +33,11 @@ def runtime_for(items=ITEMS) -> tuple[RetrievalRuntime, RetrieverRegistry]:
     provider = InMemoryKnowledgeProvider(items)
     dense, sparse = DenseRetriever(provider), SparseRetriever(provider)
     retrievers = RetrieverRegistry()
-    retrievers.register("dense", dense, capabilities={"dense"}, version="0.2.1", priority=80)
-    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.1", priority=100)
+    retrievers.register("dense", dense, capabilities={"dense"}, version="0.2.2", priority=80)
+    retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}, version="0.2.2", priority=100)
     processors = ProcessorRegistry()
     for processor in (DeduplicateProcessor(), MetadataFilterProcessor(), ExpertRerankProcessor()):
-        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.1")
+        processors.register(processor.name, processor, capabilities={processor.name}, version="0.2.2")
     return RetrievalRuntime(retrievers, processors), retrievers
 
 

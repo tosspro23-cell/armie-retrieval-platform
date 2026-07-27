@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.2.3] - 2026-07-27
+
+### Added
+
+- Explicit fixture, baseline, and model-enhanced runtime profiles.
+- Configurable Rule-based/Ollama planner selection with controlled, traceable rule fallback.
+- Bounded no-op, metadata boost, and local BGE Cross-Encoder reranker providers.
+- Stable expert rerank document construction, distinct candidate-pool boundaries, processor-stage traces, graph coverage, and multi-K evaluation explanations.
+
+### Changed
+
+- Extended `RetrievalTrace` compatibly to expose requested/actual providers, fallback state, reranker scores, and rank changes without changing the frozen runtime architecture.
+- Preserved v0.2.2 deterministic behavior and clarified graph retrieval as relevance-scored matching rather than strict logical AND.
+- Release-blocking patch: Planner traces now include finite reason codes, constraint types, capability descriptions, and non-mutating routing diagnostics; Cross-Encoder traces now contain every scored candidate and explicit before/after Top-K state.
+- Release-blocking consistency patch: trace sections now render reranking before final ranking; fusion, rerank-pool, scoring, and final Top-K stages are distinct; metadata/no-op output uses provider-neutral fields.
+- BGE Cross-Encoder execution is isolated in a JSON subprocess so the parent may use FAISS on macOS without loading Torch's conflicting OpenMP runtime. No unsafe OpenMP override is used.
+- Planner ablation now records a shared, fingerprinted execution context and has separate planner-only and full-pipeline modes.
+
+## [0.2.2] - 2026-07-27
+
+### Added
+
+- Optional structured `RetrievalTrace` collection for planner decisions, dense/keyword/graph candidates, hybrid fusion, final ranking, ground truth, and metric arithmetic.
+- Terminal trace rendering and stable JSON export under ignored `.artifacts/traces/` directories.
+- End-to-end benchmark trace CLI, including dense, keyword, graph, and hybrid ablation modes.
+- Retrieval observability regression and trace-schema tests.
+
+### Changed
+
+- Added a backward-compatible `RetrievalRuntime.execute_with_trace` extension; normal retrieval APIs and result semantics are unchanged.
+- Evaluation now exposes a shared explanation path so displayed Precision@K, Recall@K, MRR, NDCG@K, and latency use the same formulas as the evaluator.
+
 ## [0.2.1] - 2026-07-26
 
 ### Added

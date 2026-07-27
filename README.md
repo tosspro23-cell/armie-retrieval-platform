@@ -4,6 +4,93 @@ An adaptive, production-oriented retrieval-platform reference implementation for
 
 The first scenario is **Expert Discovery**—finding and ranking domain experts from semantic, lexical, metadata, and graph signals.
 
+## v0.2.3 Model-Enhanced Retrieval
+
+v0.2.3 adds explicit, profile-selected model components while retaining the deterministic baseline. It preserves the frozen runtime flow: planners emit declarative plans, retrievers execute them, result processors refine candidates, and evaluation remains observational.
+
+| Profile | Planner | Reranker | Purpose |
+|---|---|---|---|
+| `fixture` | Rule-based | metadata boost | deterministic unit tests and CI |
+| `baseline` | Rule-based | metadata boost | reproducible retrieval comparison |
+| `model-enhanced` | Ollama | BGE Cross-Encoder | local model-assisted validation |
+
+```bash
+python3 examples/retrieval_trace_demo.py --profile baseline --query-id healthcare-azure-ai --verbose --export-json
+python3 examples/retrieval_trace_demo.py --profile model-enhanced --query-id healthcare-azure-ai \
+  --planner-model qwen3:4b --reranker-model BAAI/bge-reranker-v2-m3 --verbose
+```
+
+Provider selection is explicit: use `--planner rule-based|ollama` and `--reranker none|metadata|bge`. The trace records requested versus actual provider, configured model, controlled fallback, structured plan, timing, reranker scores, and rank changes. It never records hidden chain-of-thought. On macOS, the BGE Cross-Encoder runs in a JSON subprocess: FAISS remains in the main retrieval process and Torch remains in the worker, avoiding their conflicting OpenMP runtimes without `KMP_DUPLICATE_LIB_OK`.
+
+### Planner routing diagnostics and model ablation
+
+The Ollama prompt requests only finite structured labels alongside the plan: `reason_codes` (for example, `semantic_similarity_required` or `hybrid_signal_coverage`) and `constraint_types` (such as `skill`, `industry`, and `relationship`). These labels make a Dense-only decision inspectable without inventing a free-form explanation. The runtime uses `strategy` as the execution source of truth: in the current architecture, `hybrid` means **dense + sparse**; graph is selected through the separate `graph` strategy rather than as an arbitrary hybrid child.
+
+Routing diagnostics are observational only. For example, a valid Dense-only semantic query is allowed; a plan that extracted multiple graph-representable constraints but did not select graph receives a warning and still executes exactly as declared.
+
+```bash
+python3 examples/planner_ablation.py \
+  --mode full-pipeline --profile model-enhanced \
+  --models qwen3:4b qwen3:8b \
+  --reranker bge --reranker-model BAAI/bge-reranker-v2-m3 \
+  --query-id healthcare-azure-ai --export-json
+```
+
+`--mode planner-only` reports only plan validity, extraction, strategy, routing warnings, fallback, and latency. `--mode full-pipeline` additionally executes retrieval and evaluation. It fingerprints one shared dataset and fixed execution context (indexes, candidates, RRF, reranker, evaluation, and fallback policy), so only the Planner model varies. It never changes the configured default automatically.
+
+The candidate boundaries are separate and traceable: fusion output → `rerank_candidate_k` (20) → all reranker-scored candidates → `final_top_k` (5). The terminal order is **Query, Planner, Dense, Keyword, Graph, Fusion, Reranking, Final Ranking, Ground Truth, Evaluation, Timing, Warnings**. `planner_requested_top_k` is distinct from the effective runtime top K; precedence is **CLI override > explicit profile/runtime configuration > Planner requested value > default**. `sparse` and `keyword` are canonical aliases for routing validation.
+
+`MetadataBoostReranker` is deterministic rules logic—`+0.05` for each exact metadata-filter match—not a neural semantic reranker. Its trace shows `metadata_candidates_processed`; only BGE shows Cross-Encoder, device, batch, and model-latency fields. Invalid structured Ollama fields produce actionable fallback diagnostics (field, expected/actual type, and reason), while retaining internal error details in JSON.
+
+Reranker trace rows use `pre_rerank_rank`, `reranker_rank`, `rank_change`, and `rank_improvement`. The convention is `rank_change = reranker_rank - pre_rerank_rank`; therefore a move from 13 to 5 is `-8`. `rank_improvement` is the inverse, therefore `+8`. Both terminal and JSON output include all scored candidates, final membership, and explicit entered/exited Top-K states.
+
+Graph retrieval remains **relevance-scored matching**, not strict logical `AND` filtering. Its trace surfaces expected, matched, and missing constraints, coverage, nodes, and edges. Evaluation reports Precision, Recall, and NDCG at K = 1, 2, 3, 5, 10, plus MRR and latency. With two labelled relevant experts, maximum Precision@5 is `2/5 = 0.4`; this is label-set arithmetic, not automatically a retrieval failure. The three-query synthetic benchmark validates mechanics, not real-world quality.
+
+## v0.2.2 retrieval observability
+
+v0.2.2 makes the established pipeline inspectable without changing its retrieval behaviour. An optional structured `RetrievalTrace` records the query, declarative plan, per-retriever candidates, RRF fusion, processors, final ranking, labelled ground-truth comparison, and the arithmetic behind evaluation metrics.
+
+```text
+Query → Planner → Retrievers → Fusion → Ranking → Evaluation
+                                              ↓
+                                      RetrievalTrace → Terminal / JSON
+```
+
+Trace collection is separate from presentation and uses no global mutable state. It never exposes hidden chain-of-thought: planner traces contain only the raw structured provider response where available, parsed plan, fallback decision, and operational metadata.
+
+### Run a benchmark trace
+
+```bash
+python3 examples/retrieval_trace_demo.py \
+  --query-id healthcare-azure-ai --verbose --export-json
+```
+
+The renderer shows Query, Planner, Dense Retrieval, Keyword Retrieval, Graph Retrieval, Fusion, Reranking, Final Ranking, Ground Truth, Evaluation, Timing Summary, and Warnings. Non-selected retrievers are explicitly shown as not selected.
+
+### Run an arbitrary query or ablation
+
+```bash
+python3 examples/retrieval_trace_demo.py --query "Who knows Azure AI in healthcare?" --verbose
+python3 examples/retrieval_trace_demo.py --query-id healthcare-azure-ai --mode dense
+python3 examples/retrieval_trace_demo.py --query-id healthcare-azure-ai --mode keyword
+python3 examples/retrieval_trace_demo.py --query-id healthcare-azure-ai --mode graph
+python3 examples/retrieval_trace_demo.py --query-id healthcare-azure-ai --mode hybrid --export-json
+```
+
+JSON traces default to `.artifacts/traces/`, which is ignored by Git. The JSON schema is deliberately stable enough for later regression comparison, dashboards, notebooks, and UI rendering.
+
+### Interpreting ground truth and metrics
+
+Ground truth exists only for labelled benchmark queries. It distinguishes relevant retrieved experts (hits), relevant experts not retrieved (misses), and retrieved non-relevant experts (false positives). Interactive queries intentionally have no such labels.
+
+- **Precision@K:** relevant retrieved results divided by K.
+- **Recall@K:** relevant retrieved results divided by all labelled relevant experts.
+- **MRR:** reciprocal of the first relevant rank; zero if none is retrieved.
+- **NDCG@K:** discounted ranking quality against the ideal labelled order.
+- **Latency:** retrieval execution time in milliseconds.
+
+The three generated benchmark queries validate observability mechanics and component behaviour; they are a deterministic synthetic corpus, not evidence of real-world domain retrieval quality.
+
 ## v0.2.1 production validation
 
 v0.2.1 validates the frozen v0.2 architecture with replaceable production implementations. It does not redesign the planner, runtime flow, registries, provider interfaces, contracts, or evaluation workflow.
@@ -15,7 +102,7 @@ v0.2.1 validates the frozen v0.2 architecture with replaceable production implem
 - Benchmark knowledge sources can be generated at 50, 200, or 500 experts and remain separate from generated indexes.
 - Evaluation now reports Precision@K, Recall@K, MRR, NDCG@K, and latency.
 
-The current local validation outcome is recorded in [Validation Report v0.2.1](docs/validation-report-v0.2.1.md). It confirms FAISS, keyword, graph, metrics, the installed Ollama planner, and BGE-M3 embeddings. Other environments still require an explicit local BGE-M3 download; see [Production prerequisites](#production-prerequisites).
+The current local validation outcome is recorded in [Validation Report v0.2.3](docs/validation-report-v0.2.3.md). It confirms the deterministic production path, Ollama-driven full runtime execution, BGE-M3 availability, and controlled Cross-Encoder fallback when its weights are not cached.
 
 ## v0.2 highlights
 
@@ -26,7 +113,7 @@ The current local validation outcome is recorded in [Validation Report v0.2.1](d
 - Offline adaptive-learning MVP: immutable observations → rule-based optimisation → published, versioned policy. Runtime reads only the latest policy, never historical observations.
 - Demonstration of Rule → Hybrid, LLM → Dense, and (when NetworkX is installed) LLM → Graph.
 
-The frozen architectural boundaries are maintained in [Architecture Freeze v1.0](docs/architecture-freeze-v1.md). Release-level navigation is available through the [repository overview](docs/repository-overview.md), [engineering milestones](docs/engineering-milestones.md), [v0.2.1 release notes](docs/release-notes-v0.2.1.md), and [v0.2.1 validation report](docs/validation-report-v0.2.1.md).
+The frozen architectural boundaries are maintained in [Architecture Freeze v1.0](docs/architecture-freeze-v1.md). Release-level navigation is available through the [repository overview](docs/repository-overview.md), [engineering milestones](docs/engineering-milestones.md), [v0.2.3 release notes](docs/release-notes-v0.2.3.md), [v0.2.2 release notes](docs/release-notes-v0.2.2.md), and [v0.2.1 validation report](docs/validation-report-v0.2.1.md).
 
 ## Architecture
 
@@ -50,7 +137,7 @@ python3 examples/expert_discovery_demo.py
 python3 -m unittest discover -s tests -v
 ```
 
-The complete v0.2.1 dependency set is declared in `pyproject.toml`, `setup.cfg`, and `requirements.txt`.
+The complete v0.2.3 dependency set is declared in `pyproject.toml`, `setup.cfg`, and `requirements.txt`.
 
 ## Production validation
 
@@ -63,7 +150,7 @@ python3 examples/generate_benchmark_dataset.py --size 50 --output .artifacts/ben
 Run the full offline validation fixture. It builds persistent FAISS, keyword, and NetworkX graph artifacts, exercises dense/sparse/hybrid/graph retrieval through the unchanged runtime, and writes a JSON report:
 
 ```bash
-python3 examples/production_validation.py --size 50
+python3 examples/production_validation.py --profile baseline --size 50
 ```
 
 The validation fixture uses a deterministic embedding test double only to verify the FAISS artifact lifecycle without downloading a multi-gigabyte model. It separately validates BGE-M3 when the model has already been installed locally.

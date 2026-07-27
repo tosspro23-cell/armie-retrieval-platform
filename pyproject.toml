@@ -1,6 +1,6 @@
 [project]
 name = "armie-retrieval-platform"
-version = "0.2.1"
+version = "0.2.3"
 description = "Production-oriented adaptive retrieval platform reference implementation"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -13,6 +13,7 @@ dependencies = [
   "numpy>=1.24,<2.0",
   "requests>=2.31",
   "sentence-transformers>=3.0",
+  "PyYAML>=6.0",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -24,6 +25,10 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries",
 ]
+
+[project.optional-dependencies]
+model-enhanced = ["sentence-transformers>=3.0"]
+reranking = ["sentence-transformers>=3.0"]
 
 [build-system]
 requires = ["setuptools>=58"]
