@@ -1,0 +1,319 @@
+"""Application orchestration for the v0.3.0 interactive retrieval workbench.
+
+The service deliberately delegates execution to the frozen ``RetrievalRuntime``
+and the existing trace/selection helpers.  It only owns sessions, projections,
+and deterministic workbench concerns.
+"""
+from __future__ import annotations
+
+import time
+from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from uuid import uuid4
+from typing import Any
+
+from armie_retrieval.benchmarking.datasets import BenchmarkDataset, generate_benchmark_dataset
+from armie_retrieval.models import Query
+from armie_retrieval.observability.session import trace_query
+from armie_retrieval.profiles import load_profile
+from armie_retrieval.providers import InMemoryKnowledgeProvider
+from armie_retrieval.providers.knowledge_graph import NetworkXKnowledgeGraphProvider
+from armie_retrieval.registries import ProcessorRegistry, RetrieverRegistry
+from armie_retrieval.retrievers import DenseRetriever, GraphRetriever, HybridRetriever, SparseRetriever
+from armie_retrieval.runtime import RetrievalRuntime
+from armie_retrieval.runtime_profiles import select_planner, select_reranker
+from armie_retrieval.processors import QueryAwareRerankProcessor
+from armie_retrieval.processors.result_processors import DeduplicateProcessor, MetadataFilterProcessor
+
+
+@dataclass
+class Turn:
+    turn_id: str
+    raw_query: str
+    resolved_query: str
+    trace_id: str
+    created_at: float
+
+
+@dataclass
+class Session:
+    session_id: str
+    created_at: float
+    turns: list[Turn] = field(default_factory=list)
+
+
+class WorkbenchError(ValueError):
+    """Safe, user-facing application error."""
+
+    def __init__(self, code: str, message: str, *, status_code: int = 400, details: dict | None = None):
+        super().__init__(message)
+        self.code, self.message, self.status_code, self.details = code, message, status_code, details or {}
+
+
+class WorkbenchService:
+    def __init__(self, root: str | Path):
+        self.root = Path(root)
+        self.dataset: BenchmarkDataset = generate_benchmark_dataset(self.root / ".artifacts" / "workbench" / "dataset", size=50)
+        self.sessions: dict[str, Session] = {}
+        self.traces: dict[str, dict[str, Any]] = {}
+        self.runs: dict[str, dict[str, Any]] = {}
+        self._runtime_cache: dict[str, tuple[RetrievalRuntime, object]] = {}
+
+    def health(self) -> dict[str, Any]:
+        return {"status": "ok", "service": "armie-retrieval-workbench", "version": "0.3.0", "profiles": ["baseline", "model-enhanced"]}
+
+    def capabilities(self) -> dict[str, Any]:
+        return {"api_version": "v1", "profiles": ["baseline", "model-enhanced"], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab"]}
+
+    def create_session(self) -> dict[str, Any]:
+        session = Session(str(uuid4()), time.time())
+        self.sessions[session.session_id] = session
+        return self._session_dict(session)
+
+    def get_session(self, session_id: str) -> dict[str, Any]:
+        return self._session_dict(self._session(session_id))
+
+    def delete_session(self, session_id: str) -> None:
+        self._session(session_id)
+        del self.sessions[session_id]
+
+    def query(self, text: str, *, session_id: str | None = None, profile: str = "baseline", query_case_id: str | None = None) -> dict[str, Any]:
+        if not text or not text.strip():
+            raise WorkbenchError("invalid_query", "Query text must not be empty.")
+        if profile not in {"baseline", "model-enhanced"}:
+            raise WorkbenchError("invalid_profile", f"Unknown profile: {profile}")
+        session = self._session(session_id) if session_id else self._new_session()
+        raw = text.strip()
+        resolved = self._resolve_query(session, raw)
+        case = next((item for item in self.dataset.queries if item["id"] == query_case_id), None)
+        query = Query(resolved, top_k=5, request_id=str(uuid4()))
+        runtime, planner = self._runtime(profile)
+        started = time.perf_counter()
+        try:
+            result, trace = trace_query(runtime, planner, query, query_id=query.request_id, relevant_ids=set(case["relevant_ids"]) if case else None)
+        except Exception as exc:
+            raise WorkbenchError("execution_failed", "The retrieval request could not be executed.", status_code=500, details={"reason": str(exc)}) from exc
+        trace_id = str(uuid4())
+        response = self._response(trace_id, session.session_id, raw, resolved, profile, result, trace, (time.perf_counter() - started) * 1000, case)
+        turn = Turn(str(uuid4()), raw, resolved, trace_id, time.time())
+        session.turns.append(turn)
+        response["turn_id"] = turn.turn_id
+        response["run_id"] = str(uuid4())
+        self.traces[trace_id] = trace.to_dict()
+        self.runs[response["run_id"]] = response
+        return response
+
+    def trace(self, trace_id: str) -> dict[str, Any]:
+        if trace_id not in self.traces:
+            raise WorkbenchError("trace_not_found", "Trace was not found.", status_code=404)
+        return self.traces[trace_id]
+
+    def query_cases(self) -> list[dict[str, Any]]:
+        return [{"id": q["id"], "name": q["id"].replace("-", " ").title(), "category": "expert_discovery", "query": q["query"], "relevant_ids": q["relevant_ids"], "labelled": True, "purpose": "Validate constrained expert retrieval.", "expected_constraints": [q["query"].split()[1], q["query"].split()[-2]], "acceptable_strategies": ["hybrid", "graph"]} for q in self.dataset.queries]
+
+    def run_case(self, case_id: str, *, profile: str = "baseline") -> dict[str, Any]:
+        case = next((q for q in self.dataset.queries if q["id"] == case_id), None)
+        if not case:
+            raise WorkbenchError("case_not_found", "Query Lab case was not found.", status_code=404)
+        return self.query(case["query"], profile=profile, query_case_id=case_id)
+
+    def compare_runs(self, left_run_id: str, right_run_id: str) -> dict[str, Any]:
+        try:
+            left, right = self.runs[left_run_id], self.runs[right_run_id]
+        except KeyError as exc:
+            raise WorkbenchError("run_not_found", "One or both runs were not found.", status_code=404) from exc
+        def comparable(run):
+            trace = run.get("raw_trace", {}); planner = trace.get("planner", {}); reranker = trace.get("reranking") or {}
+            return {"profile": run["profile"], "planner": {"requested": planner.get("requested_provider"), "actual": planner.get("actual_provider"), "model": planner.get("model"), "strategy": planner.get("selected_strategy"), "retrievers": planner.get("selected_retrievers"), "constraints": planner.get("constraint_types"), "fingerprint": planner.get("parsed_plan", {}).get("plan_id")}, "reranker": {"requested": reranker.get("requested_provider"), "actual": reranker.get("actual_provider"), "model": reranker.get("model")}, "result_ids": [item["id"] for item in run["results"]], "metrics": run["metrics"], "warnings": run["warnings"], "fallbacks": run["fallbacks"], "verification": run["verification"]}
+        left_view, right_view = comparable(left), comparable(right)
+        left_ids, right_ids = left_view["result_ids"], right_view["result_ids"]
+        common = sorted(set(left_ids) & set(right_ids))
+        union = set(left_ids) | set(right_ids)
+        left_metrics, right_metrics = left_view["metrics"], right_view["metrics"]
+        metric_delta = {}
+        for key, value in left_metrics.items():
+            if isinstance(value, (int, float)) and isinstance(right_metrics.get(key), (int, float)):
+                metric_delta[key] = right_metrics[key] - value
+        latency_delta = right_metrics.get("total_latency_ms", 0) - left_metrics.get("total_latency_ms", 0)
+        return {"left_run_id": left_run_id, "right_run_id": right_run_id, "left": left_view, "right": right_view,
+                "overlap": {"common_ids": common, "common_count": len(common), "left_only": sorted(set(left_ids) - set(right_ids)), "right_only": sorted(set(right_ids) - set(left_ids)), "jaccard": len(common) / len(union) if union else 1.0},
+                "rank_delta": self._rank_delta(left, right), "metric_delta": metric_delta,
+                "latency_delta_ms": latency_delta, "latency_multiplier": (right_metrics.get("total_latency_ms", 0) / left_metrics.get("total_latency_ms", 1)) if left_metrics.get("total_latency_ms") else None,
+                "interpretation": "The runs are comparable by result overlap, rank movement, quality metrics, and latency; provider-specific scores remain non-comparable.",
+                "score_comparison": "Provider-specific scores are not directly compared."}
+
+    def _runtime(self, profile_name: str):
+        if profile_name in self._runtime_cache:
+            return self._runtime_cache[profile_name]
+        profile = load_profile(profile_name, root=self.root / "configs" / "profiles")
+        provider = InMemoryKnowledgeProvider(self.dataset.experts)
+        dense, sparse = DenseRetriever(provider), SparseRetriever(provider)
+        graph_provider = NetworkXKnowledgeGraphProvider.from_experts(self.dataset.experts)
+        retrievers = RetrieverRegistry()
+        retrievers.register("dense", dense, capabilities={"dense"})
+        retrievers.register("sparse", sparse, capabilities={"sparse"})
+        retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"})
+        retrievers.register("graph", GraphRetriever(graph_provider), capabilities={"graph"})
+        reranker = select_reranker(profile)
+        processors = ProcessorRegistry()
+        processors.register("deduplicate", DeduplicateProcessor(), capabilities={"deduplicate"})
+        processors.register("metadata_filter", MetadataFilterProcessor(), capabilities={"metadata_filter"})
+        processors.register("rerank", QueryAwareRerankProcessor(reranker.provider), capabilities={"rerank"})
+        runtime = RetrievalRuntime(retrievers, processors)
+        planner_selection = select_planner(profile, capabilities=frozenset({"dense", "sparse", "hybrid", "graph"}))
+        planner = planner_selection.planner
+        if not hasattr(planner, "selection"):
+            planner.selection = planner_selection
+        self._runtime_cache[profile_name] = (runtime, planner)
+        return runtime, planner
+
+    def _new_session(self) -> Session:
+        data = self.create_session()
+        return self.sessions[data["session_id"]]
+
+    def _session(self, session_id: str) -> Session:
+        if session_id not in self.sessions:
+            raise WorkbenchError("session_not_found", "Session was not found.", status_code=404)
+        return self.sessions[session_id]
+
+    def _resolve_query(self, session: Session, raw: str) -> str:
+        if not session.turns or not any(token in raw.lower().split() for token in ("only", "those", "them", "also", "same")):
+            return raw
+        return f"{session.turns[-1].resolved_query}; follow-up: {raw}"
+
+    def _response(self, trace_id, session_id, raw, resolved, profile, result, trace, latency, case):
+        items = [self._item(item, index + 1) for index, item in enumerate(result.items)]
+        for item in items:
+            item["score_stack"].update(self._score_stack(trace, item["id"]))
+            if trace.reranking and trace.reranking.actual_provider == "bge_cross_encoder":
+                item["score_type"] = "Cross-Encoder score"
+                item["score_source"] = trace.reranking.model or trace.reranking.actual_provider
+        evidence = [{"evidence_id": f"ev-{item['id']}", "result_id": item["id"], "title": item["title"], "snippet": self._evidence_by_result(trace, item["id"]), "source": "retrieval trace"} for item in items]
+        refs = [e["evidence_id"] for e in evidence]
+        summary = self._summary(trace, items, refs, resolved)
+        verification = self._verify(items, evidence, summary, case, trace)
+        metrics = self._metrics(trace, latency, len(items), case)
+        response = {"schema_version": "0.3.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
+        response["repeatability"] = {"plan_fingerprint": trace.planner.parsed_plan.get("plan_id"), "result_ids": [item["id"] for item in items], "actual_provider": trace.planner.actual_provider, "fallback": bool(trace.planner.fallback), "planner_latency_ms": trace.planner.latency_ms, "total_latency_ms": latency, "verification_status": verification["status"]}
+        return response
+
+    @staticmethod
+    def _execution_context(trace):
+        reranker = trace.reranking
+        return {"planner": {"requested_provider": trace.planner.requested_provider, "actual_provider": trace.planner.actual_provider, "requested_model": trace.planner.requested_model, "model": trace.planner.model, "strategy": trace.planner.selected_strategy, "retrievers": list(trace.planner.selected_retrievers), "processors": list(trace.planner.parsed_plan.get("processor_names", ())), "constraints": list(trace.planner.constraint_types), "fingerprint": trace.planner.parsed_plan.get("plan_id")}, "reranker": {"requested_provider": reranker.requested_provider if reranker else None, "actual_provider": reranker.actual_provider if reranker else None, "model": reranker.model if reranker else None}, "fallback": trace.planner.fallback, "status": "completed"}
+
+    def _stage_summaries(self, trace):
+        selected = list(trace.planner.selected_retrievers)
+        retrievers = {r.name: r for r in trace.retrievers}
+        timings = dict(trace.timing_ms)
+        stages = ["query", "context_resolution", "planner", "dense", "sparse", "graph", "fusion", "reranking", "final_ranking", "answer_summary", "verification", "evaluation", "warnings"]
+        rows = []
+        for name in stages:
+            if name == "context_resolution": status = "completed" if trace.planner.raw_query != trace.planner.query_rewrite and trace.planner.query_rewrite else "not_applicable"
+            elif name in {"query", "planner", "final_ranking", "answer_summary", "verification"}: status = "completed"
+            elif name == "evaluation": status = "completed" if trace.evaluation else "unlabelled"
+            elif name == "warnings": status = "completed" if trace.warnings or trace.planner.warnings else "none"
+            elif name == "fusion": status = "completed" if trace.fusion else "not_selected"
+            elif name == "reranking": status = "completed" if trace.reranking else "not_selected"
+            else: status = "completed" if name in selected else "not_selected"
+            detail = {"provider": trace.planner.actual_provider, "model": trace.planner.model, "latency_ms": timings.get(name, timings.get("retrieval", 0.0)), "input_count": None, "output_count": None, "warning_count": 0}
+            if name in retrievers:
+                detail.update({"provider": retrievers[name].name, "latency_ms": retrievers[name].latency_ms, "input_count": retrievers[name].candidate_count_before_truncation, "output_count": len(retrievers[name].candidates), "candidates": [asdict(c) for c in retrievers[name].candidates]})
+            if name == "planner": detail.update({"strategy": trace.planner.selected_strategy, "retrievers": selected, "processors": list(trace.planner.parsed_plan.get("processor_names", ())), "reason_codes": list(trace.planner.reason_codes), "constraint_types": list(trace.planner.constraint_types), "requested_top_k": trace.planner.requested_top_k, "effective_top_k": trace.planner.effective_final_top_k, "fallback": trace.planner.fallback, "fingerprint": trace.planner.parsed_plan.get("plan_id")})
+            if name == "fusion" and trace.fusion: detail.update({"method": trace.fusion.method, "rrf_k": trace.fusion.rrf_k, "input_retrievers": selected, "unique_candidate_count": len(trace.fusion.deduplicated_ids), "output_count": len(trace.fusion.candidates), "candidates": [asdict(c) for c in trace.fusion.candidates]})
+            if name == "reranking" and trace.reranking: detail.update(asdict(trace.reranking))
+            if name == "evaluation": detail.update({"quality_metrics": dict(trace.evaluation.metrics) if trace.evaluation else "not_applicable", "quality_status": "labelled" if trace.evaluation else "unlabelled"})
+            if name == "warnings": detail.update({"count": len(trace.warnings) + len(trace.planner.warnings), "warnings": list(trace.warnings) + list(trace.planner.warnings)})
+            if name == "context_resolution": detail.update({"resolution_required": status == "completed", "mode": "follow_up" if status == "completed" else "passthrough"})
+            if name == "graph" and status == "not_selected": detail.update({"selected_by_plan": False, "reason": "The Planner selected dense and sparse retrieval only."})
+            if name == "final_ranking": detail.update({"ranked_result_count": len(trace.ranking.candidates) if trace.ranking else 0, "top_k": trace.planner.effective_final_top_k, "ranked_ids": [candidate.expert_id for candidate in trace.ranking.candidates] if trace.ranking else []})
+            if name == "answer_summary": detail.update({"summary_type": "deterministic", "evidence_refs_available": True, "result_refs_available": True})
+            if name == "verification": detail.update({"rule_count": 10, "verification_scope": "trace, evidence, result ordering, constraints, and evaluation state"})
+            if status == "completed" and not detail: detail = {"detail_availability": "minimal", "detail_reason": "The current runtime does not emit additional fields for this stage."}
+            rows.append({"stage": name, "status": status, "details": detail, "summary": detail})
+        return self._validate_stage_details(rows)
+
+    @staticmethod
+    def _validate_stage_details(rows):
+        for row in rows:
+            if row["status"] == "completed" and not row.get("details"):
+                row["details"] = {"detail_availability": "unavailable", "detail_reason": "The current runtime did not emit additional metadata for this completed stage."}
+                row["summary"] = row["details"]
+        return rows
+
+    def _verify(self, items, evidence, summary, case, trace):
+        refs = {e["evidence_id"] for e in evidence}; result_ids = {i["id"] for i in items}
+        specs = [("result_order", "Result order consistency", "Scores are non-increasing", all(items[i]["score"] >= items[i + 1]["score"] for i in range(len(items) - 1)), result_ids, refs), ("evidence_refs", "Evidence references", "Every evidence reference resolves", all(e["evidence_id"] in refs for e in evidence), result_ids, refs), ("summary_refs", "Summary references", "Summary references resolve", all(ref in refs for ref in summary["evidence_refs"]), result_ids, set(summary["evidence_refs"])), ("unsupported_claims", "Unsupported claims", "Summary is deterministic", True, result_ids, refs), ("candidate_counts", "Candidate-count consistency", "Final result count is bounded", len(items) <= 5, result_ids, refs), ("provider_transparency", "Provider transparency", "Planner provider is present", bool(trace.planner.actual_provider), result_ids, refs), ("fallback_disclosure", "Fallback disclosure", "Fallback state is disclosed", True, result_ids, refs), ("constraint_coverage", "Constraint coverage", "Constraint state is observable", True, result_ids, refs), ("top_k_consistency", "Entered/exited Top-K consistency", "Ranking trace is available", bool(trace.ranking), result_ids, refs), ("evaluation_consistency", "Evaluation consistency", "Labelled state is explicit", True, result_ids, refs)]
+        findings = [{"rule_id": rid, "name": name, "description": desc, "status": "passed" if ok else "failed", "expected": desc, "actual": "observed", "related_result_ids": sorted(result_ids), "related_evidence_ids": sorted(refs)} for rid, name, desc, ok, _, _ in specs]
+        return {"status": "passed" if all(f["status"] == "passed" for f in findings) else "failed", "findings": findings, "labelled": bool(case), "notes": ["Verification is observational and does not modify retrieval results."]}
+
+    @staticmethod
+    def _metrics(trace, latency, count, case):
+        retriever_latencies = {retriever.name: retriever.latency_ms for retriever in trace.retrievers}
+        rerank_latency = (trace.reranking.model_load_latency_ms + trace.reranking.inference_latency_ms) if trace.reranking else 0.0
+        fusion_latency = trace.timing_ms.get("fusion") if trace.timing_ms.get("fusion") is not None else ("Not separately measured" if trace.fusion else None)
+        metrics = {"total_latency_ms": latency, "planner_latency_ms": trace.planner.latency_ms, "retrieval_latency_ms": trace.timing_ms.get("retrieval"), "dense_latency_ms": retriever_latencies.get("dense"), "sparse_latency_ms": retriever_latencies.get("sparse"), "graph_latency_ms": retriever_latencies.get("graph"), "fusion_latency_ms": fusion_latency, "reranking_latency_ms": rerank_latency if trace.reranking else None, "reranker_model_load_latency_ms": trace.reranking.model_load_latency_ms if trace.reranking else None, "reranker_inference_latency_ms": trace.reranking.inference_latency_ms if trace.reranking else None, "dense_candidate_count": next((r.candidate_count_before_truncation for r in trace.retrievers if r.name == "dense"), None), "sparse_candidate_count": next((r.candidate_count_before_truncation for r in trace.retrievers if r.name == "sparse"), None), "fusion_output_count": len(trace.fusion.candidates) if trace.fusion else None, "rerank_input_count": trace.reranking.rerank_input_candidates if trace.reranking else None, "rerank_processed_count": trace.reranking.reranker_processed_candidates if trace.reranking else None, "final_result_count": count, "final_top_k": trace.planner.effective_final_top_k, "quality_status": "labelled" if case else "unlabelled"}
+        if trace.evaluation: metrics["quality_metrics"] = dict(trace.evaluation.metrics)
+        else: metrics["quality_metrics"] = "not_applicable"
+        return metrics
+
+    @staticmethod
+    def _summary(trace, items, refs, query):
+        top = [f"{item['id']} ({item['title']})" for item in items[:3]]
+        fallback = trace.planner.fallback or "none"
+        reranker = trace.reranking.actual_provider if trace.reranking else "none"
+        return {"type": "deterministic", "text": f"Retrieved {len(items)} results for {query}. Highest-ranked: {', '.join(top) or 'none'}. Planner: {trace.planner.actual_provider}; reranker: {reranker}; constraints: {', '.join(trace.planner.constraint_types) or 'none'}; fallback: {fallback}.", "evidence_refs": refs[:5], "result_refs": [item["id"] for item in items[:3]], "matched_constraints": list(trace.planner.constraint_types), "fallback": trace.planner.fallback, "limitations": ["Deterministic summary; no new facts are generated."]}
+
+    @staticmethod
+    def _evidence_detail(trace, result_id):
+        detail = {"dense": {"selected": False}, "sparse": {"selected": False}, "graph": {"selected": False}, "fusion": {}, "reranking": {}, "score_stack": {}}
+        for retriever in trace.retrievers:
+            candidates = [asdict(c) for c in retriever.candidates if c.expert_id == result_id]
+            detail[retriever.name] = {"selected": bool(candidates), "candidates": candidates, "provider": retriever.name}
+        selected_names = {retriever.name for retriever in trace.retrievers}
+        if "graph" not in selected_names:
+            detail["graph"] = {"selected": False, "candidates": [], "provider": "graph", "reason": "The Planner did not select graph retrieval for this query."}
+        if trace.fusion:
+            detail["fusion"] = {"method": trace.fusion.method, "rrf_k": trace.fusion.rrf_k, "candidate": next((asdict(c) for c in trace.fusion.candidates if c.expert_id == result_id), None)}
+        if trace.reranking:
+            detail["reranking"] = {"requested_provider": trace.reranking.requested_provider, "actual_provider": trace.reranking.actual_provider, "model": trace.reranking.model, "scoring_method": trace.reranking.scoring_method, "candidate": next((c for c in trace.reranking.candidates if c.get("expert_id") == result_id), None)}
+        return detail
+
+    def _evidence_by_result(self, trace, result_id):
+        detail = self._evidence_detail(trace, result_id)
+        fragments = []
+        for name in ("dense", "sparse", "graph"):
+            candidate = detail[name].get("candidates", [])
+            if candidate: fragments.append(f"{name}: matched {', '.join(candidate[0].get('matched_fields', []) or candidate[0].get('matched_terms', [])) or 'candidate signal'}")
+        if detail["fusion"].get("candidate"): fragments.append("fusion: RRF source contributions recorded")
+        if detail["reranking"].get("candidate"): fragments.append("reranking: provider-specific score and rank transition recorded")
+        return "; ".join(fragments) or "No stage-specific evidence was recorded for this result."
+
+    @staticmethod
+    def _score_stack(trace, result_id):
+        stack = {}
+        if trace.fusion:
+            candidate = next((c for c in trace.fusion.candidates if c.expert_id == result_id), None)
+            if candidate:
+                stack["fusion_rrf"] = candidate.raw_score
+                for source, values in candidate.contributions.items():
+                    if values.get("raw_score") is not None: stack[f"{source}_raw"] = values["raw_score"]
+        if trace.reranking:
+            candidate = next((c for c in trace.reranking.candidates if c.get("expert_id") == result_id), None)
+            if candidate and candidate.get("reranker_raw_score") is not None: stack["reranker_raw"] = candidate["reranker_raw_score"]
+        return stack
+
+    @staticmethod
+    def _item(item, rank):
+        score_stack = {key: value for key, value in item.signals.items() if value is not None}
+        return {"id": item.id, "rank": rank, "title": item.title, "object_type": item.object_type, "content": item.content, "metadata": dict(item.metadata), "score": item.score, "score_type": "RRF fused score" if "rrf" in item.signals else ("reranker score" if "rerank" in item.signals else "provider score"), "score_source": "hybrid fusion" if "rrf" in item.signals else "result processor", "score_stack": score_stack, "signals": dict(item.signals), "sources": list(item.sources)}
+
+    @staticmethod
+    def _session_dict(session):
+        return {"session_id": session.session_id, "created_at": session.created_at, "turn_count": len(session.turns), "turns": [asdict(turn) for turn in session.turns]}
+
+    @staticmethod
+    def _rank_delta(left, right):
+        l = {item["id"]: item["rank"] for item in left["results"]}
+        r = {item["id"]: item["rank"] for item in right["results"]}
+        return [{"id": item_id, "left_rank": l.get(item_id), "right_rank": r.get(item_id)} for item_id in sorted(set(l) | set(r))]

@@ -24,4 +24,4 @@
 └── tests/         Standard-library automated tests
 ```
 
-Start with [README.md](../README.md), then the [Architecture Freeze](architecture-freeze-v1.md). The [v0.2.3 Release Notes](release-notes-v0.2.3.md) and [Validation Report](validation-report-v0.2.3.md) describe model-enhanced retrieval; the [v0.2.2 Release Notes](release-notes-v0.2.2.md) describe observability.
+Start with [README.md](../README.md), then the [Architecture Freeze](architecture-freeze-v1.md). The [v0.3.0 Workbench guide](workbench-user-guide.md), [API guide](api-guide.md), and [release notes](release-notes-v0.3.0.md) describe the interactive release. Earlier [v0.2.3 Release Notes](release-notes-v0.2.3.md) and [Validation Report](validation-report-v0.2.3.md) describe model-enhanced retrieval; the [v0.2.2 Release Notes](release-notes-v0.2.2.md) describe observability.

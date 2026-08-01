@@ -1,0 +1,3692 @@
+{
+  "generated_from": "real HTTP trace response captured from make workbench",
+  "profile": "model-enhanced",
+  "trace": {
+    "schema_version": "0.2.3",
+    "query_id": "<uuid>",
+    "planner": {
+      "raw_query": "Find healthcare experts with Azure AI experience",
+      "provider": "ollama",
+      "model": "qwen3:4b",
+      "raw_output": {
+        "strategy": "hybrid",
+        "retrievers": [
+          "dense",
+          "sparse"
+        ],
+        "processors": [
+          "semantic_similarity"
+        ],
+        "top_k": 10,
+        "skills": [
+          "Azure AI"
+        ],
+        "industries": [
+          "healthcare"
+        ],
+        "organizations": [],
+        "filters": {},
+        "constraints": {},
+        "parameters": {
+          "top_k": "<latency_ms>"
+        },
+        "reason_codes": [
+          "semantic_similarity_required"
+        ],
+        "constraint_types": [
+          "skill",
+          "industry"
+        ]
+      },
+      "parsed_plan": {
+        "strategy": "hybrid",
+        "processor_names": [
+          "deduplicate",
+          "rerank"
+        ],
+        "top_k": 10,
+        "filters": {},
+        "constraints": {},
+        "parameters": {
+          "candidate_multiplier": 3,
+          "retrieval_candidate_k": 20,
+          "rerank_candidate_k": 20,
+          "final_top_k": 5,
+          "effective_top_k_source": "profile:model-enhanced",
+          "top_k": "<latency_ms>"
+        },
+        "plan_id": "<uuid>"
+      },
+      "selected_strategy": "hybrid",
+      "selected_retrievers": [
+        "dense",
+        "sparse"
+      ],
+      "extracted_entities": [],
+      "extracted_skills": [
+        "Azure AI"
+      ],
+      "extracted_industries": [
+        "healthcare"
+      ],
+      "extracted_organizations": [],
+      "filters": {},
+      "constraints": {},
+      "requested_top_k": 10,
+      "query_rewrite": null,
+      "fallback": null,
+      "warnings": [
+        "Planner extracted multiple graph-representable constraints but did not select graph."
+      ],
+      "latency_ms": "<latency_ms>",
+      "requested_provider": "ollama",
+      "actual_provider": "ollama",
+      "requested_model": "qwen3:4b",
+      "fallback_enabled": true,
+      "fallback_reason": null,
+      "reason_codes": [
+        "semantic_similarity_required"
+      ],
+      "constraint_types": [
+        "skill",
+        "industry"
+      ],
+      "requested_retrievers": [
+        "dense",
+        "sparse"
+      ],
+      "available_capabilities": {
+        "dense": "semantic similarity and paraphrase retrieval",
+        "sparse": "exact lexical and named-term retrieval",
+        "graph": "entity relationship and structured constraint retrieval"
+      },
+      "planner_requested_top_k": 10,
+      "retrieval_candidate_k": 20,
+      "rerank_candidate_k": 20,
+      "effective_final_top_k": 5,
+      "effective_top_k_source": "profile:model-enhanced",
+      "fallback_diagnostic": null
+    },
+    "retrievers": [
+      {
+        "name": "dense",
+        "strategy": "hybrid",
+        "latency_ms": "<latency_ms>",
+        "candidate_count_before_truncation": 20,
+        "candidate_limit": 20,
+        "candidates": [
+          {
+            "expert_id": "expert-001",
+            "title": "Expert 1",
+            "retriever": "dense",
+            "rank": 1,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-031",
+            "title": "Expert 31",
+            "retriever": "dense",
+            "rank": 2,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-036",
+            "title": "Expert 36",
+            "retriever": "dense",
+            "rank": 3,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-016",
+            "title": "Expert 16",
+            "retriever": "dense",
+            "rank": 4,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-006",
+            "title": "Expert 6",
+            "retriever": "dense",
+            "rank": 5,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-041",
+            "title": "Expert 41",
+            "retriever": "dense",
+            "rank": 6,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-013",
+            "title": "Expert 13",
+            "retriever": "dense",
+            "rank": 7,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-011",
+            "title": "Expert 11",
+            "retriever": "dense",
+            "rank": 8,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-046",
+            "title": "Expert 46",
+            "retriever": "dense",
+            "rank": 9,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-025",
+            "title": "Expert 25",
+            "retriever": "dense",
+            "rank": 10,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-018",
+            "title": "Expert 18",
+            "retriever": "dense",
+            "rank": 11,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-035",
+            "title": "Expert 35",
+            "retriever": "dense",
+            "rank": 12,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-043",
+            "title": "Expert 43",
+            "retriever": "dense",
+            "rank": 13,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-049",
+            "title": "Expert 49",
+            "retriever": "dense",
+            "rank": 14,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-023",
+            "title": "Expert 23",
+            "retriever": "dense",
+            "rank": 15,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-019",
+            "title": "Expert 19",
+            "retriever": "dense",
+            "rank": 16,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-037",
+            "title": "Expert 37",
+            "retriever": "dense",
+            "rank": 17,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-005",
+            "title": "Expert 5",
+            "retriever": "dense",
+            "rank": 18,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-007",
+            "title": "Expert 7",
+            "retriever": "dense",
+            "rank": 19,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-048",
+            "title": "Expert 48",
+            "retriever": "dense",
+            "rank": 20,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content"
+            ],
+            "scoring_components": {
+              "dense": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          }
+        ],
+        "warnings": []
+      },
+      {
+        "name": "sparse",
+        "strategy": "hybrid",
+        "latency_ms": "<latency_ms>",
+        "candidate_count_before_truncation": 20,
+        "candidate_limit": 20,
+        "candidates": [
+          {
+            "expert_id": "expert-001",
+            "title": "Expert 1",
+            "retriever": "sparse",
+            "rank": 1,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-011",
+            "title": "Expert 11",
+            "retriever": "sparse",
+            "rank": 2,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-031",
+            "title": "Expert 31",
+            "retriever": "sparse",
+            "rank": 3,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-041",
+            "title": "Expert 41",
+            "retriever": "sparse",
+            "rank": 4,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-005",
+            "title": "Expert 5",
+            "retriever": "sparse",
+            "rank": 5,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-007",
+            "title": "Expert 7",
+            "retriever": "sparse",
+            "rank": 6,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-013",
+            "title": "Expert 13",
+            "retriever": "sparse",
+            "rank": 7,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-017",
+            "title": "Expert 17",
+            "retriever": "sparse",
+            "rank": 8,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-019",
+            "title": "Expert 19",
+            "retriever": "sparse",
+            "rank": 9,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-023",
+            "title": "Expert 23",
+            "retriever": "sparse",
+            "rank": 10,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-025",
+            "title": "Expert 25",
+            "retriever": "sparse",
+            "rank": 11,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-029",
+            "title": "Expert 29",
+            "retriever": "sparse",
+            "rank": 12,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-035",
+            "title": "Expert 35",
+            "retriever": "sparse",
+            "rank": 13,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-037",
+            "title": "Expert 37",
+            "retriever": "sparse",
+            "rank": 14,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-043",
+            "title": "Expert 43",
+            "retriever": "sparse",
+            "rank": 15,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-047",
+            "title": "Expert 47",
+            "retriever": "sparse",
+            "rank": 16,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-049",
+            "title": "Expert 49",
+            "retriever": "sparse",
+            "rank": 17,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "ai",
+              "azure",
+              "experience",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "skills",
+              "technology"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, skills, technology"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:ai": "<latency_ms>",
+              "term_frequency:azure": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-006",
+            "title": "Expert 6",
+            "retriever": "sparse",
+            "rank": 18,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-016",
+            "title": "Expert 16",
+            "retriever": "sparse",
+            "rank": 19,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          },
+          {
+            "expert_id": "expert-021",
+            "title": "Expert 21",
+            "retriever": "sparse",
+            "rank": 20,
+            "raw_score": "<latency_ms>",
+            "normalized_score": "<latency_ms>",
+            "matched_terms": [
+              "experience",
+              "healthcare",
+              "with"
+            ],
+            "matched_fields": [
+              "content",
+              "industry",
+              "projects"
+            ],
+            "evidence": [
+              "Query terms appear in indexed fields: content, industry, projects"
+            ],
+            "scoring_components": {
+              "sparse": "<latency_ms>",
+              "term_frequency:experience": "<latency_ms>",
+              "term_frequency:healthcare": "<latency_ms>",
+              "term_frequency:with": "<latency_ms>"
+            },
+            "contributions": {},
+            "final_score": null,
+            "final_rank": null,
+            "relevant": null,
+            "expected_constraints": [],
+            "matched_constraints": [],
+            "missing_constraints": [],
+            "constraint_coverage_ratio": null,
+            "matched_graph_nodes": [],
+            "matched_graph_edges": []
+          }
+        ],
+        "warnings": []
+      }
+    ],
+    "fusion": {
+      "method": "reciprocal_rank_fusion",
+      "candidates": [
+        {
+          "expert_id": "expert-001",
+          "title": "Expert 1",
+          "retriever": "hybrid",
+          "rank": 1,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-031",
+          "title": "Expert 31",
+          "retriever": "hybrid",
+          "rank": 2,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-011",
+          "title": "Expert 11",
+          "retriever": "hybrid",
+          "rank": 3,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-041",
+          "title": "Expert 41",
+          "retriever": "hybrid",
+          "rank": 4,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-013",
+          "title": "Expert 13",
+          "retriever": "hybrid",
+          "rank": 5,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-025",
+          "title": "Expert 25",
+          "retriever": "hybrid",
+          "rank": 6,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-016",
+          "title": "Expert 16",
+          "retriever": "hybrid",
+          "rank": 7,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-006",
+          "title": "Expert 6",
+          "retriever": "hybrid",
+          "rank": 8,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-005",
+          "title": "Expert 5",
+          "retriever": "hybrid",
+          "rank": 9,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-007",
+          "title": "Expert 7",
+          "retriever": "hybrid",
+          "rank": 10,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-019",
+          "title": "Expert 19",
+          "retriever": "hybrid",
+          "rank": 11,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-023",
+          "title": "Expert 23",
+          "retriever": "hybrid",
+          "rank": 12,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-035",
+          "title": "Expert 35",
+          "retriever": "hybrid",
+          "rank": 13,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-043",
+          "title": "Expert 43",
+          "retriever": "hybrid",
+          "rank": 14,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-049",
+          "title": "Expert 49",
+          "retriever": "hybrid",
+          "rank": 15,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-037",
+          "title": "Expert 37",
+          "retriever": "hybrid",
+          "rank": 16,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-036",
+          "title": "Expert 36",
+          "retriever": "hybrid",
+          "rank": 17,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-017",
+          "title": "Expert 17",
+          "retriever": "hybrid",
+          "rank": 18,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-046",
+          "title": "Expert 46",
+          "retriever": "hybrid",
+          "rank": 19,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-018",
+          "title": "Expert 18",
+          "retriever": "hybrid",
+          "rank": 20,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-029",
+          "title": "Expert 29",
+          "retriever": "hybrid",
+          "rank": 21,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-047",
+          "title": "Expert 47",
+          "retriever": "hybrid",
+          "rank": 22,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-048",
+          "title": "Expert 48",
+          "retriever": "hybrid",
+          "rank": 23,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-021",
+          "title": "Expert 21",
+          "retriever": "hybrid",
+          "rank": 24,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>"
+          },
+          "contributions": {
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": null,
+          "final_rank": null,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        }
+      ],
+      "deduplicated_ids": [
+        "expert-001",
+        "expert-005",
+        "expert-006",
+        "expert-007",
+        "expert-011",
+        "expert-013",
+        "expert-016",
+        "expert-019",
+        "expert-023",
+        "expert-025",
+        "expert-031",
+        "expert-035",
+        "expert-037",
+        "expert-041",
+        "expert-043",
+        "expert-049"
+      ],
+      "rrf_k": 60,
+      "tie_breaking": "stable input order after descending score"
+    },
+    "ranking": {
+      "candidates": [
+        {
+          "expert_id": "expert-001",
+          "title": "Expert 1",
+          "retriever": "final",
+          "rank": 1,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>",
+            "rerank": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": "<latency_ms>",
+          "final_rank": 1,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-031",
+          "title": "Expert 31",
+          "retriever": "final",
+          "rank": 2,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>",
+            "rerank": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": "<latency_ms>",
+          "final_rank": 2,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-011",
+          "title": "Expert 11",
+          "retriever": "final",
+          "rank": 3,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>",
+            "rerank": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": "<latency_ms>",
+          "final_rank": 3,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-041",
+          "title": "Expert 41",
+          "retriever": "final",
+          "rank": 4,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "healthcare",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "industry",
+            "projects",
+            "skills"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, industry, projects, skills"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>",
+            "rerank": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": "<latency_ms>",
+          "final_rank": 4,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        },
+        {
+          "expert_id": "expert-007",
+          "title": "Expert 7",
+          "retriever": "final",
+          "rank": 5,
+          "raw_score": "<latency_ms>",
+          "normalized_score": "<latency_ms>",
+          "matched_terms": [
+            "ai",
+            "azure",
+            "experience",
+            "with"
+          ],
+          "matched_fields": [
+            "content",
+            "skills",
+            "technology"
+          ],
+          "evidence": [
+            "Query terms appear in indexed fields: content, skills, technology"
+          ],
+          "scoring_components": {
+            "rrf": "<latency_ms>",
+            "rerank": "<latency_ms>"
+          },
+          "contributions": {
+            "dense": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            },
+            "sparse": {
+              "rank": "<latency_ms>",
+              "raw_score": "<latency_ms>",
+              "normalized_score": "<latency_ms>",
+              "fusion_contribution": "<latency_ms>"
+            }
+          },
+          "final_score": "<latency_ms>",
+          "final_rank": 5,
+          "relevant": null,
+          "expected_constraints": [],
+          "matched_constraints": [],
+          "missing_constraints": [],
+          "constraint_coverage_ratio": null,
+          "matched_graph_nodes": [],
+          "matched_graph_edges": []
+        }
+      ],
+      "processors": [
+        "deduplicate",
+        "rerank"
+      ],
+      "tie_breaking": "stable input order after descending score"
+    },
+    "ground_truth": null,
+    "evaluation": null,
+    "timing_ms": {
+      "planner": "<latency_ms>",
+      "retrieval": "<latency_ms>"
+    },
+    "warnings": [
+      "Rerank candidate selection truncated 24 candidates to 20.",
+      "Final Top-K selection truncated 20 candidates to 5."
+    ],
+    "processor_stages": [
+      {
+        "processor_name": "deduplicate",
+        "candidate_count_before": 24,
+        "candidate_count_after": 24,
+        "order_before": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-013",
+          "expert-025",
+          "expert-016",
+          "expert-006",
+          "expert-005",
+          "expert-007",
+          "expert-019",
+          "expert-023",
+          "expert-035",
+          "expert-043",
+          "expert-049",
+          "expert-037",
+          "expert-036",
+          "expert-017",
+          "expert-046",
+          "expert-018",
+          "expert-029",
+          "expert-047",
+          "expert-048",
+          "expert-021"
+        ],
+        "order_after": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-013",
+          "expert-025",
+          "expert-016",
+          "expert-006",
+          "expert-005",
+          "expert-007",
+          "expert-019",
+          "expert-023",
+          "expert-035",
+          "expert-043",
+          "expert-049",
+          "expert-037",
+          "expert-036",
+          "expert-017",
+          "expert-046",
+          "expert-018",
+          "expert-029",
+          "expert-047",
+          "expert-048",
+          "expert-021"
+        ],
+        "scores_before": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-018": "<latency_ms>",
+          "expert-029": "<latency_ms>",
+          "expert-047": "<latency_ms>",
+          "expert-048": "<latency_ms>",
+          "expert-021": "<latency_ms>"
+        },
+        "scores_after": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-018": "<latency_ms>",
+          "expert-029": "<latency_ms>",
+          "expert-047": "<latency_ms>",
+          "expert-048": "<latency_ms>",
+          "expert-021": "<latency_ms>"
+        },
+        "removed_ids": [],
+        "rank_changes": {},
+        "changed_scores": false,
+        "changed_order": false,
+        "truncated": false
+      },
+      {
+        "processor_name": "rerank_candidate_selection",
+        "candidate_count_before": 24,
+        "candidate_count_after": 20,
+        "order_before": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-013",
+          "expert-025",
+          "expert-016",
+          "expert-006",
+          "expert-005",
+          "expert-007",
+          "expert-019",
+          "expert-023",
+          "expert-035",
+          "expert-043",
+          "expert-049",
+          "expert-037",
+          "expert-036",
+          "expert-017",
+          "expert-046",
+          "expert-018",
+          "expert-029",
+          "expert-047",
+          "expert-048",
+          "expert-021"
+        ],
+        "order_after": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-013",
+          "expert-025",
+          "expert-016",
+          "expert-006",
+          "expert-005",
+          "expert-007",
+          "expert-019",
+          "expert-023",
+          "expert-035",
+          "expert-043",
+          "expert-049",
+          "expert-037",
+          "expert-036",
+          "expert-017",
+          "expert-046",
+          "expert-018"
+        ],
+        "scores_before": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-018": "<latency_ms>",
+          "expert-029": "<latency_ms>",
+          "expert-047": "<latency_ms>",
+          "expert-048": "<latency_ms>",
+          "expert-021": "<latency_ms>"
+        },
+        "scores_after": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-018": "<latency_ms>"
+        },
+        "removed_ids": [
+          "expert-029",
+          "expert-047",
+          "expert-048",
+          "expert-021"
+        ],
+        "rank_changes": {},
+        "changed_scores": false,
+        "changed_order": true,
+        "truncated": true
+      },
+      {
+        "processor_name": "reranker_processing",
+        "candidate_count_before": 20,
+        "candidate_count_after": 20,
+        "order_before": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-013",
+          "expert-025",
+          "expert-016",
+          "expert-006",
+          "expert-005",
+          "expert-007",
+          "expert-019",
+          "expert-023",
+          "expert-035",
+          "expert-043",
+          "expert-049",
+          "expert-037",
+          "expert-036",
+          "expert-017",
+          "expert-046",
+          "expert-018"
+        ],
+        "order_after": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-007",
+          "expert-017",
+          "expert-037",
+          "expert-013",
+          "expert-005",
+          "expert-025",
+          "expert-043",
+          "expert-035",
+          "expert-023",
+          "expert-019",
+          "expert-049",
+          "expert-006",
+          "expert-036",
+          "expert-046",
+          "expert-016",
+          "expert-018"
+        ],
+        "scores_before": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-018": "<latency_ms>"
+        },
+        "scores_after": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-018": "<latency_ms>"
+        },
+        "removed_ids": [],
+        "rank_changes": {
+          "expert-007": -5,
+          "expert-017": -12,
+          "expert-037": -9,
+          "expert-013": 3,
+          "expert-025": 4,
+          "expert-043": -3,
+          "expert-035": -1,
+          "expert-023": 1,
+          "expert-019": 3,
+          "expert-006": 8,
+          "expert-046": -1,
+          "expert-016": 12
+        },
+        "changed_scores": true,
+        "changed_order": true,
+        "truncated": false
+      },
+      {
+        "processor_name": "final_top_k_selection",
+        "candidate_count_before": 20,
+        "candidate_count_after": 5,
+        "order_before": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-007",
+          "expert-017",
+          "expert-037",
+          "expert-013",
+          "expert-005",
+          "expert-025",
+          "expert-043",
+          "expert-035",
+          "expert-023",
+          "expert-019",
+          "expert-049",
+          "expert-006",
+          "expert-036",
+          "expert-046",
+          "expert-016",
+          "expert-018"
+        ],
+        "order_after": [
+          "expert-001",
+          "expert-031",
+          "expert-011",
+          "expert-041",
+          "expert-007"
+        ],
+        "scores_before": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-007": "<latency_ms>",
+          "expert-017": "<latency_ms>",
+          "expert-037": "<latency_ms>",
+          "expert-013": "<latency_ms>",
+          "expert-005": "<latency_ms>",
+          "expert-025": "<latency_ms>",
+          "expert-043": "<latency_ms>",
+          "expert-035": "<latency_ms>",
+          "expert-023": "<latency_ms>",
+          "expert-019": "<latency_ms>",
+          "expert-049": "<latency_ms>",
+          "expert-006": "<latency_ms>",
+          "expert-036": "<latency_ms>",
+          "expert-046": "<latency_ms>",
+          "expert-016": "<latency_ms>",
+          "expert-018": "<latency_ms>"
+        },
+        "scores_after": {
+          "expert-001": "<latency_ms>",
+          "expert-031": "<latency_ms>",
+          "expert-011": "<latency_ms>",
+          "expert-041": "<latency_ms>",
+          "expert-007": "<latency_ms>"
+        },
+        "removed_ids": [
+          "expert-017",
+          "expert-037",
+          "expert-013",
+          "expert-005",
+          "expert-025",
+          "expert-043",
+          "expert-035",
+          "expert-023",
+          "expert-019",
+          "expert-049",
+          "expert-006",
+          "expert-036",
+          "expert-046",
+          "expert-016",
+          "expert-018"
+        ],
+        "rank_changes": {},
+        "changed_scores": false,
+        "changed_order": true,
+        "truncated": true
+      }
+    ],
+    "reranking": {
+      "requested_provider": "bge_cross_encoder",
+      "actual_provider": "bge_cross_encoder",
+      "model": "BAAI/bge-reranker-v2-m3",
+      "candidate_count_in": 20,
+      "candidate_count_after_rerank": 20,
+      "final_candidate_count": 5,
+      "candidates": [
+        {
+          "expert_id": "expert-001",
+          "pre_rerank_rank": 1,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 1,
+          "final_rank": 1,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-031",
+          "pre_rerank_rank": 2,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 2,
+          "final_rank": 2,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-011",
+          "pre_rerank_rank": 3,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 3,
+          "final_rank": 3,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-041",
+          "pre_rerank_rank": 4,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 4,
+          "final_rank": 4,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-007",
+          "pre_rerank_rank": 10,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 5,
+          "final_rank": 5,
+          "rank_change": -5,
+          "rank_improvement": 5,
+          "entered_final_top_k": true,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-017",
+          "pre_rerank_rank": 18,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 6,
+          "final_rank": null,
+          "rank_change": -12,
+          "rank_improvement": 12,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-037",
+          "pre_rerank_rank": 16,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 7,
+          "final_rank": null,
+          "rank_change": -9,
+          "rank_improvement": 9,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-013",
+          "pre_rerank_rank": 5,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 8,
+          "final_rank": null,
+          "rank_change": 3,
+          "rank_improvement": -3,
+          "entered_final_top_k": false,
+          "exited_final_top_k": true
+        },
+        {
+          "expert_id": "expert-005",
+          "pre_rerank_rank": 9,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 9,
+          "final_rank": null,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-025",
+          "pre_rerank_rank": 6,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 10,
+          "final_rank": null,
+          "rank_change": 4,
+          "rank_improvement": -4,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-043",
+          "pre_rerank_rank": 14,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 11,
+          "final_rank": null,
+          "rank_change": -3,
+          "rank_improvement": 3,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-035",
+          "pre_rerank_rank": 13,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 12,
+          "final_rank": null,
+          "rank_change": -1,
+          "rank_improvement": 1,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-023",
+          "pre_rerank_rank": 12,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 13,
+          "final_rank": null,
+          "rank_change": 1,
+          "rank_improvement": -1,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-019",
+          "pre_rerank_rank": 11,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 14,
+          "final_rank": null,
+          "rank_change": 3,
+          "rank_improvement": -3,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-049",
+          "pre_rerank_rank": 15,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 15,
+          "final_rank": null,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-006",
+          "pre_rerank_rank": 8,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 16,
+          "final_rank": null,
+          "rank_change": 8,
+          "rank_improvement": -8,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-036",
+          "pre_rerank_rank": 17,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 17,
+          "final_rank": null,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-046",
+          "pre_rerank_rank": 19,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 18,
+          "final_rank": null,
+          "rank_change": -1,
+          "rank_improvement": 1,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-016",
+          "pre_rerank_rank": 7,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 19,
+          "final_rank": null,
+          "rank_change": 12,
+          "rank_improvement": -12,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        },
+        {
+          "expert_id": "expert-018",
+          "pre_rerank_rank": 20,
+          "pre_rerank_score": "<latency_ms>",
+          "reranker_raw_score": "<latency_ms>",
+          "reranker_rank": 20,
+          "final_rank": null,
+          "rank_change": 0,
+          "rank_improvement": 0,
+          "entered_final_top_k": false,
+          "exited_final_top_k": false
+        }
+      ],
+      "model_available": true,
+      "fallback_reason": null,
+      "device": "cpu",
+      "batch_size": 8,
+      "model_load_latency_ms": "<latency_ms>",
+      "inference_latency_ms": "<latency_ms>",
+      "warnings": [],
+      "post_rerank_top_k": 5,
+      "final_processor_output_count": 5,
+      "fusion_output_candidates": 24,
+      "rerank_input_candidates": 20,
+      "reranker_processed_candidates": 20,
+      "post_rerank_candidates": 20,
+      "final_top_k_candidates": 5,
+      "scoring_method": "cross_encoder",
+      "fallback_diagnostic": null
+    }
+  }
+}

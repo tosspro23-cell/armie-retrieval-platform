@@ -8,6 +8,10 @@ __pycache__/
 
 # Local environments and packaging output
 .venv/
+node_modules/
+apps/workbench/dist/
+apps/workbench/playwright-report/
+apps/workbench/test-results/
 venv/
 env/
 build/

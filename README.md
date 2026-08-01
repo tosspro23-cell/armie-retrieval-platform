@@ -1,5 +1,20 @@
 # ARMIE Retrieval Platform
 
+## v0.3.0 Interactive Retrieval Workbench
+
+v0.3.0 adds a local, typed FastAPI workbench and React client on top of the existing runtime. It supports sessions and deterministic follow-ups, planner/reranker profiles, evidence cards, deterministic verification, complete trace inspection, and a Query Lab for labelled comparisons. The workbench delegates every query to `RetrievalRuntime` and the existing observability trace.
+
+```bash
+python3 -m pip install -e .
+make workbench
+# API: http://127.0.0.1:8000/docs
+# UI:  http://127.0.0.1:5173
+```
+
+The editable install is the preferred development setup. For a repository-local diagnostic run, use `PYTHONPATH=src python3 -m uvicorn services.api.app:app --host 127.0.0.1 --port 8000`.
+
+The API is rooted at `/api/v1` (`/health`, `/capabilities`, `/sessions`, `/query`, `/traces/{trace_id}`, and `/query-lab/*`). See `docs/api-guide.md`, `docs/workbench-user-guide.md`, `docs/architecture-compliance-report-v0.3.0.md`, and `docs/release-notes-v0.3.0.md`.
+
 An adaptive, production-oriented retrieval-platform reference implementation for knowledge-intensive AI systems. It keeps planning, execution, result refinement, evaluation, capability discovery, and offline policy evolution separate under the frozen architecture contract.
 
 The first scenario is **Expert Discovery**—finding and ranking domain experts from semantic, lexical, metadata, and graph signals.
@@ -138,6 +153,12 @@ python3 -m unittest discover -s tests -v
 ```
 
 The complete v0.2.3 dependency set is declared in `pyproject.toml`, `setup.cfg`, and `requirements.txt`.
+
+### v0.3.0 release validation
+
+The Workbench is a local-first, single-user product surface over the existing runtime. It provides baseline and model-enhanced paths, an expandable trace Audit Trail, canonical trace-derived Evidence selection, deterministic Verification findings, execution/candidate-flow Metrics, and structured Query Lab comparison. Baseline final scores are labelled RRF/final baseline scores; model-enhanced final scores are labelled Cross-Encoder scores while retaining RRF contributions separately. Provider-specific scores are not directly comparable.
+
+The release was browser-validated with **4 passed** tests using **Chromium via Playwright**. Known limitations are in-memory sessions, synthetic benchmark data, a short-lived Cross-Encoder worker, no streaming, authentication, or file upload, and no hosted production deployment.
 
 ## Production validation
 

@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.0] - 2026-08-01
+
+### Added
+
+- Interactive Retrieval Workbench with typed FastAPI `/api/v1` endpoints.
+- Session and deterministic follow-up support, evidence projections, deterministic verification, stage summaries, and Query Lab comparison.
+- React/Vite local workbench UI, startup scripts, API and user documentation.
+- Discoverable Query Lab navigation, expandable trace stages, selected-result evidence, detailed verification findings, provider-specific score stacks, trace/report downloads, and repeatability/comparison views.
+
+### Preserved
+
+- Frozen Planner → Retriever → Result Processor → Evaluation architecture and existing trace source of truth.
+- Baseline and model-enhanced profiles with controlled fallbacks.
+
 ## [0.2.3] - 2026-07-27
 
 ### Added

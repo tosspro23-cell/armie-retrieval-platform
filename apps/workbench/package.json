@@ -1,0 +1,1 @@
+{"name":"armie-retrieval-workbench","version":"0.3.0","private":true,"type":"module","scripts":{"dev":"vite","build":"vite build","test":"node --test tests/*.test.js","test:e2e":"playwright test"},"dependencies":{"@vitejs/plugin-react":"latest","react":"latest","react-dom":"latest","typescript":"latest","vite":"latest"},"devDependencies":{"@playwright/test":"^1.62.1"}}
