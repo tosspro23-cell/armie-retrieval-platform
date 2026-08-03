@@ -1,0 +1,8 @@
+dataset_id: expert-discovery
+dataset_version: v1
+schema_version: expert-profile-v1
+size: 10000
+seed: 42
+generator_version: expert-discovery-generator-0.4.0
+projection_version: expert-search-projection-v1
+output_root: .artifacts/datasets/expert_discovery_v1

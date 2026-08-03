@@ -10,7 +10,7 @@ from .schemas import CompareRequest, ComparisonResponse, QueryLabRunRequest, Que
 
 ROOT = Path(__file__).resolve().parents[2]
 service = WorkbenchService(ROOT)
-app = FastAPI(title="ARMIE Retrieval Workbench", version="0.3.0", description="Interactive retrieval validation API")
+app = FastAPI(title="ARMIE Retrieval Workbench", version="0.4.0", description="Interactive retrieval validation API")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 @app.exception_handler(WorkbenchError)
@@ -23,7 +23,7 @@ async def unexpected_error(_: Request, exc: Exception):
 
 @app.get("/")
 def root():
-    return {"service": "armie-retrieval-workbench", "version": "0.3.0", "docs": "/docs"}
+    return {"service": "armie-retrieval-workbench", "version": "0.4.0", "docs": "/docs"}
 
 @app.get("/api/v1/health")
 def health():
@@ -32,6 +32,14 @@ def health():
 @app.get("/api/v1/capabilities")
 def capabilities():
     return service.capabilities()
+
+@app.get("/api/v1/datasets")
+def datasets():
+    return service.datasets()
+
+@app.get("/api/v1/benchmarks")
+def benchmarks():
+    return service.benchmarks()
 
 @app.post("/api/v1/sessions")
 def create_session():

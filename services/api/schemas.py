@@ -86,7 +86,7 @@ class ComparisonResponse(BaseModel):
 
 class ApiResponse(BaseModel):
     model_config = ConfigDict(extra="allow")
-    schema_version: str = "0.3.0"
+    schema_version: str = "0.4.0"
 
 class ErrorBody(BaseModel):
     code: str

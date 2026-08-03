@@ -24,7 +24,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 cd "$ROOT"
-echo "ARMIE Retrieval Workbench v0.3.0"
+echo "ARMIE Retrieval Workbench v0.4.0"
 echo "Repository: $ROOT"
 echo "Python: $PYTHON_BIN ($($PYTHON_BIN -c 'import sys; print(sys.executable)' 2>/dev/null || echo unavailable))"
 

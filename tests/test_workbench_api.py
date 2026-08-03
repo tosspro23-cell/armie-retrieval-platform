@@ -13,6 +13,14 @@ class WorkbenchApiTests(unittest.TestCase):
         self.assertEqual(self.client.get("/api/v1/health").status_code, 200)
         self.assertIn("hybrid", self.client.get("/api/v1/capabilities").json()["retrieval_strategies"])
 
+    def test_v040_dataset_and_benchmark_discovery(self):
+        datasets = self.client.get("/api/v1/datasets")
+        benchmarks = self.client.get("/api/v1/benchmarks")
+        self.assertEqual(datasets.status_code, 200)
+        self.assertEqual(benchmarks.status_code, 200)
+        self.assertEqual(datasets.json()["datasets"][0]["dataset_id"], "expert-discovery")
+        self.assertEqual(benchmarks.json()["benchmarks"][0]["query_count"], 120)
+
     def test_session_query_trace_and_followup(self):
         session = self.client.post("/api/v1/sessions").json()
         response = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "session_id": session["session_id"]})

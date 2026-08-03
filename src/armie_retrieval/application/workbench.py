@@ -1,4 +1,4 @@
-"""Application orchestration for the v0.3.0 interactive retrieval workbench.
+"""Application orchestration for the v0.4.0 interactive retrieval workbench.
 
 The service deliberately delegates execution to the frozen ``RetrievalRuntime``
 and the existing trace/selection helpers.  It only owns sessions, projections,
@@ -24,6 +24,8 @@ from armie_retrieval.runtime import RetrievalRuntime
 from armie_retrieval.runtime_profiles import select_planner, select_reranker
 from armie_retrieval.processors import QueryAwareRerankProcessor
 from armie_retrieval.processors.result_processors import DeduplicateProcessor, MetadataFilterProcessor
+from armie_retrieval.benchmarks import default_profiles
+from armie_retrieval.relevance import generate_benchmark_queries
 
 
 @dataclass
@@ -60,10 +62,16 @@ class WorkbenchService:
         self._runtime_cache: dict[str, tuple[RetrievalRuntime, object]] = {}
 
     def health(self) -> dict[str, Any]:
-        return {"status": "ok", "service": "armie-retrieval-workbench", "version": "0.3.0", "profiles": ["baseline", "model-enhanced"]}
+        return {"status": "ok", "service": "armie-retrieval-workbench", "version": "0.4.0", "profiles": ["baseline", "model-enhanced"]}
 
     def capabilities(self) -> dict[str, Any]:
-        return {"api_version": "v1", "profiles": ["baseline", "model-enhanced"], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab"]}
+        return {"api_version": "v1", "profiles": ["baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks"]}
+
+    def datasets(self) -> dict[str, Any]:
+        return {"datasets": [{"dataset_id": "expert-discovery", "dataset_version": "v1", "default_scale": 10000, "source_type": "synthetic_reference", "manifest_required": True}]}
+
+    def benchmarks(self) -> dict[str, Any]:
+        return {"benchmarks": [{"benchmark_id": "expert-discovery-v1", "query_set_version": "v1", "query_count": len(generate_benchmark_queries()), "categories": sorted({query.category.value for query in generate_benchmark_queries()}), "profiles": [profile.model_dump(mode="json") for profile in default_profiles()]}]}
 
     def create_session(self) -> dict[str, Any]:
         session = Session(str(uuid4()), time.time())
@@ -193,7 +201,7 @@ class WorkbenchService:
         summary = self._summary(trace, items, refs, resolved)
         verification = self._verify(items, evidence, summary, case, trace)
         metrics = self._metrics(trace, latency, len(items), case)
-        response = {"schema_version": "0.3.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
+        response = {"schema_version": "0.4.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
         response["repeatability"] = {"plan_fingerprint": trace.planner.parsed_plan.get("plan_id"), "result_ids": [item["id"] for item in items], "actual_provider": trace.planner.actual_provider, "fallback": bool(trace.planner.fallback), "planner_latency_ms": trace.planner.latency_ms, "total_latency_ms": latency, "verification_status": verification["status"]}
         return response
 

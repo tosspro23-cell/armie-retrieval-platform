@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.0] - 2026-08-03
+
+### Added
+
+- Typed Expert Discovery profiles with provenance, projects, employment, and deterministic search projections.
+- Reproducible dataset builder and manifest/checksum validation for small, medium, and 10,000-record scales.
+- 120-query taxonomy, 0–3 relevance judgement contracts, graded metrics, failure taxonomy, and experiment manifests.
+- Optional pinned Elasticsearch 8.15.3 mapping/client with BM25 and dense provider adapters alongside the existing FAISS path.
+- v0.4.0 engineering specifications, dataset card, benchmark protocol, architecture decisions, and validation boundaries.
+
+### Preserved
+
+- v0.3.0 Workbench and shared Planner → Retriever → Result Processor → Evaluation runtime.
+
 ## [0.3.0] - 2026-08-01
 
 ### Added

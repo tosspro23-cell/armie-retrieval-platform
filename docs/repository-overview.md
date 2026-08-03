@@ -7,6 +7,8 @@
 ├── examples/      Expert Discovery, benchmark, and production-validation commands
 ├── src/           Installable `armie_retrieval` package
 │   └── armie_retrieval/
+│       ├── benchmarks/ Reproducible profiles, metrics, manifests, and reports
+│       ├── datasets/  Typed Expert Discovery profiles and deterministic builders
 │       ├── evaluation/  Observational metrics
 │       ├── benchmarking/ Deterministic, index-independent benchmark sources
 │       ├── embeddings/  Replaceable local production embedding providers
@@ -17,6 +19,8 @@
 │       ├── planners/    Rule and LLM-compatible planners
 │       ├── processors/  Ordered result processors
 │       ├── providers/   In-memory and NetworkX providers
+│       │   └── elasticsearch/ Optional BM25 and dense data-plane providers
+│       ├── relevance/  Query taxonomy and graded judgement contracts
 │       ├── rerankers/   Explicit no-op, metadata, and local cross-encoder providers
 │       ├── registries/  Capability discovery and resolution
 │       ├── retrievers/  Demonstration and persistent-index retrieval strategies
@@ -24,4 +28,4 @@
 └── tests/         Standard-library automated tests
 ```
 
-Start with [README.md](../README.md), then the [Architecture Freeze](architecture-freeze-v1.md). The [v0.3.0 Workbench guide](workbench-user-guide.md), [API guide](api-guide.md), and [release notes](release-notes-v0.3.0.md) describe the interactive release. Earlier [v0.2.3 Release Notes](release-notes-v0.2.3.md) and [Validation Report](validation-report-v0.2.3.md) describe model-enhanced retrieval; the [v0.2.2 Release Notes](release-notes-v0.2.2.md) describe observability.
+Start with [README.md](../README.md), then the [Architecture Freeze](architecture-freeze-v1.md). The [v0.4.0 specification](v0.4.0/spec.md) documents the relevance-engineering foundation, dataset contracts, benchmark protocol, and optional Elasticsearch data plane. The [v0.3.0 Workbench guide](workbench-user-guide.md), [API guide](api-guide.md), and [release notes](release-notes-v0.3.0.md) describe the interactive release. Earlier [v0.2.3 Release Notes](release-notes-v0.2.3.md) and [Validation Report](validation-report-v0.2.3.md) describe model-enhanced retrieval; the [v0.2.2 Release Notes](release-notes-v0.2.2.md) describe observability.

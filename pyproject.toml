@@ -1,6 +1,6 @@
 [project]
 name = "armie-retrieval-platform"
-version = "0.3.0"
+version = "0.4.0"
 description = "Production-oriented adaptive retrieval platform reference implementation"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -32,6 +32,8 @@ classifiers = [
 workbench = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
 model-enhanced = ["sentence-transformers>=3.0"]
 reranking = ["sentence-transformers>=3.0"]
+elasticsearch = ["elasticsearch>=8.15,<9"]
+v040 = ["elasticsearch>=8.15,<9"]
 
 [build-system]
 requires = ["setuptools>=58"]

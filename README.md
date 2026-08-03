@@ -1,5 +1,16 @@
 # ARMIE Retrieval Platform
 
+## v0.4.0 Expert Discovery Relevance Engineering
+
+v0.4.0 adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic dataset manifests/checksums, 120 benchmark-query contracts, reviewable 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, and optional Elasticsearch 8.15.3 BM25/dense adapters alongside FAISS.
+
+```bash
+PYTHONPATH=src python3 examples/build_v040_dataset.py --size 10000
+PYTHONPATH=src python3 -m unittest discover -s tests -v
+```
+
+Elasticsearch is local-only and optional for the deterministic foundation. Start it with `docker compose -f docker-compose.elasticsearch.yml up -d`; no Docker data volumes, secrets, or model weights are committed.
+
 ## v0.3.0 Interactive Retrieval Workbench
 
 v0.3.0 adds a local, typed FastAPI workbench and React client on top of the existing runtime. It supports sessions and deterministic follow-ups, planner/reranker profiles, evidence cards, deterministic verification, complete trace inspection, and a Query Lab for labelled comparisons. The workbench delegates every query to `RetrievalRuntime` and the existing observability trace.

@@ -1,0 +1,15 @@
+benchmark_id: expert-discovery-v1
+query_set_version: v1
+judgement_set_version: v1
+candidate_boundaries:
+  retrieval_candidate_k: 100
+  fusion_candidate_k: 100
+  rerank_candidate_k: 30
+  final_top_k: 5
+profiles:
+  - p1
+  - p2
+  - p3
+  - p4
+  - p5
+  - p6
