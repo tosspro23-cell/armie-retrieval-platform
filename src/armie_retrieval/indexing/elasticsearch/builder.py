@@ -8,6 +8,8 @@ from typing import Iterable
 
 from armie_retrieval.datasets.models import ExpertProfile
 from armie_retrieval.embeddings import EmbeddingProvider
+from armie_retrieval.indexing.serializers import searchable_text
+from armie_retrieval.models import ResultItem
 
 from .client import ElasticsearchClient
 from .mapping import build_index_name, build_mapping
@@ -24,7 +26,20 @@ class ElasticsearchIndexBuilder:
         dimensions = 768
         vectors: list[list[float]] = []
         if self.embedding_provider is not None:
-            vectors = self.embedding_provider.embed([profile.summary for profile in records])
+            # Keep the Elasticsearch dense projection identical to the FAISS
+            # offline projection so Gate 3 compares the same model/input
+            # representation rather than two different text views.
+            embedding_texts = [
+                searchable_text(ResultItem(
+                    id=profile.expert_id,
+                    object_type="expert",
+                    title=profile.display_name,
+                    content=profile.summary,
+                    metadata=profile.search_document,
+                ))
+                for profile in records
+            ]
+            vectors = self.embedding_provider.embed(embedding_texts)
             dimensions = len(vectors[0]) if vectors else dimensions
         self.client.create_index(index, build_mapping(embedding_dimensions=dimensions, embedding_model=embedding_model))
         documents = []

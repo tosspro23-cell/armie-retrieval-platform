@@ -58,5 +58,16 @@ class ElasticsearchClient:
         return {"indexed": indexed, "rejected": 0, "index": index}
 
     def alias(self, alias: str, index: str, *, write: bool = False) -> None:
-        actions = [{"add": {"index": index, "alias": alias, **({"is_write_index": True} if write else {})}}]
+        # Versioned builds must move aliases atomically.  Leaving the prior
+        # write alias in place makes Elasticsearch reject the update because
+        # an alias may have only one write index.
+        actions = []
+        try:
+            existing = self.request("GET", f"_alias/{alias}").json()
+        except ElasticsearchPrerequisiteError as exc:
+            if "HTTP 404" not in str(exc):
+                raise
+            existing = {}
+        actions.extend({"remove": {"index": existing_index, "alias": alias}} for existing_index in existing)
+        actions.append({"add": {"index": index, "alias": alias, **({"is_write_index": True} if write else {})}})
         self.request("POST", "_aliases", json={"actions": actions})

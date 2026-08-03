@@ -27,7 +27,10 @@ def build_mapping(*, embedding_dimensions: int = 768, embedding_model: str = "BA
                 "project_descriptions": {"type": "text"}, "project_industries": {"type": "keyword"},
                 "employer_names": {"type": "keyword"}, "employer_descriptions": {"type": "text"},
                 "delivery_evidence": {"type": "keyword"},
-                "embedding": {"type": "dense_vector", "dims": embedding_dimensions, "index": False, "similarity": "dot_product"},
+                # Indexed vectors are required by Elasticsearch's native `knn`
+                # query.  The field remains provider-neutral at the platform
+                # boundary; this is only the concrete ES artifact mapping.
+                "embedding": {"type": "dense_vector", "dims": embedding_dimensions, "index": True, "similarity": "dot_product"},
             },
         },
     }
