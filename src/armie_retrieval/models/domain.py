@@ -8,6 +8,15 @@ from typing import Any, Mapping
 from uuid import uuid4
 
 
+class FrozenMapping(dict):
+    """JSON-compatible immutable mapping for stable platform contracts."""
+
+    def _blocked(self, *args, **kwargs):
+        raise TypeError("platform contract mappings are immutable")
+
+    __setitem__ = __delitem__ = clear = pop = popitem = setdefault = update = _blocked
+
+
 @dataclass(frozen=True)
 class Query:
     text: str
@@ -28,6 +37,11 @@ class RetrievalPlan:
     constraints: Mapping[str, Any] = field(default_factory=dict)
     parameters: Mapping[str, Any] = field(default_factory=dict)
     plan_id: str = field(default_factory=lambda: str(uuid4()))
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "filters", FrozenMapping(self.filters))
+        object.__setattr__(self, "constraints", FrozenMapping(self.constraints))
+        object.__setattr__(self, "parameters", FrozenMapping(self.parameters))
 
 
 @dataclass(frozen=True)

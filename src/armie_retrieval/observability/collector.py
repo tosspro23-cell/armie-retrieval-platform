@@ -31,7 +31,11 @@ class TraceCollector:
         self.warnings: list[str] = []
 
     def record_retrieval(self, retriever: Any, result: RetrievalResult) -> None:
-        if getattr(retriever, "name", "") == "hybrid":
+        if getattr(retriever, "name", "") == "hybrid" or (
+            "hybrid" in str(getattr(retriever, "name", ""))
+            and hasattr(retriever, "_dense")
+            and hasattr(retriever, "_sparse")
+        ):
             self._record_hybrid(retriever, result)
             return
         self.retrievers.append(self._retriever_trace(retriever, result))

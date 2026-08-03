@@ -131,6 +131,7 @@ class BGECrossEncoderReranker:
         self._local_files_only = local_files_only
         self._model = model
         self._load_latency_ms = 0.0
+        self._load_latency_pending = model is None
         self.isolated = isolated
         self.timeout_seconds = timeout_seconds
         self._runner = runner or subprocess.run
@@ -159,13 +160,15 @@ class BGECrossEncoderReranker:
         rows = [(item, float(score), rank, document) for rank, (item, score, document) in enumerate(zip(candidates, scores, documents), 1)]
         rows.sort(key=lambda row: row[1], reverse=True)
         all_items = tuple(RerankItem(item, score, input_rank, output_rank, document) for output_rank, (item, score, input_rank, document) in enumerate(rows, 1))
+        reported_load_latency = self._load_latency_ms if self._load_latency_pending else 0.0
+        self._load_latency_pending = False
         return RerankResult(
             all_items[:top_k],
             provider=self.name,
             model=self.model_name,
             device=self._resolved_device(),
             batch_size=self.batch_size,
-            model_load_latency_ms=self._load_latency_ms,
+            model_load_latency_ms=reported_load_latency,
             inference_latency_ms=inference_ms,
             scored_items=all_items,
             scoring_method="cross_encoder",

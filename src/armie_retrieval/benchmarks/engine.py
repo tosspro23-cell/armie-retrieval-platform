@@ -57,6 +57,17 @@ def default_profiles() -> tuple[BenchmarkProfile, ...]:
     )
 
 
+def gate4_profiles() -> tuple[BenchmarkProfile, ...]:
+    """Deterministic real-backend profiles for Gate 4 execution validation."""
+    boundaries = {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5}
+    return (
+        BenchmarkProfile(profile_id="H1", name="Elasticsearch BM25 + metadata boost", retrievers=["elasticsearch_bm25"], **boundaries),
+        BenchmarkProfile(profile_id="H2", name="Elasticsearch Dense + metadata boost", retrievers=["elasticsearch_dense"], **boundaries),
+        BenchmarkProfile(profile_id="H3", name="Elasticsearch Hybrid RRF + metadata boost", retrievers=["elasticsearch_bm25", "elasticsearch_dense"], fusion="rrf", **boundaries),
+        BenchmarkProfile(profile_id="H4", name="Elasticsearch Hybrid RRF + BGE Cross-Encoder", retrievers=["elasticsearch_bm25", "elasticsearch_dense"], fusion="rrf", reranker="bge_cross_encoder", **boundaries),
+    )
+
+
 def _item(profile: ExpertProfile) -> ResultItem:
     projection = profile.search_document
     return ResultItem(

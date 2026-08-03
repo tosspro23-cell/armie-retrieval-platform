@@ -93,7 +93,108 @@ environment flag, the normal suite ran **47 tests, 45 passed and 2 skipped**.
 
 ## Remaining scope
 
-Gate 4, Query Lab graded-relevance UI, release preparation, tagging, and push
-are intentionally out of scope for this checkpoint. Synthetic benchmark
-judgements remain draft and require review before being treated as ground
-truth.
+Query Lab graded-relevance UI, Gate 5 benchmark conclusions, release
+preparation, tagging, and push are intentionally out of scope. Synthetic
+benchmark judgements remain draft and require review before being treated as
+ground truth.
+
+## Gate 4 — Hybrid Fusion and Cross-Encoder Validation
+
+**Status: execution validated; relevance superiority not claimed.**
+
+Gate 4 was executed after checkpoint commit
+`2281f166ca40b5f7904ef9d5dcad0d4e1e976a2b` using the existing
+`RuleBasedPlanner`, `RetrieverRegistry`, `ProcessorRegistry`,
+`RetrievalRuntime`, `TraceCollector`, and BGE reranker pathway. No second
+runtime or benchmark-only fusion path was introduced.
+
+### Profiles
+
+| Profile | Runtime path | Actual components |
+|---|---|---|
+| H1 | Rule Planner → BM25 → metadata boost → final Top-K | Elasticsearch BM25, `metadata_boost` |
+| H2 | Rule Planner → dense → metadata boost → final Top-K | Elasticsearch dense kNN, `metadata_boost` |
+| H3 | Rule Planner → BM25 + dense → ARMIE RRF → metadata boost → final Top-K | Elasticsearch BM25 + dense, `elasticsearch_hybrid`, `metadata_boost` |
+| H4 | Rule Planner → BM25 + dense → ARMIE RRF → BGE Cross-Encoder → final Top-K | Elasticsearch BM25 + dense, `elasticsearch_hybrid`, `bge-reranker-v2-m3` |
+
+All profiles used these declared boundaries:
+
+```text
+retrieval_candidate_k = 100
+fusion_candidate_k    = 100
+rerank_candidate_k    = 30
+final_top_k           = 5
+rrf_k                 = 60
+```
+
+### Real query set
+
+Seven controlled queries were run per profile: exact skill, skill plus
+industry, delivery/project experience, organization experience, semantic
+paraphrase, multi-constraint, and hard-negative/ambiguity.
+
+Sample real results for `Find experts with Elasticsearch experience`:
+
+- H1 Top-5: `expert-00003, expert-00011, expert-00019, expert-00035, expert-00043`.
+- H2 Top-5: `expert-02011, expert-09123, expert-06003, expert-09003, expert-06403`.
+- H3 Top-5: `expert-00123, expert-00163, expert-00139, expert-00363, expert-00003`.
+- H4 Top-5: `expert-00123, expert-00099, expert-09123, expert-00059, expert-08995`.
+
+### Fusion evidence
+
+H3 and H4 both executed 100 BM25 and 100 dense candidates, fused to 100
+deduplicated canonical `expert_id` candidates, then passed exactly 30 to the
+reranker. A sample H3 fused candidate recorded:
+
+```text
+expert-00123
+  BM25:  rank=13, score=16.446089, semantic=elasticsearch_bm25_score,
+         RRF contribution=0.0136986301
+  Dense: rank=10, score=0.81085825, semantic=elasticsearch_dense_score,
+         RRF contribution=0.0142857143
+  total fused score=0.0279843444
+```
+
+Raw BM25 and dense scores were preserved as provider-specific signals and were
+not normalized or directly compared. Deduplication used only canonical
+`expert_id`.
+
+### Cross-Encoder evidence
+
+H4 used the locally available `BAAI/bge-reranker-v2-m3` model with no model
+download. Every query passed exactly 30 candidates to the BGE Cross-Encoder,
+processed 30, and returned final Top-5. The first measured request reported a
+cold model-load latency of approximately `789.36 ms` and inference latency of
+`226.25 ms`; subsequent warm requests reported `0 ms` model-load latency and
+inference latencies from `165.42` to `223.70 ms`. Cold model loading is not
+mixed into warm inference timing.
+
+For the sample exact-skill query, `expert-00099` moved from pre-rerank rank 24
+to rank 2 (`rank_change=-22`) and entered final Top-5. Trace records include
+requested/actual reranker, model ID, candidate bounds, pre/post ranks, rank
+movement, final membership, score semantics, and fallback diagnostic.
+
+No fallback was used in the validated H4 run. The existing explicit fallback
+path remains available and records provider, reason, and diagnostic when a
+configured reranker fails; it does not mutate the immutable plan.
+
+### Gate 4 commands and results
+
+```bash
+PYTHONPATH=src python3 examples/run_v040_gate4.py \
+  --index armie-experts-v1-gate23b-20260803 \
+  --output /tmp/armie-v040-gate4.json
+# H1, H2, H3, H4 completed; output written to /tmp/armie-v040-gate4.json
+
+PYTHONPATH=src python3 -m unittest discover -s tests -q
+# 51 tests, 48 passed, 3 skipped (after Gate 4 tests were added)
+
+ARMIE_RUN_ELASTICSEARCH_INTEGRATION=1 \
+ARMIE_ELASTICSEARCH_TEST_INDEX=armie-experts-v1-gate23b-20260803 \
+PYTHONPATH=src python3 -m unittest discover -s tests -q
+# 51 tests passed, including real Elasticsearch Gate 2/3 checks and the
+# real H1-H4 Gate 4 integration test
+```
+
+Frontend tests/build and the earlier package build remain unchanged and
+passed. `git diff --check` passed after the Gate 4 changes.
