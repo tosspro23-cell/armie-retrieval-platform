@@ -2,7 +2,7 @@
 
 ## v0.4.0 Expert Discovery Relevance Engineering
 
-v0.4.0 adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic dataset manifests/checksums, 120 benchmark-query contracts, reviewable 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, and optional Elasticsearch 8.15.3 BM25/dense adapters alongside FAISS.
+v0.4.0 adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic dataset manifests/checksums, 120 benchmark-query contracts, Gold/Silver 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, and optional Elasticsearch 8.15.3 BM25/dense adapters alongside FAISS. Gate 5 is a **controlled synthetic relevance benchmark**, not validated real-world expert-search quality: the 10,000-profile corpus has 9,496 duplicate normalized summaries, templated synthetic language, and controlled-vocabulary leakage risk; Gold is an independent structured audit, not external human ground truth. Results are documented in [`docs/v0.4.0/gate5-results.md`](docs/v0.4.0/gate5-results.md); v0.4.0 remains in progress and is not a release.
 
 ```bash
 PYTHONPATH=src python3 examples/build_v040_dataset.py --size 10000

@@ -88,6 +88,7 @@ class ElasticsearchHybridRetriever:
         started = time.perf_counter()
         dense_result = self._dense.retrieve(query, plan)
         sparse_result = self._sparse.retrieve(query, plan)
+        fusion_started = time.perf_counter()
         scores: dict[str, float] = {}
         items: dict[str, ResultItem] = {}
         contributions: dict[str, dict[str, dict[str, float | int | str]]] = {}
@@ -107,6 +108,7 @@ class ElasticsearchHybridRetriever:
         ordered_ids = sorted(scores, key=lambda item_id: (-scores[item_id], item_id))
         fusion_limit = int(plan.parameters.get("fusion_candidate_k", plan.parameters.get("retrieval_candidate_k", plan.top_k)))
         fused = tuple(items[item_id].with_score(scores[item_id], signals={"rrf": scores[item_id]}) for item_id in ordered_ids[:fusion_limit])
+        fusion_latency_ms = (time.perf_counter() - fusion_started) * 1000
         fusion_candidates = {
             item_id: {**values, "total_fused_score": scores[item_id], "fusion_rank": rank, "deduplicated": len(values) > 1}
             for rank, item_id in enumerate(ordered_ids[:fusion_limit], start=1)
@@ -122,6 +124,7 @@ class ElasticsearchHybridRetriever:
                 "fusion": "reciprocal_rank_fusion",
                 "rrf_k": self._rrf_k,
                 "fusion_candidate_k": fusion_limit,
+                "fusion_latency_ms": fusion_latency_ms,
                 "fusion_candidates": fusion_candidates,
             },
             trace=(f"retrieved:{self._sparse.name}", f"retrieved:{self._dense.name}", "fused:rrf"),

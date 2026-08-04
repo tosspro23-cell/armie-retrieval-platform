@@ -64,6 +64,7 @@ class Judgement(BaseModel):
     rationale: str
     reviewer: str = "rule-assisted-draft"
     review_status: str = "draft"
+    correction_history: list[dict[str, Any]] = Field(default_factory=list)
     version: str = "v1"
 
     @field_validator("grade")

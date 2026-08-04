@@ -3,9 +3,11 @@
 ## Checkpoint
 
 Phase 1 was committed at `63ec012f5fb3a5d29093418fa6ddd757e3880c91` with
-`feat: add v0.4.0 relevance engineering foundation`. Gate 2 and Gate 3 are
+`feat: add v0.4.0 relevance engineering foundation`. Gate 4 was checkpointed at
+`86aed2d57938abcd3ed1e5f1af19cb10b646892d` with
+`feat: validate hybrid retrieval and cross-encoder reranking`. Gate 5 is
 validation work after that checkpoint; this report does not declare v0.4.0
-complete and does not cover Gate 4.
+complete.
 
 ## Deterministic foundation
 
@@ -91,12 +93,11 @@ With that command's environment enabled, the full suite ran **47 tests, all
 passing**, including both real Elasticsearch integration checks. Without the
 environment flag, the normal suite ran **47 tests, 45 passed and 2 skipped**.
 
-## Remaining scope
+## Remaining scope before Gate 5
 
-Query Lab graded-relevance UI, Gate 5 benchmark conclusions, release
-preparation, tagging, and push are intentionally out of scope. Synthetic
-benchmark judgements remain draft and require review before being treated as
-ground truth.
+Query Lab graded-relevance UI, release preparation, tagging, and push remain
+out of scope. Synthetic benchmark judgements require explicit tiering and
+review before being treated as ground truth.
 
 ## Gate 4 — Hybrid Fusion and Cross-Encoder Validation
 
@@ -198,3 +199,36 @@ PYTHONPATH=src python3 -m unittest discover -s tests -q
 
 Frontend tests/build and the earlier package build remain unchanged and
 passed. `git diff --check` passed after the Gate 4 changes.
+
+## Gate 5 — Benchmark Validity, Gold Review, Relevance and Failure Analysis
+
+**Status: completed; benchmark limitations remain explicit.**
+
+Gate 5 ran 35 stratified Gold queries and 85 lower-confidence Silver queries
+against the same 10,000-profile dataset, real Elasticsearch index, embedding
+model, candidate boundaries and runtime used by Gate 4. Gold labels were
+independently audited against structured source evidence and record reviewer,
+status, rationale and correction history. Silver retained rule-assisted labels
+and was never merged with Gold.
+
+The audit found 9,496 duplicate normalized summaries and highly templated
+language, with high synthetic vocabulary leakage risk. These limitations are
+documented in `docs/v0.4.0/dataset-card.md`; Gate 5 is therefore a controlled
+synthetic relevance benchmark, not validated real-world expert-search quality
+and not a claim of production expert-network relevance.
+
+Measured Gold NDCG@5 was H1 `.686`, H2 `.754`, H3 `.762`, H4 `.818`; Gold
+required-constraint satisfaction was `.663`, `.737`, `.731`, `.811`. H4 Gold
+warm Cross-Encoder inference was approximately 851.4 ms p50 after a 457.9 ms
+cold model load; end-to-end p50 was 1,976.7 ms. The quality gain is therefore a
+selective-latency trade-off. Negative and
+temporal constraints remained weak, while organization retrieval improved with
+Dense/Hybrid evidence. Pairwise win/tie/loss and category results are in
+`docs/v0.4.0/gate5-results.md`; per-query traces, judgements and failure
+evidence are emitted by `examples/run_v040_gate5.py`.
+
+Gate 5 identified delivery/mention ambiguity, lexical mismatch, semantic false
+positives and candidate-pool misses, plus relationship/provenance gaps that
+justify future graph work. No statistical significance or generalization claim
+is made. Query Lab, Gate 6/7, release preparation, tagging and push remain
+out of scope.

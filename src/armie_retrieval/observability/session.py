@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 import time
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from typing import Any, Mapping
 
 from armie_retrieval.evaluation import DEFAULT_CUTOFFS, evaluate_at_cutoffs, evaluate_with_explanation
@@ -17,6 +17,7 @@ from .models import EvaluationTrace, GroundTruthTrace, PlannerTrace, RetrievalTr
 
 def trace_query(runtime, planner, query: Query, *, query_id: str | None = None, relevant_ids: set[str] | None = None, evaluation_cutoffs: tuple[int, ...] = DEFAULT_CUTOFFS) -> tuple[object, RetrievalTrace]:
     """Execute exactly one normal runtime request with optional structured tracing."""
+    request_started = time.perf_counter()
     plan, planner_trace = capture_plan(planner, query)
     collector = TraceCollector(query, plan, planner_trace, query_id=query_id)
     result = runtime.execute_with_trace(query, plan, collector)
@@ -26,7 +27,16 @@ def trace_query(runtime, planner, query: Query, *, query_id: str | None = None, 
         metric, calculation = evaluate_with_explanation(result, relevant_ids, k=query.top_k)
         multi_metrics, multi_calculation = evaluate_at_cutoffs(result, relevant_ids, evaluation_cutoffs)
         evaluation_trace = EvaluationTrace({**asdict(metric), **multi_metrics}, {**calculation, "multi_k": multi_calculation})
-    return result, collector.build(ground_truth=ground_truth, evaluation=evaluation_trace)
+    trace = collector.build(ground_truth=ground_truth, evaluation=evaluation_trace)
+    timing = dict(trace.timing_ms)
+    timing["dense"] = next((item.latency_ms for item in trace.retrievers if item.name == "elasticsearch_dense"), 0.0)
+    timing["sparse"] = next((item.latency_ms for item in trace.retrievers if item.name == "elasticsearch_bm25"), 0.0)
+    timing["fusion"] = float(result.provenance.get("fusion_latency_ms", 0.0))
+    timing["reranker_model_load"] = float(trace.reranking.model_load_latency_ms) if trace.reranking else 0.0
+    timing["reranker_inference"] = float(trace.reranking.inference_latency_ms) if trace.reranking else 0.0
+    timing["reranking"] = timing["reranker_model_load"] + timing["reranker_inference"]
+    timing["end_to_end"] = (time.perf_counter() - request_started) * 1000
+    return result, replace(trace, timing_ms=timing)
 
 
 def capture_plan(planner, query: Query) -> tuple[RetrievalPlan, PlannerTrace]:
