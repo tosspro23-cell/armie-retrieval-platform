@@ -4,7 +4,7 @@ const backend = 'http://127.0.0.1:8782';
 const frontend = 'http://127.0.0.1:5177';
 
 export default defineConfig({
-  testDir: './playwright',
+  testDir: './',
   fullyParallel: false,
   retries: 0,
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],

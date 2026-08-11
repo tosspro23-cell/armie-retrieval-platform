@@ -26,3 +26,32 @@ Gate 5.5A evidence supports a pilot result only. Gold is an independent
 structured audit, not external human ground truth; Silver remains explicitly
 rule-assisted. The benchmark must not be generalized to natural expert-network
 data.
+
+## Gate 5.5B
+
+- `docs/v0.4.0/gate55b-results.md` — completed v1/v2 benchmark results,
+  boundaries, timing and limitations.
+- `docs/v0.4.0/benchmark-stability-report.md` — stability comparison and
+  interpretation limits.
+- `docs/v0.4.0/dataset-v2-full-audit.md` — full Dataset v2 integrity audit.
+- `58baad4` — dense-index resumability checkpoint.
+- `9973367` — committed benchmark stability checkpoint.
+
+Gate 5.5B is completed evidence, not external validation. The corpus remains a
+controlled synthetic relevance benchmark with templated language and leakage
+risk.
+
+## Gate 6 — candidate Result Package
+
+- `docs/v0.4.0/validation-report.md` — Gate 6 scope and verification summary.
+- `README.md` — Workbench usage and artifact boundary.
+- `apps/workbench/tests/gate6.acceptance.spec.ts` — ten browser acceptance
+  checks.
+- `tests/test_workbench_api.py` — backend benchmark-library and execution
+  regression coverage.
+- `CURRENT_WORK.md` — candidate-complete Result Package and write-back
+  checklist.
+
+Gate 6 evidence is verified but uncommitted and awaiting founder acceptance.
+It validates the Workbench mechanics and preserves existing runtime semantics;
+it does not authorize Gate 7 or release work.

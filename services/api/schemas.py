@@ -5,8 +5,9 @@ from pydantic import BaseModel, ConfigDict, Field
 class QueryRequest(BaseModel):
     query: str = Field(min_length=1)
     session_id: str | None = None
-    profile: str = "baseline"
+    profile: str = "H2"
     query_case_id: str | None = None
+    benchmark_query_id: str | None = None
 
 class SessionRequest(BaseModel):
     pass
@@ -14,6 +15,10 @@ class SessionRequest(BaseModel):
 class QueryLabRunRequest(BaseModel):
     case_id: str
     profile: str = "baseline"
+
+class BenchmarkRunRequest(BaseModel):
+    query_id: str
+    profile: str = "H2"
 
 class CompareRequest(BaseModel):
     left_run_id: str

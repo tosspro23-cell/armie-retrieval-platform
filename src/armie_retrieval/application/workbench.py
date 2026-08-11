@@ -7,13 +7,18 @@ and deterministic workbench concerns.
 from __future__ import annotations
 
 import time
+import json
+import os
+import math
+import subprocess
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from uuid import uuid4
 from typing import Any
 
 from armie_retrieval.benchmarking.datasets import BenchmarkDataset, generate_benchmark_dataset
-from armie_retrieval.models import Query
+from armie_retrieval import __version__
+from armie_retrieval.models import Query, ResultItem
 from armie_retrieval.observability.session import trace_query
 from armie_retrieval.profiles import load_profile
 from armie_retrieval.providers import InMemoryKnowledgeProvider
@@ -24,6 +29,7 @@ from armie_retrieval.runtime import RetrievalRuntime
 from armie_retrieval.runtime_profiles import select_planner, select_reranker
 from armie_retrieval.processors import QueryAwareRerankProcessor
 from armie_retrieval.processors.result_processors import DeduplicateProcessor, MetadataFilterProcessor
+from armie_retrieval.rerankers import MetadataBoostReranker
 from armie_retrieval.benchmarks import default_profiles
 from armie_retrieval.relevance import generate_benchmark_queries
 
@@ -55,20 +61,70 @@ class WorkbenchError(ValueError):
 class WorkbenchService:
     def __init__(self, root: str | Path):
         self.root = Path(root)
+        self.package_source = str(Path(__file__).resolve().parents[1])
+        try:
+            self.git_commit = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=self.root, text=True, stderr=subprocess.DEVNULL
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            self.git_commit = None
         self.dataset: BenchmarkDataset = generate_benchmark_dataset(self.root / ".artifacts" / "workbench" / "dataset", size=50)
         self.sessions: dict[str, Session] = {}
         self.traces: dict[str, dict[str, Any]] = {}
         self.runs: dict[str, dict[str, Any]] = {}
         self._runtime_cache: dict[str, tuple[RetrievalRuntime, object]] = {}
+        self._benchmark_root = Path(os.getenv("ARMIE_V2_BENCHMARK_ROOT", "/tmp/armie-v040-dataset-v2-full"))
+        self._benchmark_payload = self._load_benchmark_payload()
+        self._benchmark_experts = self._load_benchmark_experts()
+
+    def _load_benchmark_experts(self):
+        if not self._benchmark_payload:
+            return []
+        try:
+            rows = json.loads((self._benchmark_root / "knowledge" / "experts.json").read_text())
+            return [ResultItem(id=row["expert_id"], object_type="expert", title=row["display_name"], content=row["summary"], metadata=row.get("search_document", {}), sources=("dataset-v2",)) for row in rows]
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            return []
+
+    def _load_benchmark_payload(self):
+        try:
+            manifest = json.loads((self._benchmark_root / "manifest.json").read_text())
+            queries = json.loads((self._benchmark_root / "queries" / "queries.json").read_text())
+            judgements = json.loads((self._benchmark_root / "judgements" / "judgements.json").read_text())
+            by_query: dict[str, dict[str, dict]] = {}
+            for row in judgements:
+                by_query.setdefault(row["query_id"], {}).setdefault(row["review_status"], {})[row["expert_id"]] = row
+            return {"manifest": manifest, "queries": {q["query_id"]: q for q in queries}, "judgements": by_query}
+        except (FileNotFoundError, json.JSONDecodeError):
+            return None
 
     def health(self) -> dict[str, Any]:
-        return {"status": "ok", "service": "armie-retrieval-workbench", "version": "0.4.0", "profiles": ["baseline", "model-enhanced"]}
+        return {"status": "ok", "service": "armie-retrieval-workbench", "version": __version__, "package_version": __version__, "package_source": self.package_source, "api_version": "v1", "frontend_version": "0.4.0", "git_commit": self.git_commit, "dataset": "Expert Discovery v2" if self._benchmark_payload else "Legacy v1 (fallback)", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_v2_available": bool(self._benchmark_payload)}
 
     def capabilities(self) -> dict[str, Any]:
-        return {"api_version": "v1", "profiles": ["baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks"]}
+        return {"api_version": "v1", "application_version": __version__, "package_version": __version__, "package_source": self.package_source, "frontend_version": "0.4.0", "git_commit": self.git_commit, "active_dataset": "expert-discovery-v2" if self._benchmark_payload else "legacy-v1", "default_profile": "H2" if self._benchmark_payload else "baseline", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks", "benchmark_query_library", "constraint_evaluation", "profile_comparison"]}
+
+    def benchmark_manifest(self) -> dict[str, Any]:
+        if not self._benchmark_payload:
+            return {"available": False, "reason": "Dataset v2 benchmark artifacts are not available locally."}
+        m = self._benchmark_payload["manifest"]
+        return {"available": True, "git_commit": "9973367910d6ab3a0b52d123c1151ee0507e7f24", "dataset_version": m.get("dataset_version"), "dataset_checksum": m.get("checksum"), "query_set_version": m.get("query_set_version"), "judgement_set_version": m.get("judgement_set_version"), "elasticsearch_version": "8.15.3", "bm25_index": "armie-experts-v1-v2-gate55b-bm25-r2", "dense_index": "armie-experts-v1-v2-gate55b-dense-10000", "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "reranker_model": "BAAI/bge-reranker-v2-m3", "candidate_boundaries": {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60}}
+
+    def benchmark_profiles(self) -> list[dict[str, Any]]:
+        return [{"id": "H1", "label": "H1 — BM25", "description": "Fast lexical baseline", "strategy": "sparse", "retrievers": ["elasticsearch_bm25"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Fast lexical baseline", "score_semantics": "BM25 score"}, {"id": "H2", "label": "H2 — Dense", "description": "Practical quality/cost baseline", "strategy": "dense", "retrievers": ["elasticsearch_dense"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Practical quality/cost baseline", "score_semantics": "Dense score"}, {"id": "H3", "label": "H3 — Hybrid RRF", "description": "Lexical + semantic complementarity", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "metadata_boost", "architecture_label": "Lexical + semantic complementarity", "score_semantics": "RRF fused score"}, {"id": "H4", "label": "H4 — Hybrid + BGE", "description": "Cross-encoder reranking experiment", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "bge_cross_encoder", "architecture_label": "Cross-encoder reranking experiment", "score_semantics": "BGE reranker score"}]
+
+    def benchmark_queries(self) -> list[dict[str, Any]]:
+        if not self._benchmark_payload: return []
+        gold_ids = {qid for qid, statuses in self._benchmark_payload["judgements"].items() if "draft_gold_structured_audit" in statuses}
+        return [{**q, "label_status": "Gold" if qid in gold_ids else "Silver", "judgement_source": "draft_gold_structured_audit" if qid in gold_ids else "draft_silver_rule_assisted"} for qid, q in self._benchmark_payload["queries"].items()]
+
+    def benchmark_query(self, query_id: str) -> dict[str, Any]:
+        row = self._benchmark_payload and self._benchmark_payload["queries"].get(query_id)
+        if not row: raise WorkbenchError("benchmark_query_not_found", "Dataset v2 benchmark query was not found.", status_code=404)
+        return {**row, "label_status": "Gold" if "draft_gold_structured_audit" in self._benchmark_payload["judgements"].get(query_id, {}) else "Silver"}
 
     def datasets(self) -> dict[str, Any]:
-        return {"datasets": [{"dataset_id": "expert-discovery", "dataset_version": "v1", "default_scale": 10000, "source_type": "synthetic_reference", "manifest_required": True}]}
+        return {"datasets": [{"dataset_id": "expert-discovery", "dataset_version": "v2", "default_scale": 10000, "source_type": "controlled_synthetic_benchmark", "active": bool(self._benchmark_payload), "manifest_required": True}, {"dataset_id": "expert-discovery", "dataset_version": "v1", "default_scale": 50, "source_type": "legacy_workbench_fixture", "active": not bool(self._benchmark_payload), "manifest_required": False}]}
 
     def benchmarks(self) -> dict[str, Any]:
         return {"benchmarks": [{"benchmark_id": "expert-discovery-v1", "query_set_version": "v1", "query_count": len(generate_benchmark_queries()), "categories": sorted({query.category.value for query in generate_benchmark_queries()}), "profiles": [profile.model_dump(mode="json") for profile in default_profiles()]}]}
@@ -85,15 +141,16 @@ class WorkbenchService:
         self._session(session_id)
         del self.sessions[session_id]
 
-    def query(self, text: str, *, session_id: str | None = None, profile: str = "baseline", query_case_id: str | None = None) -> dict[str, Any]:
+    def query(self, text: str, *, session_id: str | None = None, profile: str = "baseline", query_case_id: str | None = None, benchmark_query_id: str | None = None) -> dict[str, Any]:
         if not text or not text.strip():
             raise WorkbenchError("invalid_query", "Query text must not be empty.")
-        if profile not in {"baseline", "model-enhanced"}:
+        if profile not in {"baseline", "model-enhanced", "H1", "H2", "H3", "H4"}:
             raise WorkbenchError("invalid_profile", f"Unknown profile: {profile}")
         session = self._session(session_id) if session_id else self._new_session()
         raw = text.strip()
         resolved = self._resolve_query(session, raw)
         case = next((item for item in self.dataset.queries if item["id"] == query_case_id), None)
+        benchmark_case = self._benchmark_payload and self._benchmark_payload["queries"].get(benchmark_query_id or "")
         query = Query(resolved, top_k=5, request_id=str(uuid4()))
         runtime, planner = self._runtime(profile)
         started = time.perf_counter()
@@ -102,7 +159,7 @@ class WorkbenchService:
         except Exception as exc:
             raise WorkbenchError("execution_failed", "The retrieval request could not be executed.", status_code=500, details={"reason": str(exc)}) from exc
         trace_id = str(uuid4())
-        response = self._response(trace_id, session.session_id, raw, resolved, profile, result, trace, (time.perf_counter() - started) * 1000, case)
+        response = self._response(trace_id, session.session_id, raw, resolved, profile, result, trace, (time.perf_counter() - started) * 1000, case, benchmark_case)
         turn = Turn(str(uuid4()), raw, resolved, trace_id, time.time())
         session.turns.append(turn)
         response["turn_id"] = turn.turn_id
@@ -110,6 +167,10 @@ class WorkbenchService:
         self.traces[trace_id] = trace.to_dict()
         self.runs[response["run_id"]] = response
         return response
+
+    def run_benchmark_query(self, query_id: str, *, profile: str = "H2") -> dict[str, Any]:
+        row = self.benchmark_query(query_id)
+        return self.query(row["query_text"], profile=profile, benchmark_query_id=query_id)
 
     def trace(self, trace_id: str) -> dict[str, Any]:
         if trace_id not in self.traces:
@@ -153,6 +214,15 @@ class WorkbenchService:
     def _runtime(self, profile_name: str):
         if profile_name in self._runtime_cache:
             return self._runtime_cache[profile_name]
+        if profile_name in {"H1", "H2", "H3", "H4"}:
+            strategy = {"H1": "sparse", "H2": "dense", "H3": "hybrid", "H4": "hybrid"}[profile_name]
+            reranker = MetadataBoostReranker() if profile_name != "H4" else select_reranker(load_profile("model-enhanced", root=self.root / "configs" / "profiles")).provider
+            provider = InMemoryKnowledgeProvider(self._benchmark_experts or self.dataset.experts); dense, sparse = DenseRetriever(provider), SparseRetriever(provider)
+            graph_provider = NetworkXKnowledgeGraphProvider.from_experts(self.dataset.experts); retrievers = RetrieverRegistry(); retrievers.register("dense", dense, capabilities={"dense"}); retrievers.register("sparse", sparse, capabilities={"sparse"}); retrievers.register("hybrid", HybridRetriever(dense, sparse), capabilities={"hybrid"}); retrievers.register("graph", GraphRetriever(graph_provider), capabilities={"graph"})
+            processors = ProcessorRegistry(); processors.register("deduplicate", DeduplicateProcessor(), capabilities={"deduplicate"}); processors.register("metadata_filter", MetadataFilterProcessor(), capabilities={"metadata_filter"}); processors.register("rerank", QueryAwareRerankProcessor(reranker), capabilities={"rerank"})
+            runtime = RetrievalRuntime(retrievers, processors); planner = select_planner({"planner": {"type": "rule"}}, capabilities=frozenset({"dense", "sparse", "hybrid", "graph"})).planner
+            planner = __import__('armie_retrieval.planners', fromlist=['RuleBasedPlanner']).RuleBasedPlanner(retrievers.capabilities(), strategy_override=strategy, processor_names=("deduplicate", "rerank"), parameters={"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60})
+            self._runtime_cache[profile_name] = (runtime, planner); return runtime, planner
         profile = load_profile(profile_name, root=self.root / "configs" / "profiles")
         provider = InMemoryKnowledgeProvider(self.dataset.experts)
         dense, sparse = DenseRetriever(provider), SparseRetriever(provider)
@@ -189,11 +259,14 @@ class WorkbenchService:
             return raw
         return f"{session.turns[-1].resolved_query}; follow-up: {raw}"
 
-    def _response(self, trace_id, session_id, raw, resolved, profile, result, trace, latency, case):
+    def _response(self, trace_id, session_id, raw, resolved, profile, result, trace, latency, case, benchmark_case=None):
         items = [self._item(item, index + 1) for index, item in enumerate(result.items)]
+        score_labels = {"H1": ("BM25 score", "Elasticsearch BM25"), "H2": ("Dense score", "Elasticsearch Dense + metadata processor"), "H3": ("RRF fused score", "ARMIE RRF"), "H4": ("BGE Cross-Encoder score", "BAAI/bge-reranker-v2-m3")}
         for item in items:
             item["score_stack"].update(self._score_stack(trace, item["id"]))
-            if trace.reranking and trace.reranking.actual_provider == "bge_cross_encoder":
+            if profile in score_labels:
+                item["score_type"], item["score_source"] = score_labels[profile]
+            elif trace.reranking and trace.reranking.actual_provider == "bge_cross_encoder":
                 item["score_type"] = "Cross-Encoder score"
                 item["score_source"] = trace.reranking.model or trace.reranking.actual_provider
         evidence = [{"evidence_id": f"ev-{item['id']}", "result_id": item["id"], "title": item["title"], "snippet": self._evidence_by_result(trace, item["id"]), "source": "retrieval trace"} for item in items]
@@ -201,7 +274,12 @@ class WorkbenchService:
         summary = self._summary(trace, items, refs, resolved)
         verification = self._verify(items, evidence, summary, case, trace)
         metrics = self._metrics(trace, latency, len(items), case)
-        response = {"schema_version": "0.4.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
+        benchmark = self._benchmark_projection(benchmark_case, items) if benchmark_case else None
+        if benchmark:
+            for item in items:
+                item.update(benchmark["labels"].get(item["id"], {"judgement_grade": None, "judgement_status": benchmark["judgement_source"]}))
+        if benchmark: metrics.update(benchmark["metrics"])
+        response = {"schema_version": "0.4.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "dataset_context": {"dataset": "Expert Discovery v2" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "Legacy v1 fixture", "path": "v0.4.0" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "legacy", "quality_status": "labelled" if benchmark_case else "unlabelled"}, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "benchmark": benchmark, "experiment_manifest": self.benchmark_manifest() if benchmark_case else None, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
         response["repeatability"] = {"plan_fingerprint": trace.planner.parsed_plan.get("plan_id"), "result_ids": [item["id"] for item in items], "actual_provider": trace.planner.actual_provider, "fallback": bool(trace.planner.fallback), "planner_latency_ms": trace.planner.latency_ms, "total_latency_ms": latency, "verification_status": verification["status"]}
         return response
 
@@ -259,11 +337,28 @@ class WorkbenchService:
     def _metrics(trace, latency, count, case):
         retriever_latencies = {retriever.name: retriever.latency_ms for retriever in trace.retrievers}
         rerank_latency = (trace.reranking.model_load_latency_ms + trace.reranking.inference_latency_ms) if trace.reranking else 0.0
-        fusion_latency = trace.timing_ms.get("fusion") if trace.timing_ms.get("fusion") is not None else ("Not separately measured" if trace.fusion else None)
+        fusion_latency = trace.timing_ms.get("fusion") if trace.planner.selected_strategy == "hybrid" and trace.timing_ms.get("fusion") is not None else None
         metrics = {"total_latency_ms": latency, "planner_latency_ms": trace.planner.latency_ms, "retrieval_latency_ms": trace.timing_ms.get("retrieval"), "dense_latency_ms": retriever_latencies.get("dense"), "sparse_latency_ms": retriever_latencies.get("sparse"), "graph_latency_ms": retriever_latencies.get("graph"), "fusion_latency_ms": fusion_latency, "reranking_latency_ms": rerank_latency if trace.reranking else None, "reranker_model_load_latency_ms": trace.reranking.model_load_latency_ms if trace.reranking else None, "reranker_inference_latency_ms": trace.reranking.inference_latency_ms if trace.reranking else None, "dense_candidate_count": next((r.candidate_count_before_truncation for r in trace.retrievers if r.name == "dense"), None), "sparse_candidate_count": next((r.candidate_count_before_truncation for r in trace.retrievers if r.name == "sparse"), None), "fusion_output_count": len(trace.fusion.candidates) if trace.fusion else None, "rerank_input_count": trace.reranking.rerank_input_candidates if trace.reranking else None, "rerank_processed_count": trace.reranking.reranker_processed_candidates if trace.reranking else None, "final_result_count": count, "final_top_k": trace.planner.effective_final_top_k, "quality_status": "labelled" if case else "unlabelled"}
         if trace.evaluation: metrics["quality_metrics"] = dict(trace.evaluation.metrics)
         else: metrics["quality_metrics"] = "not_applicable"
         return metrics
+
+    def _benchmark_projection(self, benchmark_case, items):
+        qid = benchmark_case["query_id"]
+        statuses = self._benchmark_payload["judgements"].get(qid, {})
+        source = "draft_gold_structured_audit" if "draft_gold_structured_audit" in statuses else "draft_silver_rule_assisted"
+        labels = statuses.get(source, {})
+        grades = {key: int(value.get("grade", 0)) for key, value in labels.items()}
+        ids = [item["id"] for item in items]
+        top5 = ids[:5]; top10 = ids[:10]
+        relevant = {key for key, grade in grades.items() if grade >= 1}
+        grade3 = {key for key, grade in grades.items() if grade == 3}
+        hits = sum(grades.get(key, 0) >= 1 for key in top5)
+        first = next((rank for rank, key in enumerate(top10, 1) if grades.get(key, 0) >= 1), None)
+        dcg = sum((2 ** grades.get(key, 0) - 1) / math.log2(rank + 1) for rank, key in enumerate(top5, 1))
+        ideal = sorted((2 ** grade - 1 for grade in grades.values()), reverse=True)[:5]
+        idcg = sum(value / math.log2(rank + 1) for rank, value in enumerate(ideal, 1))
+        return {"label_status": "Gold" if source == "draft_gold_structured_audit" else "Silver", "judgement_source": source, "labels": {key: {"judgement_grade": value.get("grade"), "judgement_status": source, "evidence_refs": value.get("evidence_ids", []), "matched_concepts": value.get("matched_concepts", []), "missing_concepts": value.get("missing_concepts", []), "violated_concepts": value.get("violated_concepts", [])} for key, value in labels.items()}, "constraints": benchmark_case, "metrics": {"precision_at_5": hits / 5, "ndcg_at_5": dcg / idcg if idcg else 0.0, "mrr": 1 / first if first else 0.0, "grade_3_hit_at_5": int(bool(grade3 & set(top5))), "recall_at_10": sum(grades.get(key, 0) >= 1 for key in top10) / len(relevant) if relevant else 0.0, "recall_denominator": "full judged relevant set at grade >= 1", "true_hard_negative_intrusion": int(any(grades.get(key, 0) == 0 and key in labels for key in top5)), "required_constraint_satisfaction": sum(grades.get(key, 0) == 3 for key in top5) / 5}}
 
     @staticmethod
     def _summary(trace, items, refs, query):

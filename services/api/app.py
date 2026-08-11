@@ -5,12 +5,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from armie_retrieval.application import WorkbenchService
+from armie_retrieval import __version__
 from armie_retrieval.application.workbench import WorkbenchError
-from .schemas import CompareRequest, ComparisonResponse, QueryLabRunRequest, QueryRequest, WorkbenchResponse
+from .schemas import BenchmarkRunRequest, CompareRequest, ComparisonResponse, QueryLabRunRequest, QueryRequest, WorkbenchResponse
 
 ROOT = Path(__file__).resolve().parents[2]
 service = WorkbenchService(ROOT)
-app = FastAPI(title="ARMIE Retrieval Workbench", version="0.4.0", description="Interactive retrieval validation API")
+app = FastAPI(title="ARMIE Retrieval Workbench", version=__version__, description="Interactive retrieval validation API")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 @app.exception_handler(WorkbenchError)
@@ -23,7 +24,7 @@ async def unexpected_error(_: Request, exc: Exception):
 
 @app.get("/")
 def root():
-    return {"service": "armie-retrieval-workbench", "version": "0.4.0", "docs": "/docs"}
+    return {"service": "armie-retrieval-workbench", "version": __version__, "docs": "/docs"}
 
 @app.get("/api/v1/health")
 def health():
@@ -56,7 +57,7 @@ def delete_session(session_id: str):
 
 @app.post("/api/v1/query", response_model=WorkbenchResponse)
 def query(request: QueryRequest):
-    return service.query(request.query, session_id=request.session_id, profile=request.profile, query_case_id=request.query_case_id)
+    return service.query(request.query, session_id=request.session_id, profile=request.profile, query_case_id=request.query_case_id, benchmark_query_id=request.benchmark_query_id)
 
 @app.get("/api/v1/traces/{trace_id}")
 def trace(trace_id: str):
@@ -73,3 +74,23 @@ def query_lab_run(request: QueryLabRunRequest):
 @app.post("/api/v1/query-lab/compare", response_model=ComparisonResponse)
 def query_lab_compare(request: CompareRequest):
     return service.compare_runs(request.left_run_id, request.right_run_id)
+
+@app.get("/api/v1/benchmark/manifest")
+def benchmark_manifest():
+    return service.benchmark_manifest()
+
+@app.get("/api/v1/benchmark/profiles")
+def benchmark_profiles():
+    return {"profiles": service.benchmark_profiles()}
+
+@app.get("/api/v1/benchmark/queries")
+def benchmark_queries():
+    return {"queries": service.benchmark_queries()}
+
+@app.get("/api/v1/benchmark/queries/{query_id}")
+def benchmark_query(query_id: str):
+    return service.benchmark_query(query_id)
+
+@app.post("/api/v1/benchmark/execute", response_model=WorkbenchResponse)
+def benchmark_execute(request: BenchmarkRunRequest):
+    return service.run_benchmark_query(request.query_id, profile=request.profile)
