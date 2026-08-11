@@ -1,5 +1,14 @@
 # Architecture Decisions
 
+## Dataset v2 pilot boundary
+
+Dataset v2 is a separate, versioned controlled-synthetic relevance benchmark
+pilot. It cannot modify or replace the immutable v1 corpus. Profile, query and
+judgement generation are separate pipelines; only canonical ontology IDs and
+structured truth may be shared. Gold judgements are an independent structured
+audit, while Silver remains explicitly rule-assisted. This pilot does not claim
+validated real-world expert-search quality.
+
 1. **Runtime remains shared:** benchmark profiles bind providers through existing registry/runtime contracts.
 2. **Control/data planes stay separate:** ARMIE plans, evaluates, explains, and governs; Elasticsearch/FAISS retrieve.
 3. **Judgements are independent:** generated drafts are explicitly reviewable and never treated as truth without review.

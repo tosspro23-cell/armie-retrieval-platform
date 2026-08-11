@@ -173,6 +173,27 @@ The release was browser-validated with **4 passed** tests using **Chromium via P
 
 ## Production validation
 
+### Dataset v2 realism pilot
+
+Gate 5.5A adds a separate `expert-discovery-v2-realism` pilot. It keeps Dataset
+v1 immutable, separates profile, query and judgement generation, and audits
+surface diversity, relationships, temporal consistency, evidence provenance and
+hard negatives. Build it with:
+
+```bash
+PYTHONPATH=src python3 examples/build_v040_dataset_v2_pilot.py
+```
+
+The pilot is a **controlled synthetic relevance benchmark**, not validated
+real-world expert-search quality. The v1 corpus contains 9,496 duplicate
+normalized summaries out of 10,000, templated synthetic language and
+controlled-vocabulary leakage risk. Gold is an independent structured audit,
+not external human ground truth; results must not be generalized to natural
+expert-network data. See [`dataset-v2-design.md`](docs/v0.4.0/dataset-v2-design.md),
+[`dataset-card-v2.md`](docs/v0.4.0/dataset-card-v2.md),
+[`dataset-v2-pilot-audit.md`](docs/v0.4.0/dataset-v2-pilot-audit.md), and the
+[`benchmark stability plan`](docs/v0.4.0/benchmark-stability-plan.md).
+
 Generate knowledge independently of indexes:
 
 ```bash

@@ -232,3 +232,35 @@ positives and candidate-pool misses, plus relationship/provenance gaps that
 justify future graph work. No statistical significance or generalization claim
 is made. Query Lab, Gate 6/7, release preparation, tagging and push remain
 out of scope.
+
+## Gate 5.5A — Dataset v2 Realism Pilot
+
+### Human-review refinement (r2)
+
+After the original machine quality gates passed, qualitative review identified
+role concentration, repeated sentence skeletons, taxonomy mismatches, weak
+hard-negative examples and suspicious Grade 1 cases. The bounded r2 pilot
+addresses those issues without starting Gate 5.5B: 750 profiles, 40 queries,
+30,000 structured judgements, balanced role/seniority and narrative families,
+explicit category constraints, a low-overlap semantic bucket and typed hard
+negatives. It remains a **controlled synthetic relevance benchmark**; no claim
+of production realism or external human ground truth is made.
+
+**Status: pilot quality gate only; full H1–H4 was not rerun.**
+
+The v2 identity is `expert-discovery-v2-realism`. Its document/profile, query
+and judgement builders are independent pipelines with separate seeds and
+surface lexicons. They share only canonical ontology identifiers and structured
+truth. The judgement builder reads canonical relationships, temporal records and
+evidence provenance, never generated search text or retrieval results.
+
+The pilot is explicitly a **controlled synthetic relevance benchmark**. The v1
+corpus remains immutable and retains 9,496 duplicate normalized summaries out of
+10,000, templated synthetic language and controlled-vocabulary leakage risk.
+Gold is an independent structured audit, not external human ground truth. Neither
+dataset should be generalized to natural expert-network data.
+
+The machine-readable audit and manual inspection sample are emitted by
+`examples/build_v040_dataset_v2_pilot.py` to the ignored pilot output directory.
+The tracked design and stability documents define the required next gate; no
+production-realism claim is made here.
