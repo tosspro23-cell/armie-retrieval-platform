@@ -230,8 +230,39 @@ evidence are emitted by `examples/run_v040_gate5.py`.
 Gate 5 identified delivery/mention ambiguity, lexical mismatch, semantic false
 positives and candidate-pool misses, plus relationship/provenance gaps that
 justify future graph work. No statistical significance or generalization claim
-is made. Query Lab, Gate 6/7, release preparation, tagging and push remain
-out of scope.
+is made.
+
+## Gate 6 — Workbench Acceptance / Relevance Experiment UX
+
+Gate 6 adds a local Query Lab surface over the existing `RetrievalRuntime`; it
+does not redesign the planner, retrievers, registry, provider contracts, or
+evaluation workflow. The UI can browse the frozen v2 manifest, select a
+Gold/Silver query and an H1–H4 profile, execute that one labelled experiment,
+and inspect structured constraints, canonical evidence, grades, metrics and
+timing. The API exposes the same data through benchmark-library and execution
+endpoints, while the existing Query Lab comparison remains available.
+
+The acceptance path was verified with ten browser tests, including profile
+metadata, query taxonomy and tier labels, provenance/evidence, constraint
+evaluation, real per-query metric payloads, timing, manifest identity, and an
+actionable backend-unavailable state. The backend regression suite passes with
+the Gate 6 benchmark execution test. Metrics are per-query runtime projections,
+not a replacement for the committed Gate 5.5B global benchmark report; the
+benchmark remains a **controlled synthetic relevance benchmark** with templated
+language, vocabulary leakage risk, and no external human-ground-truth claim.
+
+Gate 7, release preparation, tagging and push remain out of scope.
+
+### Gate 6.1 polish
+
+The bounded Gate 6.1 pass corrected v0.4.0 identity and runtime/data labeling:
+free queries now default to H2 Dense over Dataset v2 when the local v2
+artifacts are available, while legacy fixture profiles are explicitly labelled.
+The Query Lab presents readable tier/category labels, structured requirement
+cards, provider-specific score semantics, grouped quality/diagnostic/performance
+metrics, deterministic interpretation text, and an expandable manifest. It did
+not change retrieval algorithms, Dataset v2, H1–H4 semantics, candidate
+boundaries, or the committed Gate 5.5B benchmark.
 
 ## Gate 5.5A — Dataset v2 Realism Pilot
 
@@ -273,3 +304,45 @@ built. Query contracts validate 120/120. H1–H4 executed on 103 Gold and 17
 Silver queries with separate denominators using the frozen boundaries. See
 `gate55b-results.md`, `benchmark-stability-report.md`, and
 `architecture-decisions.md`; no production-realism claim is made.
+
+## Gate 6 — final Workbench acceptance
+
+Gate 6 and its bounded 6.1–6.3 polish passes are complete. The Workbench uses
+Dataset v2 by default when the frozen local artifacts are available, exposes
+H1–H4 profile metadata, structured requirements, canonical evidence and
+provenance, per-query Gold/Silver metrics, deterministic interpretation, and
+stage-aware timing. Free queries remain unlabelled and show no fabricated
+relevance metrics. H2 result scores are labelled `Dense score`; H1/H3/H4 use
+BM25, RRF fused, and BGE Cross-Encoder score semantics respectively.
+
+Validation completed before release commit:
+
+- Python suite: 69 passed, 3 skipped.
+- Elasticsearch integration: 2 passed against pinned Elasticsearch 8.15.3.
+- Frontend unit tests: 4 passed; Vite production build passed.
+- Chromium Playwright acceptance: 17 passed, including free-query H2 score
+  semantics and backend-unavailable recovery.
+- Python package build: 0.4.0 wheel and sdist built successfully.
+- `git diff --check`: passed.
+
+## Gate 7 — release validation and identity
+
+The repository-local launcher exports `PYTHONPATH=$ROOT/src` and was used for
+Workbench validation, preventing a stale globally installed package from
+being served. Runtime diagnostics expose package version, package source path,
+API version, frontend version, and the current Git commit where available.
+The package metadata, API, frontend, and visible Workbench identity are all
+`0.4.0` / `v0.4.0`; built wheel and sdist metadata resolve to `0.4.0`.
+
+The release is positioned as **Expert Discovery Relevance Engineering
+Foundation**. It reports Dataset v2 as a controlled synthetic relevance
+benchmark (10,000 profiles; 120 queries; 103 Gold / 17 Silver), real
+Elasticsearch BM25/dense, FAISS comparison, BGE-M3, ARMIE RRF, BGE
+cross-encoder evaluation, stability analysis, and browser-validated
+Workbench UX. It does not claim natural expert-network validation, external
+human ground truth, production SaaS readiness, universal H4 or hybrid
+superiority, or equivalence between Elasticsearch and FAISS.
+
+Generated datasets, embeddings, FAISS/Elasticsearch artifacts, model caches,
+benchmark JSON, build output, and local runtime state remain ignored and are
+not part of the public repository.

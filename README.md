@@ -2,7 +2,7 @@
 
 ## v0.4.0 Expert Discovery Relevance Engineering
 
-v0.4.0 adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic dataset manifests/checksums, 120 benchmark-query contracts, Gold/Silver 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, and optional Elasticsearch 8.15.3 BM25/dense adapters alongside FAISS. Gate 5 is a **controlled synthetic relevance benchmark**, not validated real-world expert-search quality: the 10,000-profile corpus has 9,496 duplicate normalized summaries, templated synthetic language, and controlled-vocabulary leakage risk; Gold is an independent structured audit, not external human ground truth. Results are documented in [`docs/v0.4.0/gate5-results.md`](docs/v0.4.0/gate5-results.md); v0.4.0 remains in progress and is not a release.
+v0.4.0 is the **Expert Discovery Relevance Engineering Foundation**. It adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic Dataset v2 manifests/checksums, 120 benchmark-query contracts, a 103 Gold / 17 Silver split, 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, real Elasticsearch 8.15.3 BM25/dense adapters, FAISS comparison, ARMIE RRF, and BGE cross-encoder evaluation. Dataset v2 is a **controlled synthetic relevance benchmark**, not validated real-world expert-search quality: synthetic language and controlled-vocabulary leakage remain limitations; Gold is an independent structured audit, not external human ground truth. Results and limitations are documented in [`docs/v0.4.0/gate55b-results.md`](docs/v0.4.0/gate55b-results.md) and [`docs/v0.4.0/validation-report.md`](docs/v0.4.0/validation-report.md).
 
 ```bash
 PYTHONPATH=src python3 examples/build_v040_dataset.py --size 10000
@@ -10,6 +10,22 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
 
 Elasticsearch is local-only and optional for the deterministic foundation. Start it with `docker compose -f docker-compose.elasticsearch.yml up -d`; no Docker data volumes, secrets, or model weights are committed.
+
+### Gate 6 Workbench Acceptance / Relevance Experiment UX
+
+The local Workbench Query Lab exposes the frozen v2 benchmark library and the
+shared H1–H4 runtime profiles. Reviewers can inspect Gold/Silver status,
+structured constraints, evidence provenance, per-query graded metrics, timing,
+and the benchmark manifest without treating one experiment as a new global
+benchmark. Recall labels include their explicit denominator, and Gold remains
+separate from rule-assisted Silver.
+
+The Workbench requires generated v2 artifacts at `ARMIE_V2_BENCHMARK_ROOT`
+(default `/tmp/armie-v040-dataset-v2-full`). Missing artifacts produce an
+actionable backend-unavailable state; they are not copied into the repository.
+This UX validates mechanics over the **controlled synthetic relevance
+benchmark** and does not claim production expert-search quality or Gate 7
+readiness.
 
 ## v0.3.0 Interactive Retrieval Workbench
 
@@ -22,7 +38,18 @@ make workbench
 # UI:  http://127.0.0.1:5173
 ```
 
+`make workbench` is the supported repository-local launcher. It exports the
+checkout's `src/` directory before starting the API, so health and capability
+diagnostics can report the package source path and current commit rather than
+silently serving a stale globally installed package.
+
 The editable install is the preferred development setup. For a repository-local diagnostic run, use `PYTHONPATH=src python3 -m uvicorn services.api.app:app --host 127.0.0.1 --port 8000`.
+
+In the v0.4.0 Workbench, free queries default to `H2 — Dense` over the locally
+available Dataset v2 projection and remain `unlabelled`; no benchmark quality
+metrics are fabricated for free text. H1–H4 are explicit v0.4 profiles, while
+the legacy v0.3 fixture profiles are labelled `Legacy` when selected. The UI
+always shows the active dataset and profile identity.
 
 The API is rooted at `/api/v1` (`/health`, `/capabilities`, `/sessions`, `/query`, `/traces/{trace_id}`, and `/query-lab/*`). See `docs/api-guide.md`, `docs/workbench-user-guide.md`, `docs/architecture-compliance-report-v0.3.0.md`, and `docs/release-notes-v0.3.0.md`.
 

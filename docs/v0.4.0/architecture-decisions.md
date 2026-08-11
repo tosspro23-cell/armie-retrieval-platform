@@ -1,7 +1,23 @@
 # v0.4.0 Gate 5.5B Architecture Decisions
 
-Status: evidence-based Gate 5.5B analysis; H1–H4 executed on Dataset v2 Gold.
-This is not a production-realism claim and does not authorize Gate 6.
+Status: frozen release conclusions from Gate 5.5B; H1–H4 executed on Dataset
+v2 Gold. These conclusions are distribution-specific and are not a
+production-realism claim.
+
+## Frozen release conclusions
+
+- H1 BM25 is the lowest-cost lexical baseline.
+- H2 Dense is the strongest practical default candidate on this controlled
+  Dataset v2 distribution.
+- H3 Hybrid RRF provides complementary lexical and semantic signals but only
+  a small aggregate gain over H2.
+- H4 Hybrid plus BGE reranking is a cost/benefit experiment, not an always-on
+  default: warm local inference is approximately one second with negligible
+  aggregate quality improvement over H3.
+- Structured relationship, temporal, and prohibited constraints require
+  deterministic handling; ranking alone is insufficient.
+- Graph modelling remains targeted and evidence-driven for relationship
+  failures, not a default expansion of every retrieval path.
 
 ## Evidence boundary
 

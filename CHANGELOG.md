@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.0] - 2026-08-11
+
+### Added
+
+- Dataset v2 Expert Discovery relevance benchmark with 10,000 profiles, 120 queries, and separate Gold/Silver judgement contracts.
+- Real Elasticsearch BM25 and dense retrieval, BGE-M3 embeddings, FAISS comparison, ARMIE RRF fusion, and BGE cross-encoder evaluation.
+- H1–H4 Relevance Experiment Workbench with structured constraints, evidence/provenance, per-query metrics, stage-aware latency, and deterministic interpretation.
+- Gate 5.5B stability and hard-negative analysis plus browser-validated Workbench acceptance coverage.
+
+### Findings and boundaries
+
+- Dense materially outperformed BM25 on this controlled synthetic distribution; hybrid was near-tied with dense.
+- Always-on BGE reranking added substantial local CPU latency with negligible aggregate gain over H3.
+- Structured relationship, temporal, and prohibited constraints remain deterministic systems concerns.
+- This release makes no natural expert-network, external-human-ground-truth, production-SaaS, or universal-superiority claim.
+
 ## [0.4.0] - 2026-08-03
 
 ### Added
