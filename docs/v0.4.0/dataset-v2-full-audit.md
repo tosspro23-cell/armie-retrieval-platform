@@ -1,7 +1,8 @@
 # Dataset v2 Full Gate 5.5B Audit
 
-Status: full corpus, contract audit, and dense-index prerequisites complete;
-H1–H4 are unblocked but intentionally not executed in this bounded task.
+Status: full corpus, contract audit, dense-index construction, and H1–H4
+benchmark execution complete. This remains a controlled synthetic benchmark,
+not a production-realism claim.
 
 ## Manifest
 
@@ -49,6 +50,7 @@ than external human ground truth. The v1 corpus remains immutable and retains
 9,496 duplicate normalized summaries out of 10,000. Neither dataset should be
 generalized to natural expert-network data.
 
-The full Dataset v2 corpus and all dense prerequisites are built. H1–H4 and
-v1/v2 stability analysis are unblocked, but remain intentionally unexecuted
-until the separately authorized benchmark task.
+The full Dataset v2 corpus and all dense prerequisites are built. H1–H4 ran on
+103 Gold and 17 Silver queries using the frozen runtime boundaries. See
+`gate55b-results.md`, `benchmark-stability-report.md`, and
+`architecture-decisions.md` for metrics and evidence-qualified conclusions.

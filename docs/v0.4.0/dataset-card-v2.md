@@ -15,7 +15,8 @@ real-world expert-search quality.
 Dataset v2 is a controlled synthetic relevance benchmark pilot for validating
 retrieval infrastructure and relevance measurement. The default pilot contains
 750 profiles, 40 queries spanning all ten query categories, and draft
-canonical-truth judgements. It is not a production dataset.
+canonical-truth judgements. The Gate 5.5B full corpus contains 10,000 profiles,
+120 queries, and 1,200,000 judgements. Neither is a production dataset.
 
 ## Data generation
 
@@ -42,3 +43,9 @@ records are marked `draft_gold_structured_audit`; Silver records are explicitly
 - Results must not be generalized to natural expert-network data.
 
 The appropriate description is **controlled synthetic relevance benchmark**.
+
+Gate 5.5B executed the frozen H1–H4 runtime on 103 Gold queries and 17 Silver
+monitoring queries. Gold and Silver are isolated by judgement contract; Silver
+is rule-assisted and must not be presented as Gold truth. Metrics and stability
+classifications are documented in `gate55b-results.md` and
+`benchmark-stability-report.md`.

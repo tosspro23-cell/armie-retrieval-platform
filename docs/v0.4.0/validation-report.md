@@ -269,7 +269,7 @@ production-realism claim is made here.
 
 The full Dataset v2 corpus (10,000 profiles, 120 queries and 1,200,000
 judgements), BM25 index, BGE-M3 dense index, and matching FAISS artifact are
-built. Query contracts validate 120/120. The dense prerequisite is now
-unblocked; H1–H4 and v1/v2 stability claims remain intentionally unexecuted in
-this bounded task. See `gate55b-results.md` for progressive build evidence and
-the exact limitation on the earlier uninstrumented process termination.
+built. Query contracts validate 120/120. H1–H4 executed on 103 Gold and 17
+Silver queries with separate denominators using the frozen boundaries. See
+`gate55b-results.md`, `benchmark-stability-report.md`, and
+`architecture-decisions.md`; no production-realism claim is made.
