@@ -26,6 +26,8 @@ def build_mapping(*, embedding_dimensions: int = 768, embedding_model: str = "BA
                 "project_titles": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
                 "project_descriptions": {"type": "text"}, "project_industries": {"type": "keyword"},
                 "employer_names": {"type": "keyword"}, "employer_descriptions": {"type": "text"},
+                "project_clients": {"type": "keyword"}, "relationship_predicates": {"type": "keyword"},
+                "evidence_kinds": {"type": "keyword"},
                 "delivery_evidence": {"type": "keyword"},
                 # Indexed vectors are required by Elasticsearch's native `knn`
                 # query.  The field remains provider-neutral at the platform

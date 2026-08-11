@@ -264,3 +264,12 @@ The machine-readable audit and manual inspection sample are emitted by
 `examples/build_v040_dataset_v2_pilot.py` to the ignored pilot output directory.
 The tracked design and stability documents define the required next gate; no
 production-realism claim is made here.
+
+## Gate 5.5B checkpoint
+
+The full Dataset v2 corpus (10,000 profiles, 120 queries and 1,200,000
+judgements), BM25 index, BGE-M3 dense index, and matching FAISS artifact are
+built. Query contracts validate 120/120. The dense prerequisite is now
+unblocked; H1–H4 and v1/v2 stability claims remain intentionally unexecuted in
+this bounded task. See `gate55b-results.md` for progressive build evidence and
+the exact limitation on the earlier uninstrumented process termination.

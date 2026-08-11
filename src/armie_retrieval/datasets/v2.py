@@ -424,7 +424,7 @@ class V2QueryGenerator:
         self.rng = Random(seed)
 
     def generate(self, count: int = 40) -> tuple[V2Query, ...]:
-        if count < 30 or count > 40:
+        if count < 30 or count > 120:
             raise ValueError("v2 pilot query count must be between 30 and 40")
         categories = list(QueryCategory)
         queries: list[V2Query] = []
@@ -487,7 +487,7 @@ class V2QueryGenerator:
                 surface = f"{surface} with the requested delivery evidence, not an adjacent match"
             elif category is QueryCategory.exact_skill:
                 semantic_bucket = "exact"
-            if category is QueryCategory.exact_skill and i in {20, 30}:
+            if category is QueryCategory.semantic_paraphrase or (category is QueryCategory.exact_skill and i in {20, 30}):
                 semantic_bucket = "low_overlap"
                 surface = ("experience improving how users find relevant technical knowledge" if concept == "search_relevance" else f"experience applying {surface} in real delivery")
             queries.append(V2Query(query_id=f"v2-q-{i + 1:03d}", query_text=surface, category=category, canonical_required=required, canonical_optional=optional, required_capabilities=["technical_leadership"] if category is QueryCategory.multi_constraint else [], canonical_prohibited=prohibited, industry_required=[industry] if category in {QueryCategory.skill_industry, QueryCategory.multi_constraint} else [], organization_required=organization, relationship_required=relationship, evidence_required=evidence, role_required=role_required, seniority_required=seniority_required, semantic_bucket=semantic_bucket, hard_negative_type=hard_negative_type, temporal_start=temporal_start if category is QueryCategory.hard_negative else (date(2021, 1, 1) if category is QueryCategory.temporal else None), temporal_end=temporal_end if category is QueryCategory.hard_negative else (date(2025, 12, 31) if category is QueryCategory.temporal else None), expected_signals=[category.value]))
@@ -549,8 +549,8 @@ def _canonical_profiles(profiles: Iterable[V2ExpertProfile]) -> list[dict[str, A
 
 
 def build_v2_pilot(output_root: str | Path, *, size: int = 750, seed: int = 7301, query_count: int = 40, query_seed: int = 9137, dataset_version: str = V2_DATASET_VERSION, generator_version: str = V2_GENERATOR_VERSION) -> V2Manifest:
-    if not 500 <= size <= 1000:
-        raise ValueError("v2 pilot size must be between 500 and 1000")
+    if not 500 <= size <= 10000:
+        raise ValueError("v2 dataset size must be between 500 and 10000")
     root = Path(output_root)
     (root / "knowledge").mkdir(parents=True, exist_ok=True)
     (root / "queries").mkdir(parents=True, exist_ok=True)
