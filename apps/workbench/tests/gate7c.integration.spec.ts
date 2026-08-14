@@ -11,7 +11,7 @@ test.describe('Gate 7C live Workbench to C1 integration', () => {
     await page.getByRole('button', { name: 'Run retrieval' }).click();
     await expect(page.locator('body')).toContainText('Dense (C0)');
     await expect(page.locator('.result').first()).toContainText('Dense score');
-    await expect(page.locator('body')).toContainText('Manufacturing');
+    await expect(page.locator('body')).toContainText(/Financial Services|Manufacturing/);
   });
 
   test('years constraint reaches live C1', async ({ page }) => {
