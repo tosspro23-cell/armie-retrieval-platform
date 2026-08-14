@@ -1,0 +1,53 @@
+{
+  "arms": {
+    "C0": "H2 Dense",
+    "C1": "H2 Dense + native pre-filter",
+    "C2-100": "H2 Dense Top-100 + post-filter",
+    "C2-20": "H2 Dense Top-20 + post-filter",
+    "C2-50": "H2 Dense Top-50 + post-filter"
+  },
+  "benchmark_extension": "v0.5-constraint-extension-v1",
+  "benchmark_fingerprint": "4c1982e1270d3052a29208359a9fcbf0f5fe8952a1282a796f74e931c2e51b18",
+  "contract_schema_version": "v0.5-retrieval-contract-v1",
+  "dataset_checksum": "514ab2f7bd6378a51d1915f8f399506a61e6e9589a61eef674eccc1a8043d4bc",
+  "dataset_manifest": "v2-realism-full",
+  "gold_count": 46,
+  "hard_negative_candidate_count": 62020,
+  "hard_negative_counts": {
+    "structured_constraint_near_miss": 62020
+  },
+  "hard_negative_query_count": 4,
+  "index_identity": "armie-experts-v1-v2-gate55b-bm25-r2 / armie-experts-v1-v2-gate55b-dense-10000",
+  "judgement_file": "judgements.jsonl.gz",
+  "judgement_generation": "relevance anchored to immutable v2 structured judgements; eligibility independently evaluated against expected contract",
+  "limitations": [
+    "controlled synthetic relevance benchmark",
+    "Gold is independent structured audit, not external human ground truth",
+    "Gate 6 evaluates correct manually constructed contracts, not NL extraction"
+  ],
+  "projection_version": "v0.5-constraint-projection-v1",
+  "query_count": 46,
+  "recall_k": 10,
+  "scarcity_query_count": 9,
+  "seeds": {
+    "extension": 50501,
+    "source_document": 7301,
+    "source_query": 9137
+  },
+  "silver_count": 0,
+  "strata_counts": {
+    "hard_negative": 4,
+    "industry": 4,
+    "location": 4,
+    "multi_constraint": 4,
+    "multi_constraint_3plus": 4,
+    "negative": 4,
+    "numeric": 4,
+    "numeric_boundary": 4,
+    "role": 4,
+    "selective": 4,
+    "seniority": 4,
+    "unknown": 2
+  },
+  "top_k": 5
+}

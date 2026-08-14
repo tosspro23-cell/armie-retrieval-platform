@@ -1,0 +1,764 @@
+{
+  "known_candidates": [
+    {
+      "candidate_id": "expert-v2-00226",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-001",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02982",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-003",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-05253",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-004",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06978",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-005",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-05746",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-005",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06898",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-005",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02722",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-005",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06322",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-005",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00193",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-006",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-09894",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-007",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02616",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-008",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06360",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-008",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01368",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-008",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-09480",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-008",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-03378",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-009",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-03474",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-009",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02754",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-009",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-09426",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-009",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07698",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-009",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06438",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-011",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00102",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-011",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02550",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-011",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07014",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-011",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04728",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04104",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00984",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06600",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02856",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-09512",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02648",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08472",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06392",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-012",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08886",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-015",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06598",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-015",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06418",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-017",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04546",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-017",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00802",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-017",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00226",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-017",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08706",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-017",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04546",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-021",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06418",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-021",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00226",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-021",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02982",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-023",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01153",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-024",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06193",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-024",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00408",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-026",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08068",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-028",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-03604",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-028",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04468",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-028",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02884",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-028",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-03748",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-028",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00354",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-031",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07426",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-031",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04098",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-031",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-05463",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-031",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-09298",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-031",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04644",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-032",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00468",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-032",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01908",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-032",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-05268",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-032",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02648",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00120",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01128",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07608",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01992",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01848",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00408",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04152",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04728",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01272",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-034",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07042",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-04338",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-03298",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08706",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-02466",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-05746",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-06210",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08498",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08914",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-035",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-08808",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-038",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-07588",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-040",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00676",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-040",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01972",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-040",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-00676",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-044",
+      "repaired_native_match": true
+    },
+    {
+      "candidate_id": "expert-v2-01972",
+      "canonical_eligible": true,
+      "grade": 3,
+      "previous_failure": "native_filter_excludes_or_ranking_loss",
+      "query_id": "v05-cq-044",
+      "repaired_native_match": true
+    }
+  ],
+  "native_filter_parity": [
+    {
+      "canonical_count": 2307,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 2307,
+      "test": "years_gte"
+    },
+    {
+      "canonical_count": 0,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 0,
+      "test": "years_between"
+    },
+    {
+      "canonical_count": 7692,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 7692,
+      "test": "seniority_gte"
+    },
+    {
+      "canonical_count": 3845,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 3845,
+      "test": "principal_eq"
+    },
+    {
+      "canonical_count": 5000,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 5000,
+      "test": "industry"
+    },
+    {
+      "canonical_count": 770,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 770,
+      "test": "role"
+    },
+    {
+      "canonical_count": 1666,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 1666,
+      "test": "location"
+    },
+    {
+      "canonical_count": 5000,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 5000,
+      "test": "exclusion"
+    },
+    {
+      "canonical_count": 1153,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 1153,
+      "test": "two_constraint"
+    },
+    {
+      "canonical_count": 1153,
+      "false_exclusions": 0,
+      "false_inclusions": 0,
+      "native_count": 1153,
+      "test": "three_plus"
+    }
+  ],
+  "projection_mismatches": {
+    "industries": 0,
+    "locations": 0,
+    "roles": 0,
+    "seniority": 0,
+    "seniority_rank": 0,
+    "years_experience": 0
+  }
+}

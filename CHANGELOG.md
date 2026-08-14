@@ -2,6 +2,29 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.0] - 2026-08-14
+
+### Added
+
+- Deterministic `RetrievalContract` planning and native Elasticsearch C1
+  pre-filtering for the approved structured constraint scope.
+- Repaired versioned constraint projection with compatibility checks,
+  provenance, strict no-relaxation semantics, and explicit shortfall/error
+  states.
+- Workbench must-have filters, registry-backed categorical controls,
+  human-readable contract summaries, and per-result constraint evidence.
+- Gate 6D constraint-aware evaluation protocol and Gate 7 founder-environment
+  acceptance evidence.
+
+### Architecture and boundaries
+
+- C1 is the promoted constrained path; C0 remains unconstrained H2 Dense.
+- C2 is diagnostic/de-prioritized and C3 remains deferred.
+- No natural-language constraint extraction, general temporal/relationship or
+  delivery/evidence semantics, graph retrieval, or production C2/C3 support.
+- Dataset v2 remains a controlled synthetic relevance benchmark with the
+  documented limitations of synthetic language and vocabulary leakage.
+
 ## [0.4.0] - 2026-08-11
 
 ### Added

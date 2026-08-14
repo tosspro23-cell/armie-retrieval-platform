@@ -1,0 +1,1400 @@
+[
+  {
+    "base_query_id": "v2-q-001",
+    "category": "numeric",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-001",
+    "query_text": "Find candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "numeric",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "between",
+          "value": [
+            10,
+            15
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-002",
+    "query_text": "Find candidates with 10 to 15 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "numeric_boundary",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-003",
+    "query_text": "Find candidates at the 20-year experience boundary.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "numeric_boundary",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "eq",
+          "value": 5
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-004",
+    "query_text": "Find candidates with exactly 5 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "industry",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-005",
+    "query_text": "Find candidates in manufacturing.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "industry",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "financial services"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-006",
+    "query_text": "Find candidates in financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "role",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "role": {
+          "operator": "eq",
+          "value": "Data Scientist"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-007",
+    "query_text": "Find Data Scientists.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "role",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-008",
+    "query_text": "Find Search / Retrieval Engineers.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "location",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-009",
+    "query_text": "Find candidates based in Portugal.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "location",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "United Kingdom"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-010",
+    "query_text": "Find candidates based in the United Kingdom.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "seniority",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-011",
+    "query_text": "Find senior candidates.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "seniority",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-012",
+    "query_text": "Find principal-only candidates.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "manufacturing"
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-013",
+    "query_text": "Find candidates excluding manufacturing.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "financial services"
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-014",
+    "query_text": "Find candidates excluding financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "multi_constraint",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-015",
+    "query_text": "Find manufacturing candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "multi_constraint",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "financial services"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-016",
+    "query_text": "Find financial-services candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "multi_constraint_3plus",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-017",
+    "query_text": "Find manufacturing principal candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "multi_constraint_3plus",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-018",
+    "query_text": "Find senior Search / Retrieval Engineers in Portugal with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "selective",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Data Scientist"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 30
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-019",
+    "query_text": "Find principal Data Scientists in manufacturing with at least 30 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "selective",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 30
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-020",
+    "query_text": "Find principal Search / Retrieval Engineers in Portugal with at least 30 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "hard_negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-021",
+    "query_text": "Find manufacturing candidates with at least 20 years and principal seniority.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "hard_negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "financial services"
+          ]
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-022",
+    "query_text": "Find senior Search / Retrieval Engineers, excluding financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "unknown",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "unknown_if_missing": true,
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-023",
+    "query_text": "Find candidates with a verifiable years-of-experience value of at least 20.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "missing candidate value is evaluated as UNKNOWN",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "numeric",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-024",
+    "query_text": "Find candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "numeric",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "between",
+          "value": [
+            10,
+            15
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-025",
+    "query_text": "Find candidates with 10 to 15 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "numeric_boundary",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-026",
+    "query_text": "Find candidates at the 20-year experience boundary.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "numeric_boundary",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "eq",
+          "value": 5
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-027",
+    "query_text": "Find candidates with exactly 5 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "industry",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-028",
+    "query_text": "Find candidates in manufacturing.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "industry",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "financial services"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-029",
+    "query_text": "Find candidates in financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "role",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "role": {
+          "operator": "eq",
+          "value": "Data Scientist"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-030",
+    "query_text": "Find Data Scientists.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "role",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-031",
+    "query_text": "Find Search / Retrieval Engineers.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "location",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-032",
+    "query_text": "Find candidates based in Portugal.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "location",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "United Kingdom"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-033",
+    "query_text": "Find candidates based in the United Kingdom.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "seniority",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-034",
+    "query_text": "Find senior candidates.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "seniority",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-035",
+    "query_text": "Find principal-only candidates.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "manufacturing"
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-036",
+    "query_text": "Find candidates excluding manufacturing.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "financial services"
+          ]
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-037",
+    "query_text": "Find candidates excluding financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "multi_constraint",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-038",
+    "query_text": "Find manufacturing candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "multi_constraint",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "financial services"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-039",
+    "query_text": "Find financial-services candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "multi_constraint_3plus",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-040",
+    "query_text": "Find manufacturing principal candidates with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "multi_constraint_3plus",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-041",
+    "query_text": "Find senior Search / Retrieval Engineers in Portugal with at least 20 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "selective",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Data Scientist"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 30
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-042",
+    "query_text": "Find principal Data Scientists in manufacturing with at least 30 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-001",
+    "category": "selective",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "location": {
+          "operator": "eq",
+          "value": "Portugal"
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 30
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-043",
+    "query_text": "Find principal Search / Retrieval Engineers in Portugal with at least 30 years of experience.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "hybrid_retrieval"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-011",
+    "category": "hard_negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "eq",
+          "value": "manufacturing"
+        },
+        "seniority": {
+          "operator": "eq",
+          "value": "principal"
+        },
+        "years_experience": {
+          "operator": "gte",
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-044",
+    "query_text": "Find manufacturing candidates with at least 20 years and principal seniority.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "knowledge_graph"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-021",
+    "category": "hard_negative",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "industry": {
+          "operator": "not_in",
+          "value": [
+            "financial services"
+          ]
+        },
+        "role": {
+          "operator": "eq",
+          "value": "Search / Retrieval Engineer"
+        },
+        "seniority": {
+          "operator": "gte",
+          "value": "senior"
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-045",
+    "query_text": "Find senior Search / Retrieval Engineers, excluding financial services.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "cloud_ai"
+    ],
+    "support_note": "deterministic contract field",
+    "supported": true
+  },
+  {
+    "base_query_id": "v2-q-031",
+    "category": "unknown",
+    "expected_contract": {
+      "exclusions": [],
+      "hard_constraints": {
+        "years_experience": {
+          "operator": "gte",
+          "unknown_if_missing": true,
+          "value": 20
+        }
+      },
+      "policy": {
+        "mode": "strict",
+        "silent_relaxation": false,
+        "unknown_hard_constraint": "exclude"
+      }
+    },
+    "gold_tier": "Gold",
+    "query_id": "v05-cq-046",
+    "query_text": "Find candidates with a verifiable years-of-experience value of at least 20.",
+    "query_version": "v0.5-constraint-extension-v1",
+    "semantic_required": [
+      "healthcare_ai"
+    ],
+    "support_note": "missing candidate value is evaluated as UNKNOWN",
+    "supported": true
+  }
+]

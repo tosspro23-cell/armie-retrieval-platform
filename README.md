@@ -1,6 +1,29 @@
 # ARMIE Retrieval Platform
 
-## v0.4.0 Expert Discovery Relevance Engineering
+## v0.5.0 Constraint-Aware Retrieval
+
+v0.5.0 supports deterministic structured hard-constraint expert retrieval over
+the approved field scope using native pre-filtered Dense retrieval with strict
+no-relaxation semantics. C1 is the promoted constrained path: H2 Dense plus a
+trusted `RetrievalContract` and native Elasticsearch pre-filter. C0 remains H2
+Dense for unconstrained semantic retrieval. C2 is diagnostic/de-prioritized and
+C3 is deferred.
+
+Supported deterministic scope: `years_experience`, `industry`, `role`,
+`location`, `seniority`, approved explicit exclusions, and approved
+conjunctions. v0.5.0 does not provide arbitrary natural-language constraint
+extraction, general temporal or relationship reasoning, delivery/evidence
+qualification, graph retrieval, or C2/C3 production support.
+
+Release-readiness evidence and reproducibility identity are in
+[`docs/v0.5.0/gate8-release-readiness.md`](docs/v0.5.0/gate8-release-readiness.md),
+[`docs/v0.5.0/v0.5.0-release-notes.md`](docs/v0.5.0/v0.5.0-release-notes.md), and
+[`docs/v0.5.0/v0.5.0-release-manifest.json`](docs/v0.5.0/v0.5.0-release-manifest.json).
+
+The v0.5.0 benchmark remains a controlled synthetic relevance benchmark, not
+validated real-world expert-search quality.
+
+## v0.4.0 Expert Discovery Relevance Engineering (historical baseline)
 
 v0.4.0 is the **Expert Discovery Relevance Engineering Foundation**. It adds a reproducible relevance-engineering foundation while preserving the v0.3.0 Workbench and runtime. It provides typed `ExpertProfile` records, deterministic Dataset v2 manifests/checksums, 120 benchmark-query contracts, a 103 Gold / 17 Silver split, 0–3 judgements, graded metrics, failure taxonomy, experiment manifests, real Elasticsearch 8.15.3 BM25/dense adapters, FAISS comparison, ARMIE RRF, and BGE cross-encoder evaluation. Dataset v2 is a **controlled synthetic relevance benchmark**, not validated real-world expert-search quality: synthetic language and controlled-vocabulary leakage remain limitations; Gold is an independent structured audit, not external human ground truth. Results and limitations are documented in [`docs/v0.4.0/gate55b-results.md`](docs/v0.4.0/gate55b-results.md) and [`docs/v0.4.0/validation-report.md`](docs/v0.4.0/validation-report.md).
 
@@ -27,7 +50,7 @@ This UX validates mechanics over the **controlled synthetic relevance
 benchmark** and does not claim production expert-search quality or Gate 7
 readiness.
 
-## v0.3.0 Interactive Retrieval Workbench
+## v0.3.0 Interactive Retrieval Workbench (historical baseline)
 
 v0.3.0 adds a local, typed FastAPI workbench and React client on top of the existing runtime. It supports sessions and deterministic follow-ups, planner/reranker profiles, evidence cards, deterministic verification, complete trace inspection, and a Query Lab for labelled comparisons. The workbench delegates every query to `RetrievalRuntime` and the existing observability trace.
 
@@ -45,7 +68,7 @@ silently serving a stale globally installed package.
 
 The editable install is the preferred development setup. For a repository-local diagnostic run, use `PYTHONPATH=src python3 -m uvicorn services.api.app:app --host 127.0.0.1 --port 8000`.
 
-In the v0.4.0 Workbench, free queries default to `H2 — Dense` over the locally
+In the v0.5.0 Workbench, free queries default to `H2 — Dense` over the locally
 available Dataset v2 projection and remain `unlabelled`; no benchmark quality
 metrics are fabricated for free text. H1–H4 are explicit v0.4 profiles, while
 the legacy v0.3 fixture profiles are labelled `Legacy` when selected. The UI

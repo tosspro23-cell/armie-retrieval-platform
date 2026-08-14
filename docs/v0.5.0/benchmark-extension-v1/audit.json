@@ -1,0 +1,95 @@
+{
+  "denominators": {
+    "eligible_fill": "returned relevant-and-eligible / min(5, eligible supply), zero-supply reported as not applicable",
+    "eligible_recall": "all relevant-and-eligible profiles in each query's 10,000-profile judgement universe",
+    "legitimate_scarcity_rate": "9 / 46 queries",
+    "retrieval_shortfall": "among queries with eligible supply >= 5, executions returning fewer than 5 eligible results / eligible-supply-sufficient executions"
+  },
+  "eligibility_counts": {
+    "eligible": 97812,
+    "ineligible": 362188
+  },
+  "eligibility_method": "deterministic contract evaluation over all 10,000 profiles",
+  "eligible_supply": {
+    "definition": "relevant_grade >= 2 AND eligible",
+    "per_query": {
+      "v05-cq-001": 433,
+      "v05-cq-002": 0,
+      "v05-cq-003": 433,
+      "v05-cq-004": 144,
+      "v05-cq-005": 1250,
+      "v05-cq-006": 625,
+      "v05-cq-007": 144,
+      "v05-cq-008": 96,
+      "v05-cq-009": 416,
+      "v05-cq-010": 209,
+      "v05-cq-011": 1443,
+      "v05-cq-012": 481,
+      "v05-cq-013": 625,
+      "v05-cq-014": 1250,
+      "v05-cq-015": 289,
+      "v05-cq-016": 146,
+      "v05-cq-017": 289,
+      "v05-cq-018": 0,
+      "v05-cq-019": 0,
+      "v05-cq-020": 0,
+      "v05-cq-021": 289,
+      "v05-cq-022": 96,
+      "v05-cq-023": 433,
+      "v05-cq-024": 430,
+      "v05-cq-025": 0,
+      "v05-cq-026": 290,
+      "v05-cq-027": 0,
+      "v05-cq-028": 1250,
+      "v05-cq-029": 625,
+      "v05-cq-030": 96,
+      "v05-cq-031": 144,
+      "v05-cq-032": 417,
+      "v05-cq-033": 208,
+      "v05-cq-034": 962,
+      "v05-cq-035": 721,
+      "v05-cq-036": 625,
+      "v05-cq-037": 1250,
+      "v05-cq-038": 144,
+      "v05-cq-039": 144,
+      "v05-cq-040": 286,
+      "v05-cq-041": 0,
+      "v05-cq-042": 0,
+      "v05-cq-043": 0,
+      "v05-cq-044": 286,
+      "v05-cq-045": 96,
+      "v05-cq-046": 290
+    }
+  },
+  "gold_silver": {
+    "Gold": "all extension queries; structured contract and audit fields",
+    "Silver": "none in this extension"
+  },
+  "grades": {
+    "0": 380625,
+    "3": 79375
+  },
+  "hard_negative_candidate_count": 62020,
+  "hard_negative_counts": {
+    "structured_constraint_near_miss": 62020
+  },
+  "hard_negative_query_count": 4,
+  "manifest": "v0.5-constraint-extension-v1",
+  "query_count": 46,
+  "relevance_method": "existing immutable structured judgement grade for the base semantic query; not recomputed from constraint eligibility",
+  "scarcity_query_count": 9,
+  "strata_counts": {
+    "hard_negative": 4,
+    "industry": 4,
+    "location": 4,
+    "multi_constraint": 4,
+    "multi_constraint_3plus": 4,
+    "negative": 4,
+    "numeric": 4,
+    "numeric_boundary": 4,
+    "role": 4,
+    "selective": 4,
+    "seniority": 4,
+    "unknown": 2
+  }
+}

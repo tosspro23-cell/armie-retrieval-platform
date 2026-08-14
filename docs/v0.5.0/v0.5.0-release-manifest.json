@@ -1,0 +1,51 @@
+{
+  "release_version": "0.5.0",
+  "lineage": {
+    "v0.4": "relevance engineering baseline",
+    "v0.5": "constraint-aware retrieval"
+  },
+  "dataset": {
+    "identity": "v2-realism-full",
+    "checksum": "514ab2f7bd6378a51d1915f8f399506a61e6e9589a61eef674eccc1a8043d4bc",
+    "limitations": "controlled synthetic relevance benchmark"
+  },
+  "projection": {
+    "identity": "constraint-projection-0.2-gate6b",
+    "mapping_fingerprint": "e7f3acf23f2d90964e4e771da14bb033b93d386a6e73c4d351a91a40cfba5a0d",
+    "required_embedding_model": "BAAI/bge-m3",
+    "required_embedding_dimensions": 1024,
+    "required_projection_schema": "armie-v0.5-constraint-projection-v1"
+  },
+  "benchmark": {
+    "identity": "v0.5-constraint-extension-v1.1",
+    "fingerprint": "6622e4604edc34ad481be7a65086df4b8d1318c185126f3bab1f6023360822eb"
+  },
+  "evaluation_protocol": {
+    "identity": "v0.5-constraint-aware-eval-protocol-v1",
+    "fingerprint": "7cfc4945cb81bfe145dc1d80d0e936f9e1e4d9bdc521f7254113cb4405156e12"
+  },
+  "runtime": {
+    "c0": "H2 Dense",
+    "c1": "H2 Dense + deterministic native pre-filter",
+    "c2": "diagnostic/de-prioritized",
+    "c3": "deferred",
+    "supported_constraint_registry": "v0.5-c1-capability-registry-1",
+    "final_top_k": 5
+  },
+  "validation_environment": {
+    "python": "3.9",
+    "elasticsearch": "8.15.3",
+    "node": "v26.0.0",
+    "npm": "11.12.1"
+  },
+  "validation": {
+    "python_full": "131 passed, 3 skipped",
+    "frontend_unit": "5 passed",
+    "frontend_build": "passed",
+    "playwright_isolated": "30 passed",
+    "playwright_founder_gate7": "30 passed (full founder-environment suite; includes 9 live Gate 7 scenarios)",
+    "package_build": "passed",
+    "markdown_links": "88 release-relevant files, 0 missing",
+    "git_diff_check": "passed"
+  }
+}

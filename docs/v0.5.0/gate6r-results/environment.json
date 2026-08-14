@@ -1,0 +1,29 @@
+{
+  "elasticsearch": {
+    "cluster": {
+      "active_primary_shards": 11,
+      "active_shards": 11,
+      "active_shards_percent_as_number": 100.0,
+      "cluster_name": "docker-cluster",
+      "delayed_unassigned_shards": 0,
+      "initializing_shards": 0,
+      "number_of_data_nodes": 1,
+      "number_of_in_flight_fetch": 0,
+      "number_of_nodes": 1,
+      "number_of_pending_tasks": 0,
+      "relocating_shards": 0,
+      "status": "green",
+      "task_max_waiting_in_queue_millis": 0,
+      "timed_out": false,
+      "unassigned_shards": 0
+    },
+    "reachable": true,
+    "version": "8.15.3"
+  },
+  "embedding_model": "BAAI/bge-m3",
+  "index": "armie-experts-v1-v2-gate55b-dense-10000",
+  "machine": "macOS-26.5.2-arm64-arm-64bit",
+  "python": "3.9.6",
+  "sample_count": 230,
+  "warmup": "first query per arm included; no separate cold exclusion"
+}

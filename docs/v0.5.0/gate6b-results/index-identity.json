@@ -1,0 +1,10 @@
+{
+  "index": "armie-experts-v1-v2-gate6b-dense-10000",
+  "document_count": 10000,
+  "dataset_checksum": "514ab2f7bd6378a51d1915f8f399506a61e6e9589a61eef674eccc1a8043d4bc",
+  "projection_schema_version": "armie-v0.5-constraint-projection-v1",
+  "projection_implementation_version": "constraint-projection-0.2-gate6b",
+  "mapping_fingerprint": "e7f3acf23f2d90964e4e771da14bb033b93d386a6e73c4d351a91a40cfba5a0d",
+  "embedding_model": "BAAI/bge-m3",
+  "embedding_dimensions": 1024
+}
