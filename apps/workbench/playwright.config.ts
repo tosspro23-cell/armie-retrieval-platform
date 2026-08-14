@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const backend = 'http://127.0.0.1:8782';
-const frontend = 'http://127.0.0.1:5177';
+const founderEnvironment = process.env.PLAYWRIGHT_FOUNDER_ENV === '1';
+const backend = process.env.PLAYWRIGHT_BACKEND ?? 'http://127.0.0.1:8782';
+const frontend = process.env.PLAYWRIGHT_FRONTEND ?? 'http://127.0.0.1:5177';
 
 export default defineConfig({
   testDir: './',
@@ -15,7 +16,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     ...devices['Desktop Chrome'],
   },
-  webServer: [
+  webServer: founderEnvironment ? undefined : [
     {
       command: 'PYTHONPATH=src API_HOST=127.0.0.1 API_PORT=8782 python3 -m uvicorn services.api.app:app --host 127.0.0.1 --port 8782',
       cwd: '../..',

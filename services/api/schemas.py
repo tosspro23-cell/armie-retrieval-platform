@@ -9,6 +9,12 @@ class QueryRequest(BaseModel):
     query_case_id: str | None = None
     benchmark_query_id: str | None = None
 
+class StructuredQueryRequest(BaseModel):
+    """Trusted structured v0.5 contract; no natural-language extraction."""
+    query: str = Field(min_length=1)
+    contract: dict[str, Any] = Field(default_factory=dict)
+    requested_k: int = Field(default=5, ge=1, le=100)
+
 class SessionRequest(BaseModel):
     pass
 
@@ -91,7 +97,7 @@ class ComparisonResponse(BaseModel):
 
 class ApiResponse(BaseModel):
     model_config = ConfigDict(extra="allow")
-    schema_version: str = "0.4.0"
+    schema_version: str = "0.5.0"
 
 class ErrorBody(BaseModel):
     code: str

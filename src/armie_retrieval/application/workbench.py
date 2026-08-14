@@ -32,6 +32,13 @@ from armie_retrieval.processors.result_processors import DeduplicateProcessor, M
 from armie_retrieval.rerankers import MetadataBoostReranker
 from armie_retrieval.benchmarks import default_profiles
 from armie_retrieval.relevance import generate_benchmark_queries
+from armie_retrieval.constraints import registry_snapshot
+from armie_retrieval.contracts import RetrievalContract, ValidationState, validate_contract
+from armie_retrieval.embeddings import create_embedding_provider, EmbeddingPrerequisiteError
+from armie_retrieval.indexing.elasticsearch import ElasticsearchClient
+from armie_retrieval.models import RetrievalPlan
+from armie_retrieval.providers.elasticsearch import ElasticsearchDenseRetriever
+from pydantic import ValidationError
 
 
 @dataclass
@@ -76,6 +83,7 @@ class WorkbenchService:
         self._benchmark_root = Path(os.getenv("ARMIE_V2_BENCHMARK_ROOT", "/tmp/armie-v040-dataset-v2-full"))
         self._benchmark_payload = self._load_benchmark_payload()
         self._benchmark_experts = self._load_benchmark_experts()
+        self._c1_retriever = None
 
     def _load_benchmark_experts(self):
         if not self._benchmark_payload:
@@ -99,16 +107,20 @@ class WorkbenchService:
             return None
 
     def health(self) -> dict[str, Any]:
-        return {"status": "ok", "service": "armie-retrieval-workbench", "version": __version__, "package_version": __version__, "package_source": self.package_source, "api_version": "v1", "frontend_version": "0.4.0", "git_commit": self.git_commit, "dataset": "Expert Discovery v2" if self._benchmark_payload else "Legacy v1 (fallback)", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_v2_available": bool(self._benchmark_payload)}
+        return {"status": "ok", "service": "armie-retrieval-workbench", "version": __version__, "package_version": __version__, "package_source": self.package_source, "api_version": "v1", "frontend_version": "0.5.0", "git_commit": self.git_commit, "dataset": "Expert Discovery v2" if self._benchmark_payload else "Legacy v1 (fallback)", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_v2_available": bool(self._benchmark_payload), "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}}
 
     def capabilities(self) -> dict[str, Any]:
-        return {"api_version": "v1", "application_version": __version__, "package_version": __version__, "package_source": self.package_source, "frontend_version": "0.4.0", "git_commit": self.git_commit, "active_dataset": "expert-discovery-v2" if self._benchmark_payload else "legacy-v1", "default_profile": "H2" if self._benchmark_payload else "baseline", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks", "benchmark_query_library", "constraint_evaluation", "profile_comparison"]}
+        return {"api_version": "v1", "application_version": __version__, "package_version": __version__, "package_source": self.package_source, "frontend_version": "0.5.0", "git_commit": self.git_commit, "active_dataset": "expert-discovery-v2" if self._benchmark_payload else "legacy-v1", "default_profile": "H2" if self._benchmark_payload else "baseline", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry": registry_snapshot()}, "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks", "benchmark_query_library", "constraint_evaluation", "profile_comparison"]}
 
     def benchmark_manifest(self) -> dict[str, Any]:
         if not self._benchmark_payload:
             return {"available": False, "reason": "Dataset v2 benchmark artifacts are not available locally."}
         m = self._benchmark_payload["manifest"]
-        return {"available": True, "git_commit": "9973367910d6ab3a0b52d123c1151ee0507e7f24", "dataset_version": m.get("dataset_version"), "dataset_checksum": m.get("checksum"), "query_set_version": m.get("query_set_version"), "judgement_set_version": m.get("judgement_set_version"), "elasticsearch_version": "8.15.3", "bm25_index": "armie-experts-v1-v2-gate55b-bm25-r2", "dense_index": "armie-experts-v1-v2-gate55b-dense-10000", "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "reranker_model": "BAAI/bge-reranker-v2-m3", "candidate_boundaries": {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60}}
+        return {"available": True, "git_commit": os.getenv("ARMIE_BENCHMARK_COMMIT", "9973367910d6ab3a0b52d123c1151ee0507e7f24"), "dataset_version": m.get("dataset_version"), "dataset_checksum": m.get("checksum"), "query_set_version": m.get("query_set_version"), "judgement_set_version": m.get("judgement_set_version"), "elasticsearch_version": "8.15.3", "bm25_index": os.getenv("ARMIE_V050_BM25_INDEX", "armie-experts-v1-v2-gate55b-bm25-r2"), "dense_index": os.getenv("ARMIE_V050_C1_INDEX", "armie-experts-v1-v2-gate6b-dense-10000"), "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "projection_schema_version": "armie-v0.5-constraint-projection-v1", "constraint_projection": "constraint-projection-0.2-gate6b", "constraint_runtime": {"strategy": "C1", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}, "reranker_model": "BAAI/bge-reranker-v2-m3", "candidate_boundaries": {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60}}
+
+    def constraint_registry(self) -> dict[str, Any]:
+        """Expose the bounded runtime contract without exposing backend DSL."""
+        return registry_snapshot()
 
     def benchmark_profiles(self) -> list[dict[str, Any]]:
         return [{"id": "H1", "label": "H1 — BM25", "description": "Fast lexical baseline", "strategy": "sparse", "retrievers": ["elasticsearch_bm25"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Fast lexical baseline", "score_semantics": "BM25 score"}, {"id": "H2", "label": "H2 — Dense", "description": "Practical quality/cost baseline", "strategy": "dense", "retrievers": ["elasticsearch_dense"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Practical quality/cost baseline", "score_semantics": "Dense score"}, {"id": "H3", "label": "H3 — Hybrid RRF", "description": "Lexical + semantic complementarity", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "metadata_boost", "architecture_label": "Lexical + semantic complementarity", "score_semantics": "RRF fused score"}, {"id": "H4", "label": "H4 — Hybrid + BGE", "description": "Cross-encoder reranking experiment", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "bge_cross_encoder", "architecture_label": "Cross-encoder reranking experiment", "score_semantics": "BGE reranker score"}]
@@ -167,6 +179,109 @@ class WorkbenchService:
         self.traces[trace_id] = trace.to_dict()
         self.runs[response["run_id"]] = response
         return response
+
+    def structured_query(self, text: str, contract_payload: dict[str, Any], *, requested_k: int = 5) -> dict[str, Any]:
+        """Execute a trusted structured contract through the promoted C1 path."""
+        if not text or not text.strip():
+            return self._structured_error_response("", requested_k, "INVALID_CONTRACT", "semantic_query must not be empty.")
+        try:
+            payload = dict(contract_payload or {})
+            payload.setdefault("semantic_query", text.strip())
+            contract = RetrievalContract.model_validate(payload)
+        except (ValidationError, ValueError, TypeError) as exc:
+            return self._structured_error_response(text.strip(), requested_k, "INVALID_CONTRACT", str(exc))
+        validation = validate_contract(contract)
+        has_deferred = bool(contract.temporal_constraints or contract.relationship_constraints)
+        if not validation.valid or has_deferred or contract.unsupported_constraints:
+            invalid_states = {ValidationState.INVALID_CONTRACT, ValidationState.INVALID_OPERATOR, ValidationState.TYPE_MISMATCH, ValidationState.CONTRADICTION}
+            state = "INVALID_CONTRACT" if any(issue.state in invalid_states for issue in validation.issues) else "UNSUPPORTED_CONSTRAINT"
+            reason = "; ".join(issue.message for issue in validation.issues) or "The requested constraint category is deferred in v0.5."
+            return self._structured_error_response(text.strip(), requested_k, state, reason, contract=contract)
+        try:
+            retriever = self._get_c1_retriever()
+            query = Query(text.strip(), top_k=requested_k, request_id=str(uuid4()), retrieval_contract=contract)
+            plan = RetrievalPlan(strategy="dense", top_k=requested_k, parameters={"retrieval_candidate_k": max(requested_k, 100), "retrieval_contract": contract})
+            started = time.perf_counter()
+            result = retriever.retrieve(query, plan)
+            return self._structured_result_response(text.strip(), contract, result, (time.perf_counter() - started) * 1000)
+        except (EmbeddingPrerequisiteError, RuntimeError) as exc:
+            raise WorkbenchError("C1_PREREQUISITE_UNAVAILABLE", str(exc), status_code=503) from exc
+        except Exception as exc:
+            raise WorkbenchError("C1_EXECUTION_FAILED", "The C1 Elasticsearch request could not be completed.", status_code=502, details={"reason": str(exc)}) from exc
+
+    def _get_c1_retriever(self):
+        if self._c1_retriever is None:
+            client = ElasticsearchClient()
+            provider = create_embedding_provider({"embedding": {"provider": "bge", "model": os.getenv("ARMIE_V050_EMBEDDING_MODEL", "BAAI/bge-m3"), "local_files_only": True}})
+            self._c1_retriever = ElasticsearchDenseRetriever(client, embedding_provider=provider)
+        return self._c1_retriever
+
+    def _structured_error_response(self, text, requested_k, state, reason, *, contract=None):
+        trace_id, session_id = str(uuid4()), str(uuid4())
+        contract_payload = contract.model_dump(mode="json") if contract else {"semantic_query": text}
+        provenance = {"strategy_identity": "C1", "runtime_strategy": "constraint_prefilter", "contract_state": state, "requested_k": requested_k, "candidate_pool_count": 0, "eligible_candidate_count": 0, "returned_k": 0, "shortfall": {"requested": requested_k, "returned": 0, "count": requested_k, "reason": state}, "filter_applied": False, "constraint_diagnostics": {"validation_state": state, "error_category": state, "reason": reason, "candidate_pool_count": 0, "eligible_candidate_count": 0, "constraint_trace": []}, "index_compatibility": {"status": "not_checked"}}
+        return self._structured_response(text, contract_payload, [], provenance, 0.0, trace_id, session_id, state, reason)
+
+    def _structured_result_response(self, text, contract, result, latency):
+        trace_id, session_id = str(uuid4()), str(uuid4())
+        provenance = dict(result.provenance)
+        state = provenance.get("contract_state", "VALID")
+        items = []
+        for rank, item in enumerate(result.items, 1):
+            metadata = dict(item.metadata)
+            evidence = self._constraint_evidence(contract, metadata)
+            items.append({"id": item.id, "rank": rank, "title": item.title, "object_type": item.object_type, "content": item.content, "metadata": metadata, "structured_facts": {field: metadata.get(field) for field in ("years_experience", "seniority", "industries", "roles", "locations")}, "constraint_evidence": evidence, "score": item.score, "score_type": "Dense score", "score_source": "Elasticsearch Dense", "score_stack": {"dense_raw": item.score}, "signals": dict(item.signals), "sources": list(item.sources), "constraint_state": "SATISFIED" if all(row["status"] == "SATISFIED" for row in evidence) else "UNKNOWN", "evidence_refs": [f"ev-{item.id}"]})
+        return self._structured_response(text, contract.model_dump(mode="json"), items, provenance, latency, trace_id, session_id, state)
+
+    @staticmethod
+    def _constraint_evidence(contract: RetrievalContract, metadata: dict[str, Any]) -> list[dict[str, Any]]:
+        """Explain each executable hard constraint against one returned profile."""
+        field_map = {"industry": "industries", "role": "roles", "location": "locations"}
+        seniority_rank = {"mid": 1, "senior": 2, "principal": 3}
+
+        def matches(observed: Any, operator: str, expected: Any) -> bool | None:
+            if observed is None:
+                return None
+            values = observed if isinstance(observed, (list, tuple, set, frozenset)) else [observed]
+            if operator == "eq": return expected in values
+            if operator == "neq": return expected not in values
+            if operator == "in": return any(value in expected for value in values)
+            if operator == "not_in": return all(value not in expected for value in values)
+            if operator in {"contains", "not_contains"}:
+                present = any(str(expected).lower() in str(value).lower() for value in values)
+                return present if operator == "contains" else not present
+            try:
+                actual, target = observed, expected
+                if isinstance(observed, str) and observed.lower() in seniority_rank and str(expected).lower() in seniority_rank:
+                    actual, target = seniority_rank[observed.lower()], seniority_rank[str(expected).lower()]
+                if operator == "gte": return actual >= target
+                if operator == "gt": return actual > target
+                if operator == "lte": return actual <= target
+                if operator == "lt": return actual < target
+                if operator == "between": return expected[0] <= actual <= expected[1]
+            except (TypeError, ValueError, IndexError):
+                return None
+            return None
+
+        rows = []
+        for polarity, constraints in (("required", contract.hard_constraints), ("excluded", contract.exclusions)):
+            for constraint in constraints:
+                canonical = constraint.canonical_field
+                observed = metadata.get(field_map.get(canonical, canonical))
+                matched = matches(observed, constraint.operator.value, constraint.expected_value)
+                satisfied = (not matched) if polarity == "excluded" and matched is not None else matched
+                status = "UNKNOWN" if satisfied is None else "SATISFIED" if satisfied else "VIOLATED"
+                rows.append({"canonical_field": canonical, "operator": constraint.operator.value, "expected_value": constraint.expected_value, "observed_value": observed, "polarity": polarity, "status": status, "label": f"{canonical.replace('_', ' ').title()} ({'must not match' if polarity == 'excluded' else 'required'})"})
+        return rows
+
+    @staticmethod
+    def _structured_response(text, contract, items, provenance, latency, trace_id, session_id, state, reason=None):
+        returned = len(items); requested = int(provenance.get("requested_k", 5)); shortfall = provenance.get("shortfall", {"requested": requested, "returned": returned, "count": max(0, requested-returned), "reason": "STRICT_SHORTFALL" if returned < requested else None})
+        trace = {"strategy_identity": "C1", "runtime_strategy": "constraint_prefilter", "contract_state": state, "provenance": provenance}
+        summary = f"Constraint-aware Dense returned {returned} of {requested} requested results under strict hard constraints." if returned < requested else f"Constraint-aware Dense returned {returned} eligible results under strict hard constraints."
+        evidence = [{"evidence_id": f"ev-{item['id']}", "result_id": item["id"], "title": item["title"], "snippet": "Constraint eligibility and dense provenance recorded."} for item in items]
+        diagnostics = provenance.get("constraint_diagnostics", {})
+        return {"schema_version": "0.5.0", "request_id": trace_id, "trace_id": trace_id, "session_id": session_id, "profile": "C1", "dataset_context": {"dataset": "Expert Discovery v2", "path": "v0.5.0", "quality_status": "unlabelled"}, "query": {"raw": text, "resolved": text, "structured_contract": contract}, "execution": {"status": "completed", "latency_ms": latency}, "execution_context": {"planner": {"actual_provider": "structured_contract", "strategy": "constraint_prefilter", "retrievers": ["elasticsearch_dense"], "constraints": [item.get("canonical_field") for item in diagnostics.get("constraint_trace", [])]}, "fallback": None, "status": "completed"}, "plan": {"strategy": "constraint_prefilter", "top_k": requested}, "answer_summary": {"type": "deterministic", "text": summary, "contract_state": state, "required_constraints": contract.get("hard_constraints", []), "exclusions": contract.get("exclusions", []), "shortfall": shortfall, "evidence_refs": [e["evidence_id"] for e in evidence], "result_refs": [item["id"] for item in items]}, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: {"constraint_provenance": provenance} for item in items}, "verification": {"status": "passed" if state == "VALID" else "not_executed", "findings": [], "labelled": False}, "metrics": {"quality_status": "unlabelled", "retrieval_latency_ms": provenance.get("latency_stages", {}).get("total_retrieval_ms", latency), "total_latency_ms": latency, "requested_k": requested, "returned_k": returned, "shortfall": shortfall}, "stage_summaries": [{"stage": "constraint_prefilter", "status": "completed" if state == "VALID" else "not_executed", "details": {"strategy": "C1", "contract_state": state, "filter_applied": provenance.get("filter_applied", False), "shortfall": shortfall}, "summary": {"provider": "elasticsearch_dense", "latency_ms": latency}}], "warnings": [] if not reason else [reason], "fallbacks": [], "raw_trace": trace, "repeatability": {"plan_fingerprint": trace_id, "result_ids": [item["id"] for item in items], "actual_provider": "elasticsearch_dense", "fallback": False, "total_latency_ms": latency, "verification_status": "passed" if state == "VALID" else "not_executed"}, "trace_url": f"/api/v1/traces/{trace_id}"}
 
     def run_benchmark_query(self, query_id: str, *, profile: str = "H2") -> dict[str, Any]:
         row = self.benchmark_query(query_id)
@@ -279,7 +394,9 @@ class WorkbenchService:
             for item in items:
                 item.update(benchmark["labels"].get(item["id"], {"judgement_grade": None, "judgement_status": benchmark["judgement_source"]}))
         if benchmark: metrics.update(benchmark["metrics"])
-        response = {"schema_version": "0.4.0", "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "dataset_context": {"dataset": "Expert Discovery v2" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "Legacy v1 fixture", "path": "v0.4.0" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "legacy", "quality_status": "labelled" if benchmark_case else "unlabelled"}, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "benchmark": benchmark, "experiment_manifest": self.benchmark_manifest() if benchmark_case else None, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
+        response = {"schema_version": __version__, "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "dataset_context": {"dataset": "Expert Discovery v2" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "Legacy v1 fixture", "path": "v0.5.0" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "legacy", "quality_status": "labelled" if benchmark_case else "unlabelled"}, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "benchmark": benchmark, "experiment_manifest": self.benchmark_manifest() if benchmark_case else None, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
+        response["schema_version"] = "0.5.0"
+        if response["dataset_context"]["dataset"] == "Expert Discovery v2": response["dataset_context"]["path"] = "v0.5.0"
         response["repeatability"] = {"plan_fingerprint": trace.planner.parsed_plan.get("plan_id"), "result_ids": [item["id"] for item in items], "actual_provider": trace.planner.actual_provider, "fallback": bool(trace.planner.fallback), "planner_latency_ms": trace.planner.latency_ms, "total_latency_ms": latency, "verification_status": verification["status"]}
         return response
 

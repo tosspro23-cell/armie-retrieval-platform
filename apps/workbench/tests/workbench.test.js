@@ -27,3 +27,9 @@ test('Score and unavailable-value semantics are explicit', () => {
     assert.ok(source.includes(marker), `missing semantic marker: ${marker}`);
   }
 });
+
+test('Constraint UX distinguishes semantic intent from registry-backed filters', () => {
+  for (const marker of ['Semantic query', 'Must-have filters', 'not automatically converted into filters', 'Base retriever: H2 Dense', 'Exclude', 'constraintRequirement']) {
+    assert.ok(source.includes(marker), `missing constraint UX marker: ${marker}`);
+  }
+});

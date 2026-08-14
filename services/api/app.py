@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from armie_retrieval.application import WorkbenchService
 from armie_retrieval import __version__
 from armie_retrieval.application.workbench import WorkbenchError
-from .schemas import BenchmarkRunRequest, CompareRequest, ComparisonResponse, QueryLabRunRequest, QueryRequest, WorkbenchResponse
+from .schemas import BenchmarkRunRequest, CompareRequest, ComparisonResponse, QueryLabRunRequest, QueryRequest, StructuredQueryRequest, WorkbenchResponse
 
 ROOT = Path(__file__).resolve().parents[2]
 service = WorkbenchService(ROOT)
@@ -34,6 +34,10 @@ def health():
 def capabilities():
     return service.capabilities()
 
+@app.get("/api/v1/constraints/registry")
+def constraint_registry():
+    return service.constraint_registry()
+
 @app.get("/api/v1/datasets")
 def datasets():
     return service.datasets()
@@ -58,6 +62,10 @@ def delete_session(session_id: str):
 @app.post("/api/v1/query", response_model=WorkbenchResponse)
 def query(request: QueryRequest):
     return service.query(request.query, session_id=request.session_id, profile=request.profile, query_case_id=request.query_case_id, benchmark_query_id=request.benchmark_query_id)
+
+@app.post("/api/v1/structured-query", response_model=WorkbenchResponse)
+def structured_query(request: StructuredQueryRequest):
+    return service.structured_query(request.query, request.contract, requested_k=request.requested_k)
 
 @app.get("/api/v1/traces/{trace_id}")
 def trace(trace_id: str):

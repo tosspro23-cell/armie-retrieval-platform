@@ -13,11 +13,11 @@ class WorkbenchApiTests(unittest.TestCase):
         health = self.client.get("/api/v1/health")
         capabilities = self.client.get("/api/v1/capabilities")
         self.assertEqual(health.status_code, 200)
-        self.assertEqual(health.json()["package_version"], "0.4.0")
+        self.assertEqual(health.json()["package_version"], "0.5.0")
         self.assertTrue(health.json()["package_source"].endswith("/src/armie_retrieval"))
-        self.assertEqual(health.json()["frontend_version"], "0.4.0")
+        self.assertEqual(health.json()["frontend_version"], "0.5.0")
         self.assertIn("hybrid", capabilities.json()["retrieval_strategies"])
-        self.assertEqual(capabilities.json()["application_version"], "0.4.0")
+        self.assertEqual(capabilities.json()["application_version"], "0.5.0")
 
     def test_v040_dataset_and_benchmark_discovery(self):
         datasets = self.client.get("/api/v1/datasets")
@@ -43,7 +43,7 @@ class WorkbenchApiTests(unittest.TestCase):
         follow = self.client.post("/api/v1/query", json={"query": "only those in Portugal", "session_id": session["session_id"]}).json()
         self.assertIn("follow-up", follow["query"]["resolved"])
 
-    def test_free_query_defaults_to_v040_dataset_v2_dense_profile(self):
+    def test_free_query_defaults_to_v050_dataset_v2_dense_profile(self):
         payload = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience"}).json()
         self.assertEqual(payload["profile"], "H2")
         self.assertEqual(payload["dataset_context"]["dataset"], "Expert Discovery v2")

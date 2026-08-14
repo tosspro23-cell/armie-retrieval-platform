@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const api = process.env.ARMIE_WORKBENCH_URL || 'http://127.0.0.1:8782';
+const api = process.env.ARMIE_WORKBENCH_API_URL || process.env.ARMIE_WORKBENCH_URL || 'http://127.0.0.1:8782';
 
 test.describe('Gate 6 relevance experiment workbench', () => {
   test.beforeEach(async ({ page }) => { await page.goto('/'); });
@@ -41,8 +41,8 @@ test.describe('Gate 6 relevance experiment workbench', () => {
   test('Workbench and Query Lab navigation remain available', async ({ page }) => {
     await expect(page.getByText('Workbench', { exact: true }).first()).toBeVisible(); await expect(page.getByText('Query Lab', { exact: true }).first()).toBeVisible();
   });
-  test('v0.4 identity and Dataset v2 free-query defaults are visible', async ({ page, request }) => {
-    await expect(page.locator('body')).toContainText('v0.4.0');
+  test('v0.5 identity and Dataset v2 free-query defaults are visible', async ({ page, request }) => {
+    await expect(page.locator('body')).toContainText('v0.5.0');
     await expect(page.locator('body')).toContainText('DATASET V2');
     const payload = await (await request.post(`${api}/api/v1/query`, { data: { query: 'Find healthcare experts with Azure AI experience' } })).json();
     expect(payload.profile).toBe('H2'); expect(payload.dataset_context.dataset).toBe('Expert Discovery v2'); expect(payload.results[0].id).toMatch(/^expert-v2-/);
