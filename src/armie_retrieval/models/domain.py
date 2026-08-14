@@ -24,6 +24,7 @@ class Query:
     filters: Mapping[str, Any] = field(default_factory=dict)
     top_k: int = 5
     request_id: str = field(default_factory=lambda: str(uuid4()))
+    retrieval_contract: Any | None = None
 
 
 @dataclass(frozen=True)
