@@ -42,9 +42,10 @@ candidate state transition, and a task prompt/dispatch that references these
 artifacts. If any item is missing, the agent must stop and request the missing
 contract before starting work.
 
-There may be exactly one active Work Object in `CURRENT_WORK.md`. Earlier
-objects must be explicitly marked archived/superseded and may not retain an
-active state label. Every material claim must identify its evidence layer:
+There may be exactly one active Work Object in `CURRENT_WORK.md`; when no work
+is active, the latest closed Work Object must say so explicitly. Earlier objects
+must be explicitly marked archived/superseded and may not retain an active
+state label. Every material claim must identify its evidence layer:
 local-uncommitted, committed, remote reference, GitHub Release object, or
 Founder acceptance. Run `python3 scripts/check_company_os_consistency.py`
 before Founder review or release review; a failure blocks the review until the
@@ -106,14 +107,14 @@ The Retrieval Platform is the first validation project. This protocol records
 verified history, candidate work, and founder decisions without inferring one
 from another.
 
-For the current v0.5.1 transition, the founder accepted Gate 2 as an
-experimental result, accepted Gate 3J/Gate 4 and Clarification Protocol v1,
-and explicitly authorized the bounded Gate 5 confirmed-interpretation → C1
-integration. Gate 5-F3 is the sole active candidate Work Object and remains
-pending Founder retest/acceptance; Gate 6 and release work are inactive.
+The Founder accepted the v0.5.0 release and its post-release review, then
+accepted the bounded v0.5.1 Gate 5 closure and authorized v0.5.1 release.
+v0.5.1 is now released and closed; no active Work Object exists. A successor
+gate or version requires a new Start Gate and explicit Founder authorization.
 
 See [PROJECT_STATE.md](PROJECT_STATE.md), [CURRENT_WORK.md](CURRENT_WORK.md),
 [DECISIONS.md](DECISIONS.md), and [EVALUATIONS.md](EVALUATIONS.md). The
-current Gate 5-F3 contract is [GATE5_F3_START_GATE.md](GATE5_F3_START_GATE.md);
-the latest synchronization record is
+latest closed release contract is
+[V051_RELEASE_START_GATE.md](V051_RELEASE_START_GATE.md); the latest
+synchronization record is
 [GOVERNANCE_AUDIT_2026-08-17.md](GOVERNANCE_AUDIT_2026-08-17.md).

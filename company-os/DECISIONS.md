@@ -442,3 +442,24 @@ new capability.
 
 **Revisit when:** post-push reconciliation records the immutable v0.5.1 release
 identity and closes the release Work Object.
+
+### D-035 — v0.5.1 release closeout
+
+The authorized v0.5.1 release completed its bounded validation, Git, remote,
+tag, and GitHub Release operations. Release commit
+`c4bf57fd4ead76cdc18a36e885eea9a5215401a4` was pushed on `main` and remains
+reachable from `origin/main`.
+Annotated tag `v0.5.1` has object
+`6ef90af0b76add2186cd31ef0d74150665234bf8` and peels to `c4bf57f`. The GitHub
+Release object is published at
+https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1.
+
+This closes the release Work Object. It does not authorize v0.6, any new
+capability, C1 semantic change, Dataset v2 change, or benchmark change.
+
+**Evidence:** `company-os/CURRENT_WORK.md`,
+`company-os/V051_RELEASE_START_GATE.md`,
+`docs/v0.5.1/release-notes.md`, verified `git ls-remote origin`, and the
+published GitHub Release object.
+
+**Revisit when:** the Founder explicitly authorizes a successor Work Object.

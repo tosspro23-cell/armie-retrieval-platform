@@ -1,16 +1,25 @@
-# Current Work Object — v0.5.1 Release Stabilization and Closeout
+# Latest Closed Work Object — v0.5.1 Release Stabilization and Closeout
 
 **Work Object:** `armie-retrieval-v051-release-stabilization-closeout`
-**State:** active / release-authorized
+**State:** released / closed
 **Authority:** Founder acceptance of Gate 5, Gate 5-F/F2/F3 closure, frozen
 v0.5.1 capability boundary, and explicit release/GitHub-publish authorization.
 
 **Task Contract / Start Gate:** [v0.5.1 release contract](V051_RELEASE_START_GATE.md)
 
-**Evidence layer:** release candidate content is local-uncommitted until
-committed; Git, remote, tag, and GitHub Release-object facts will be recorded
-separately after each operation. The latest committed/remote baseline remains
-v0.5.0 closeout `f181960` until this Work Object publishes v0.5.1.
+**Release Result Package:** release commit
+`c4bf57fd4ead76cdc18a36e885eea9a5215401a4`; annotated tag object
+`6ef90af0b76add2186cd31ef0d74150665234bf8`; tag target
+`c4bf57fd4ead76cdc18a36e885eea9a5215401a4`; verified pushed on `origin/main`
+and retained in its history; and published GitHub Release
+[`v0.5.1`](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
+
+**Validation evidence:** default Python regression suite, focused live
+Elasticsearch/backend checks, frontend unit tests and production build, package
+build, Markdown-link checks, Company OS consistency check, and `git diff
+--check` passed. The isolated live Workbench check passed all 16 Founder-critical
+Playwright scenarios against the existing local v0.5-compatible Elasticsearch
+projection.
 
 ## Objective and scope
 
@@ -33,21 +42,21 @@ ranking, Dataset v2, or benchmark behavior.
 
 ## Candidate transition and founder decision
 
-The Founder has accepted Gate 5 and authorized release. This Work Object may
-perform the bounded release operations in its contract. It must stop after
-post-push evidence and structured write-back. v0.6 and all next-version work
-remain inactive and unauthorized.
+The Founder accepted Gate 5 and authorized the bounded release. Post-push
+remote and GitHub Release-object evidence is now recorded above. This Work
+Object is closed. No active Work Object exists; v0.6 and all next-version work
+remain inactive and unauthorized until a new Start Gate is explicitly accepted.
 
 ## Structured write-back checklist
 
 - [x] Gate 5/F/F2/F3 acceptance and frozen scope recorded.
 - [x] Release Work Object and Task Contract activated.
-- [ ] Worktree reconciliation and release-content classification complete.
-- [ ] Release-critical validation complete against the committed candidate.
-- [ ] Release commits, tag, and remote refs verified.
-- [ ] GitHub Release-object attempt/status recorded.
-- [ ] Company OS post-push state written back as released/accepted/closed.
-- [ ] v0.6 remains not started.
+- [x] Worktree reconciliation and release-content classification complete.
+- [x] Release-critical validation complete against the committed candidate.
+- [x] Release commit, annotated tag, and remote refs verified.
+- [x] GitHub Release-object published and recorded.
+- [x] Company OS post-push state written back as released/accepted/closed.
+- [x] v0.6 remains not started.
 
 ---
 

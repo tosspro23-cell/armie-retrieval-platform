@@ -8,10 +8,27 @@ historical snapshots below. Entries that say candidate/active for earlier
 Gate 3J, Gate 4, or Gate 5 phases describe their state at capture and must not
 override the accepted decisions recorded in `DECISIONS.md`.
 
-Current status: Gate 3J, Gate 4, and Gate 5 are Founder-accepted. The sole
-active Work Object is v0.5.1 release stabilization/closeout. Release content is
-still local-uncommitted; no v0.5.1 commit, remote ref, tag, or GitHub Release
-object exists at this record's last update. v0.6 remains inactive.
+Current status: Gate 3J, Gate 4, and Gate 5 are Founder-accepted. v0.5.1
+release stabilization/closeout is released and closed: commit `c4bf57f`,
+annotated tag `v0.5.1`, verified `origin/main`, and a published
+[GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
+There is no active Work Object. v0.6 remains inactive.
+
+## v0.5.1 release Result Package
+
+- `c4bf57f` — frozen v0.5.1 release commit, pushed and retained in `main`
+  history.
+- `v0.5.1` — annotated tag object `6ef90af0`, peeled commit `c4bf57f`.
+- [Release notes](../docs/v0.5.1/release-notes.md) and
+  [published GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
+- Default Python regression, focused Elasticsearch/backend checks, frontend
+  unit/build, package build, Markdown links, governance consistency, and diff
+  checks passed. The isolated live Workbench validation passed 16/16
+  Founder-critical Playwright scenarios.
+
+This is a bounded governed-interpretation release. It does not validate
+unrestricted semantic interpretation, change C1/ranking/Dataset v2/benchmark
+semantics, or authorize v0.6.
 
 ## Gate 5
 

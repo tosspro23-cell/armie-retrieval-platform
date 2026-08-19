@@ -24,20 +24,21 @@ def main() -> int:
     post_release = (COMPANY / "POST_RELEASE_REVIEW.md").read_text()
 
     active_headings = re.findall(r"^# Current Work Object", current, re.MULTILINE)
-    if len(active_headings) != 1:
-        errors.append(f"expected exactly one active Work Object heading, found {len(active_headings)}")
+    closed_headings = re.findall(r"^# Latest Closed Work Object", current, re.MULTILINE)
     match = re.search(r"\*\*Active Work Object:\*\* `([^`]+)`", state)
-    if not match:
+    no_active = "**Active Work Object:** none." in state
+    if no_active:
+        if active_headings or len(closed_headings) != 1:
+            errors.append("closed project state must have one Latest Closed Work Object and no active heading")
+    elif len(active_headings) != 1:
+        errors.append(f"expected exactly one active Work Object heading, found {len(active_headings)}")
+    if not no_active and not match:
         errors.append("PROJECT_STATE.md has no active Work Object")
-    elif f"**Work Object:** `{match.group(1)}`" not in current:
+    elif match and f"**Work Object:** `{match.group(1)}`" not in current:
         errors.append("active Work Object ID does not match CURRENT_WORK.md")
 
     active_id = match.group(1) if match else ""
-    contract = COMPANY / (
-        "V051_RELEASE_START_GATE.md"
-        if active_id == "armie-retrieval-v051-release-stabilization-closeout"
-        else "GATE5_F3_START_GATE.md"
-    )
+    contract = COMPANY / "V051_RELEASE_START_GATE.md"
     required = ("Work Object ID", "Objective", "scope", "Stop")
     if not contract.exists():
         errors.append("active Task Contract/Start Gate is missing")
@@ -61,11 +62,16 @@ def main() -> int:
         errors.append("post-release shell is not explicitly archived/superseded")
     if "GitHub Release object" not in state or "Git tag" not in readme:
         errors.append("release tag and GitHub Release-object distinction is not documented")
-    if active_id == "armie-retrieval-v051-release-stabilization-closeout":
+    if active_id == "armie-retrieval-v051-release-stabilization-closeout" or no_active:
         if "D-034 — Gate 5 closure and v0.5.1 release authorization" not in decisions:
             errors.append("DECISIONS.md does not record Gate 5 closure/release authorization")
         if "No v0.6 work is authorized." not in current_state:
             errors.append("PROJECT_STATE.md does not explicitly keep v0.6 inactive")
+    if no_active:
+        if "D-035 — v0.5.1 release closeout" not in decisions:
+            errors.append("DECISIONS.md does not record v0.5.1 release closeout")
+        if "released / closed" not in current:
+            errors.append("latest closed Work Object does not record released/closed state")
 
     if errors:
         for error in errors:

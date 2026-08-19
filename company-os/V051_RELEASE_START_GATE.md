@@ -1,7 +1,7 @@
 # v0.5.1 Release Stabilization and Closeout — Start Gate
 
 **Work Object ID:** `armie-retrieval-v051-release-stabilization-closeout`
-**Status:** active / Founder-authorized
+**Status:** released / closed after post-push reconciliation
 **Project ID:** `armie-retrieval-platform`
 **Core reference:** ARMIE Company OS Core v0.1; this repository's
 [`PROJECT_ADAPTER.md`](PROJECT_ADAPTER.md) is the project adapter.
@@ -36,11 +36,10 @@ Before publishing, distinguish these fact layers:
 
 | Layer | Current fact at activation |
 |---|---|
-| Local candidate | v0.5.1 implementation, tests, docs, and governance records are uncommitted. |
-| Committed | `main` is v0.5.0 closeout `f181960`. |
-| Remote | `origin/main` is `f181960`. |
-| Tag | no `v0.5.1` tag exists at activation. |
-| GitHub Release object | no v0.5.1 object exists at activation. |
+| Committed | release commit `c4bf57fd4ead76cdc18a36e885eea9a5215401a4`. |
+| Remote | release commit verified pushed to `origin/main`; retained in its history. |
+| Tag | annotated `v0.5.1`: object `6ef90af0b76add2186cd31ef0d74150665234bf8`, target `c4bf57f`. |
+| GitHub Release object | published [v0.5.1 release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1). |
 | Founder acceptance | Gate 5 and v0.5.1 release are accepted/authorized. |
 
 ## Allowed work
@@ -71,3 +70,12 @@ post-push Company OS reconciliation.
 Stop immediately if validation fails, remote authentication is unavailable,
 the target tag conflicts, or any release-content classification becomes
 ambiguous. Do not start v0.6 after closeout.
+
+## Closeout disposition
+
+All required validation and remote-reference checks passed. The Founder had
+already authorized this release operation; the Result Package is recorded in
+[`CURRENT_WORK.md`](CURRENT_WORK.md), with release state written back to
+[`PROJECT_STATE.md`](PROJECT_STATE.md), [`DECISIONS.md`](DECISIONS.md), and
+[`EVALUATIONS.md`](EVALUATIONS.md). This contract is historical evidence, not
+an active authorization for new work.

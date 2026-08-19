@@ -4,7 +4,7 @@
 **State basis:** verified Git/remote facts, current local governance records,
 Result Packages, and explicit Founder decisions. Local-uncommitted evidence is
 never treated as committed or released.
-**Last verified:** 2026-08-19
+**Last verified:** 2026-08-20
 
 ## Objective
 
@@ -14,19 +14,23 @@ dataset boundaries.
 
 ## Authoritative current state
 
-**Active Work Object:** `armie-retrieval-v051-release-stabilization-closeout`.
+**Active Work Object:** none. The latest closed Work Object is
+`armie-retrieval-v051-release-stabilization-closeout`.
+
 The Founder accepted Gate 5, including the bounded F/F2/F3 fixes, froze the
 v0.5.1 capability boundary, and authorized stabilization, GitHub publication,
-and closeout. The capability remains: governed natural-language interpretation
-→ clarification when necessary → explicit user resolution → confirmation →
-canonical `RetrievalContract` → existing deterministic C1 with provenance.
-No v0.6 work is authorized.
+and closeout. v0.5.1 is released. The capability remains: governed
+natural-language interpretation → clarification when necessary → explicit user
+resolution → confirmation → canonical `RetrievalContract` → existing
+deterministic C1 with provenance. No v0.6 work is authorized.
 
-**Current evidence layer:** v0.5.1 release content is local-uncommitted until
-validated and committed. `main` and `origin/main` remain at the committed
-v0.5.0 closeout `f181960`; no v0.5.1 commit, tag, or GitHub Release object
-exists yet. The release Work Object is authorized to establish those facts, but
-must record them separately after publication.
+**Verified release facts:** commit
+`c4bf57fd4ead76cdc18a36e885eea9a5215401a4` was pushed on `main` and remains
+reachable from `origin/main`;
+annotated tag `v0.5.1` has tag object
+`6ef90af0b76add2186cd31ef0d74150665234bf8` and peels to that commit; the
+published GitHub Release object is
+[`v0.5.1`](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
 
 The active Task Contract/Start Gate is
 [`V051_RELEASE_START_GATE.md`](V051_RELEASE_START_GATE.md). The 2026-08-17 governance
@@ -102,7 +106,7 @@ audit and remediation record is
 | v0.5.1 Gate 5-F | Candidate-complete; superseded by F2 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md` |
 | v0.5.1 Gate 5-F2 | Founder-verified F4/F5; superseded by F3 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md` |
 | v0.5.1 Gate 5-F3 | Closed as part of Founder-accepted Gate 5 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md`, `tests/test_v051_gate4_workbench.py`, `apps/workbench/tests/gate7c.integration.spec.ts` |
-| v0.5.1 release / closeout | Active, Founder-authorized | `company-os/V051_RELEASE_START_GATE.md`, `docs/v0.5.1/release-notes.md` |
+| v0.5.1 release / closeout | Released, Founder-authorized, closed | `c4bf57f`, annotated `v0.5.1`, [GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1), `company-os/CURRENT_WORK.md` |
 
 ## Constraints and accepted boundaries
 
@@ -125,7 +129,7 @@ audit and remediation record is
   model lift; Decision B was Founder-accepted. Gate 3J clarification protocol
   v1 and Gate 4 Workbench UX were subsequently accepted. Gate 5 and its
   bounded confirmed-interpretation → existing C1 integration fixes are
-  accepted. Release stabilization is active; Gate 6/v0.6 work remains inactive.
+  accepted. v0.5.1 is released and closed; v0.6 work remains inactive.
 - Do not treat a Git tag as proof that a GitHub Release object exists.
 
 ## Known limitations and risks
@@ -139,15 +143,13 @@ audit and remediation record is
 
 ## Open questions
 
-1. Can v0.5.1 complete validation, Git publication, and post-push
-   reconciliation without a release-blocking discrepancy?
-2. Can a GitHub Release object be created through the available authenticated
-   tooling? A pushed Git tag remains distinct from that object.
+No release-open question remains. A future version requires a new Work Object,
+accepted Task Contract, and explicit Founder authorization.
 
 ## Next actions
 
-1. Complete only the active v0.5.1 release Work Object: validate, publish,
-   reconcile actual remote state, and close it. Do not start v0.6.
+1. Preserve v0.5.1 as the released state. Do not start v0.6 without a new
+   Founder-authorized Start Gate.
 
 ## Source and provenance notes
 
@@ -155,8 +157,9 @@ Verified facts are drawn from repository history, current `git status`,
 `git ls-remote` remote
 references, the GitHub Releases API, Gate 5.5A/5.5B documents, tests, and the
 clean release checkout. Founder-confirmed acceptance is recorded only because
-the founder explicitly provided it. The GitHub Release-object absence is
-independently verified; a tag remains distinct from a GitHub Release object.
+the founder explicitly provided it. The GitHub Release object, tag, target,
+remote branch, and release commit were independently verified; a tag remains
+distinct from a GitHub Release object.
 This file is an operational state record, not a replacement for the
 repository’s technical specifications. If Git or remote state differs from
 this record after a state-changing task, mark the Company OS state
