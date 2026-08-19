@@ -1,7 +1,11 @@
 import unittest
+from pathlib import Path
 from fastapi.testclient import TestClient
 
 from services.api.app import app
+
+
+V2_BENCHMARK_ARTIFACTS = Path("/tmp/armie-v040-dataset-v2-full/manifest.json").exists()
 
 
 class WorkbenchApiTests(unittest.TestCase):
@@ -43,6 +47,7 @@ class WorkbenchApiTests(unittest.TestCase):
         follow = self.client.post("/api/v1/query", json={"query": "only those in Portugal", "session_id": session["session_id"]}).json()
         self.assertIn("follow-up", follow["query"]["resolved"])
 
+    @unittest.skipUnless(V2_BENCHMARK_ARTIFACTS, "optional v0.5.0 Dataset v2 Workbench artifacts are unavailable")
     def test_free_query_defaults_to_v050_dataset_v2_dense_profile(self):
         payload = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience"}).json()
         self.assertEqual(payload["profile"], "H2")
@@ -70,6 +75,7 @@ class WorkbenchApiTests(unittest.TestCase):
         self.assertEqual(model["execution_context"]["reranker"]["actual_provider"], "bge_cross_encoder")
         self.assertIn("reranker_raw", model["results"][0]["score_stack"])
 
+    @unittest.skipUnless(V2_BENCHMARK_ARTIFACTS, "optional v0.5.0 Dataset v2 Workbench artifacts are unavailable")
     def test_benchmark_profile_score_semantics(self):
         for profile, expected in (("H1", "BM25 score"), ("H2", "Dense score"), ("H3", "RRF fused score"), ("H4", "BGE Cross-Encoder score")):
             payload = self.client.post("/api/v1/benchmark/execute", json={"query_id": "v2-q-001", "profile": profile}).json()
@@ -84,6 +90,7 @@ class WorkbenchApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("error", response.json())
 
+    @unittest.skipUnless(V2_BENCHMARK_ARTIFACTS, "optional v0.5.0 Dataset v2 Workbench artifacts are unavailable")
     def test_gate6_benchmark_library_manifest_and_real_labelled_execution(self):
         profiles = self.client.get("/api/v1/benchmark/profiles").json()["profiles"]
         self.assertEqual([item["id"] for item in profiles], ["H1", "H2", "H3", "H4"])

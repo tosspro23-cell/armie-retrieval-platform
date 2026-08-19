@@ -2,6 +2,35 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.1] - 2026-08-19
+
+### Added
+
+- Governed natural-language intent resolution before the existing deterministic
+  C1 retrieval path: bounded interpretation, clarification, explicit user
+  resolution, and mandatory final confirmation.
+- Typed interpretation sessions, contract provenance, stale-state protection,
+  and confirmed interpretation → canonical `RetrievalContract` execution.
+- Workbench rendering for confirmed execution, including explicit not-executed,
+  executed-zero, and executed-with-results states.
+- Founder-critical live browser coverage for clarification, confirmation, C1
+  execution, strict shortfall, unsupported intent, result invalidation,
+  new-session reset, and manual structured C1 regression.
+
+### Safety and compatibility
+
+- The existing v0.5.0 C1 compiler, native Elasticsearch pre-filtering,
+  ranking/relevance behavior, Dataset v2, and benchmark protocol are retained.
+- Ambiguous or unsupported language cannot silently harden into C1 constraints;
+  preferred/context-only meaning remains non-hard and execution requires
+  explicit confirmation.
+
+### Deferred
+
+- Conversational clarification, unrestricted autonomous semantic-role
+  interpretation, broader temporal/relationship/evidence semantics, Healthcare
+  positive-coverage expansion, and founder-startup convenience tooling.
+
 ## [0.5.0] - 2026-08-14
 
 ### Added

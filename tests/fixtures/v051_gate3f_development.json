@@ -1,0 +1,30 @@
+{
+  "artifact_id": "v0.5.1-gate3f-staged-dev-v1",
+  "purpose": "development_only",
+  "items": [
+    {"id":"g3f-001","request":"Healthcare experts only","roles":{"Healthcare experts only":"REQUIRED"}},
+    {"id":"g3f-002","request":"worked on Healthcare products","roles":{"worked on Healthcare products":"CONTEXT_ONLY"}},
+    {"id":"g3f-003","request":"preferably based in London","roles":{"preferably based in London":"PREFERRED"}},
+    {"id":"g3f-004","request":"must be based in London","roles":{"must be based in London":"REQUIRED"}},
+    {"id":"g3f-005","request":"exclude Financial Services","roles":{"exclude Financial Services":"EXCLUDED"}},
+    {"id":"g3f-006","request":"not necessarily Financial Services","roles":{"not necessarily Financial Services":"AMBIGUOUS"}},
+    {"id":"g3f-007","request":"at least 20 years","roles":{"at least 20 years":"REQUIRED"}},
+    {"id":"g3f-008","request":"around 20 years","roles":{"around 20 years":"AMBIGUOUS"}},
+    {"id":"g3f-009","request":"experience delivered for Acme","roles":{"delivered for Acme":"UNSUPPORTED"}},
+    {"id":"g3f-010","request":"worked at Acme","roles":{"worked at Acme":"UNSUPPORTED"}},
+    {"id":"g3f-011","request":"principal search engineer required","roles":{"principal search engineer required":"REQUIRED"}},
+    {"id":"g3f-012","request":"senior would be ideal","roles":{"senior would be ideal":"PREFERRED"}},
+    {"id":"g3f-013","request":"experience with energy clients","roles":{"experience with energy clients":"CONTEXT_ONLY"}},
+    {"id":"g3f-014","request":"only manufacturing specialists","roles":{"only manufacturing specialists":"REQUIRED"}},
+    {"id":"g3f-015","request":"avoid retail","roles":{"avoid retail":"EXCLUDED"}},
+    {"id":"g3f-016","request":"in the last three years","roles":{"in the last three years":"UNSUPPORTED"}},
+    {"id":"g3f-017","request":"technical leadership and healthcare context","roles":{"healthcare context":"CONTEXT_ONLY"}},
+    {"id":"g3f-018","request":"required technical leadership","roles":{"required technical leadership":"REQUIRED"}},
+    {"id":"g3f-019","request":"maybe senior retrieval engineer","roles":{"maybe senior retrieval engineer":"AMBIGUOUS"}},
+    {"id":"g3f-020","request":"energy or manufacturing preferred","roles":{"energy or manufacturing preferred":"PREFERRED"}},
+    {"id":"g3f-021","request":"more than 10 years","roles":{"more than 10 years":"REQUIRED"}},
+    {"id":"g3f-022","request":"under 5 years","roles":{"under 5 years":"REQUIRED"}},
+    {"id":"g3f-023","request":"knowledge of quantum computing","roles":{"knowledge of quantum computing":"UNSUPPORTED"}},
+    {"id":"g3f-024","request":"not from retail","roles":{"not from retail":"EXCLUDED"}}
+  ]
+}

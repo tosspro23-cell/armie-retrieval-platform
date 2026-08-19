@@ -13,6 +13,7 @@ from armie_retrieval.indexing.constraint_projection import (
     project_profile,
 )
 from armie_retrieval.indexing.elasticsearch import ElasticsearchClient
+from armie_retrieval.indexing.elasticsearch.identity import LOGICAL_DENSE_INDEX
 
 
 def mapping_from(source_mapping: dict) -> dict:
@@ -32,6 +33,7 @@ def main() -> None:
     parser.add_argument("--target-index", required=True)
     parser.add_argument("--dataset-checksum", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--logical-alias", default=LOGICAL_DENSE_INDEX)
     args = parser.parse_args()
     client = ElasticsearchClient(timeout=120)
     source_mapping = client.request("GET", f"{args.source_index}/_mapping").json()[args.source_index]
@@ -58,10 +60,11 @@ def main() -> None:
         documents.append(document)
     outcome = client.bulk_index(args.target_index, documents, batch_size=250)
     client.request("POST", f"{args.target_index}/_refresh")
+    client.alias(args.logical_alias, args.target_index)
     count = client.request("GET", f"{args.target_index}/_count").json()["count"]
     if outcome.get("rejected", 0) or count != 10000:
         raise RuntimeError(f"index build failed: {outcome}, count={count}")
-    result = {"index": args.target_index, "source_index": args.source_index, "document_count": count, "dataset_checksum": args.dataset_checksum, "projection_schema_version": PROJECTION_SCHEMA_VERSION, "projection_implementation_version": PROJECTION_IMPLEMENTATION_VERSION, "mapping_fingerprint": mapping_fingerprint, "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "bulk_outcome": outcome}
+    result = {"index": args.target_index, "logical_index": args.logical_alias, "source_index": args.source_index, "document_count": count, "dataset_checksum": args.dataset_checksum, "projection_schema_version": PROJECTION_SCHEMA_VERSION, "projection_implementation_version": PROJECTION_IMPLEMENTATION_VERSION, "mapping_fingerprint": mapping_fingerprint, "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "bulk_outcome": outcome}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True))
     print(json.dumps(result, indent=2, sort_keys=True))

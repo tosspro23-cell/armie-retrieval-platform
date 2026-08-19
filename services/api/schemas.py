@@ -6,6 +6,7 @@ class QueryRequest(BaseModel):
     query: str = Field(min_length=1)
     session_id: str | None = None
     profile: str = "H2"
+    governed: bool = False
     query_case_id: str | None = None
     benchmark_query_id: str | None = None
 
@@ -13,6 +14,22 @@ class StructuredQueryRequest(BaseModel):
     """Trusted structured v0.5 contract; no natural-language extraction."""
     query: str = Field(min_length=1)
     contract: dict[str, Any] = Field(default_factory=dict)
+    requested_k: int = Field(default=5, ge=1, le=100)
+
+class InterpretRequest(BaseModel):
+    query: str = Field(min_length=1)
+
+class ClarificationResolutionRequest(BaseModel):
+    clarification_id: str
+    selected_resolution: str
+    corrected_value: Any = None
+    corrected_field: str | None = None
+    user_text: str | None = None
+    source: str = "user"
+    sequence: int = 1
+
+class InterpretationExecutionRequest(BaseModel):
+    contract_fingerprint: str | None = None
     requested_k: int = Field(default=5, ge=1, le=100)
 
 class SessionRequest(BaseModel):

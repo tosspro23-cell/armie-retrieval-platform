@@ -63,6 +63,8 @@ class OllamaStructuredLLMClient:
             response.raise_for_status()
             payload = response.json()
             parsed = json.loads(payload["response"])
+        except requests.Timeout as exc:
+            raise RuntimeError("Ollama request timeout") from exc
         except (requests.RequestException, KeyError, TypeError, json.JSONDecodeError) as exc:
             raise RuntimeError("Ollama did not return a valid structured planning response") from exc
         if not isinstance(parsed, dict):

@@ -1,0 +1,231 @@
+{
+  "benchmark_id": "v0.5.1-nl-constraint-extraction-eval-v1",
+  "development_evidence": {
+    "cascade_v2": {
+      "exact": 0.6,
+      "false_hard_query_rate": 0.0,
+      "model_invocation_rate": 0.2,
+      "precision": 0.95,
+      "recall": 0.9,
+      "unsupported_preservation": 0.8
+    },
+    "fixture": "tests/fixtures/v051_gate1_gold.jsonl",
+    "items": 20,
+    "model_v2": {
+      "exact": 0.0,
+      "false_hard_query_rate": 0.0,
+      "precision": 0.35,
+      "recall": 0.35,
+      "unsupported_preservation": 0.8
+    },
+    "rule_v3": {
+      "exact": 0.7,
+      "false_hard_query_rate": 0.0,
+      "precision": 0.95,
+      "recall": 0.9,
+      "unsupported_preservation": 0.9
+    }
+  },
+  "fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+  "harness": "gate3c-resumable-v1",
+  "promotion_thresholds_unchanged": true,
+  "repeatability": {
+    "cascade": {
+      "exact_interpretation_stability": 1.0,
+      "hard_contract_stability": 1.0,
+      "repetitions": 3,
+      "subset_size": 6
+    }
+  },
+  "runs": {
+    "cascade": {
+      "execution": {
+        "attempted": 120,
+        "infrastructure_failures": 0,
+        "max_wall_clock_seconds": 900.0,
+        "retry_policy": {
+          "max_retries": 1
+        },
+        "structured_output_failures": 0,
+        "successful_structured_outputs": 120,
+        "terminal": 120,
+        "wall_clock_seconds": 162.329801459
+      },
+      "frozen_identity": {
+        "arm_identity": "cascade-conservative-v2-gate3d",
+        "benchmark_fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+        "checkpoint_schema": "gate3c-item-checkpoint-v1",
+        "decoding": {
+          "format": "json",
+          "stream": false,
+          "temperature": 0,
+          "think": false
+        },
+        "harness_version": "gate3c-resumable-v1",
+        "implementation_identity": "cascade-conservative-v2-gate3d",
+        "item_count": 120,
+        "max_retries": 1,
+        "model": "qwen3:4b",
+        "model_identity": "cascade-conservative-v2-gate3d",
+        "prompt_fingerprint": "gate3d-structured-v2",
+        "registry_identity": "v0.5-c1-capability-registry-1",
+        "schema_identity": "nl-constraint-interpretation-v1",
+        "timeout_seconds": 15.0
+      },
+      "integrity": {
+        "all_terminal": true,
+        "duplicate_ids": 0,
+        "expected": 120,
+        "missing_ids": [],
+        "represented": 120
+      },
+      "metrics": {
+        "constraint_missed_hard": 0.6083333333333333,
+        "constraint_precision": 0.5958333333333333,
+        "constraint_recall": 0.55,
+        "contradiction_state_correct": 0.9666666666666667,
+        "coverage": 1.0,
+        "exact_candidate_contract_match": 0.23333333333333334,
+        "false_exclusion_count": 0.0,
+        "false_hard_constraint_count": 0.06666666666666667,
+        "false_hard_constraint_rate": 0.06666666666666667,
+        "false_hard_query": 0.06666666666666667,
+        "latency_ms_mean": 1351.829682633334,
+        "latency_ms_p50": 0.13406250000258524,
+        "latency_ms_p95": 5194.065876000025,
+        "latency_ms_total": 162219.5619160001,
+        "semantic_only_overextraction_rate": 0.0,
+        "unsupported_items_correct": 0.8083333333333333
+      },
+      "model_invocations": 33,
+      "rules_only": 87,
+      "run_id": "gate3d-cascade-v2-frozen-eval-v1"
+    },
+    "model2": {
+      "execution": {
+        "attempted": 120,
+        "infrastructure_failures": 0,
+        "max_wall_clock_seconds": 900.0,
+        "retry_policy": {
+          "max_retries": 1
+        },
+        "structured_output_failures": 0,
+        "successful_structured_outputs": 120,
+        "terminal": 120,
+        "wall_clock_seconds": 679.256692834
+      },
+      "frozen_identity": {
+        "arm_identity": "ollama-structured-qwen3-4b-v2-gate3d",
+        "benchmark_fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+        "checkpoint_schema": "gate3c-item-checkpoint-v1",
+        "decoding": {
+          "format": "json",
+          "stream": false,
+          "temperature": 0,
+          "think": false
+        },
+        "harness_version": "gate3c-resumable-v1",
+        "implementation_identity": "ollama-structured-qwen3-4b-v2-gate3d",
+        "item_count": 120,
+        "max_retries": 1,
+        "model": "qwen3:4b",
+        "model_identity": "ollama-structured-qwen3-4b-v2-gate3d",
+        "prompt_fingerprint": "gate3d-structured-v2",
+        "registry_identity": "v0.5-c1-capability-registry-1",
+        "schema_identity": "nl-constraint-interpretation-v1",
+        "timeout_seconds": 15.0
+      },
+      "integrity": {
+        "all_terminal": true,
+        "duplicate_ids": 0,
+        "expected": 120,
+        "missing_ids": [],
+        "represented": 120
+      },
+      "metrics": {
+        "constraint_missed_hard": 1.05,
+        "constraint_precision": 0.3,
+        "constraint_recall": 0.3,
+        "contradiction_state_correct": 0.95,
+        "coverage": 1.0,
+        "exact_candidate_contract_match": 0.0,
+        "false_exclusion_count": 0.0,
+        "false_hard_constraint_count": 0.0,
+        "false_hard_constraint_rate": 0.0,
+        "false_hard_query": 0.0,
+        "latency_ms_mean": 5658.9512552749975,
+        "latency_ms_p50": 5710.066707999999,
+        "latency_ms_p95": 6144.394375000019,
+        "latency_ms_total": 679074.1506329997,
+        "semantic_only_overextraction_rate": 0.0,
+        "unsupported_items_correct": 0.8
+      },
+      "model_invocations": 0,
+      "rules_only": 120,
+      "run_id": "gate3d-model-v2-frozen-eval-v1"
+    },
+    "rule3": {
+      "execution": {
+        "attempted": 120,
+        "infrastructure_failures": 0,
+        "max_wall_clock_seconds": null,
+        "retry_policy": {
+          "max_retries": 1
+        },
+        "structured_output_failures": 0,
+        "successful_structured_outputs": 120,
+        "terminal": 120,
+        "wall_clock_seconds": 0.025106167000000013
+      },
+      "frozen_identity": {
+        "arm_identity": "rule-conservative-v3-gate3d",
+        "benchmark_fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+        "checkpoint_schema": "gate3c-item-checkpoint-v1",
+        "decoding": {
+          "format": "json",
+          "stream": false,
+          "temperature": 0,
+          "think": false
+        },
+        "harness_version": "gate3c-resumable-v1",
+        "implementation_identity": "rule-conservative-v3-gate3d",
+        "item_count": 120,
+        "max_retries": 1,
+        "model": "qwen3:4b",
+        "model_identity": "rule-conservative-v3-gate3d",
+        "prompt_fingerprint": "gate3-structured-v1",
+        "registry_identity": "v0.5-c1-capability-registry-1",
+        "schema_identity": "nl-constraint-interpretation-v1",
+        "timeout_seconds": 15.0
+      },
+      "integrity": {
+        "all_terminal": true,
+        "duplicate_ids": 0,
+        "expected": 120,
+        "missing_ids": [],
+        "represented": 120
+      },
+      "metrics": {
+        "constraint_missed_hard": 0.6083333333333333,
+        "constraint_precision": 0.5958333333333333,
+        "constraint_recall": 0.55,
+        "contradiction_state_correct": 0.9666666666666667,
+        "coverage": 1.0,
+        "exact_candidate_contract_match": 0.24166666666666667,
+        "false_exclusion_count": 0.0,
+        "false_hard_constraint_count": 0.06666666666666667,
+        "false_hard_constraint_rate": 0.06666666666666667,
+        "false_hard_query": 0.06666666666666667,
+        "latency_ms_mean": 0.049807241666665246,
+        "latency_ms_p50": 0.032541499999982904,
+        "latency_ms_p95": 0.0473749999999884,
+        "latency_ms_total": 5.9768689999998275,
+        "semantic_only_overextraction_rate": 0.0,
+        "unsupported_items_correct": 0.825
+      },
+      "model_invocations": 0,
+      "rules_only": 120,
+      "run_id": "gate3d-rule-conservative-v3-frozen-v1"
+    }
+  }
+}

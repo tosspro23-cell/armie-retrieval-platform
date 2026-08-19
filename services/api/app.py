@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from armie_retrieval.application import WorkbenchService
 from armie_retrieval import __version__
 from armie_retrieval.application.workbench import WorkbenchError
-from .schemas import BenchmarkRunRequest, CompareRequest, ComparisonResponse, QueryLabRunRequest, QueryRequest, StructuredQueryRequest, WorkbenchResponse
+from .schemas import BenchmarkRunRequest, ClarificationResolutionRequest, CompareRequest, ComparisonResponse, InterpretRequest, InterpretationExecutionRequest, QueryLabRunRequest, QueryRequest, StructuredQueryRequest, WorkbenchResponse
 
 ROOT = Path(__file__).resolve().parents[2]
 service = WorkbenchService(ROOT)
@@ -59,13 +59,37 @@ def delete_session(session_id: str):
     service.delete_session(session_id)
     return {"deleted": True, "session_id": session_id}
 
-@app.post("/api/v1/query", response_model=WorkbenchResponse)
+@app.post("/api/v1/query")
 def query(request: QueryRequest):
-    return service.query(request.query, session_id=request.session_id, profile=request.profile, query_case_id=request.query_case_id, benchmark_query_id=request.benchmark_query_id)
+    return service.query(request.query, session_id=request.session_id, profile=request.profile, governed=request.governed, query_case_id=request.query_case_id, benchmark_query_id=request.benchmark_query_id)
 
 @app.post("/api/v1/structured-query", response_model=WorkbenchResponse)
 def structured_query(request: StructuredQueryRequest):
     return service.structured_query(request.query, request.contract, requested_k=request.requested_k)
+
+@app.post("/api/v1/interpret")
+def interpret(request: InterpretRequest):
+    return service.interpret(request.query)
+
+@app.get("/api/v1/interpretations/{session_id}")
+def interpretation(session_id: str):
+    return service.interpretation(session_id)
+
+@app.post("/api/v1/interpretations/{session_id}/resolutions")
+def resolve_interpretation(session_id: str, request: ClarificationResolutionRequest):
+    return service.resolve_interpretation(session_id, request.model_dump())
+
+@app.put("/api/v1/interpretations/{session_id}/resolutions")
+def edit_interpretation(session_id: str, request: ClarificationResolutionRequest):
+    return service.resolve_interpretation(session_id, request.model_dump(), edit=True)
+
+@app.post("/api/v1/interpretations/{session_id}/confirm")
+def confirm_interpretation(session_id: str):
+    return service.confirm_interpretation(session_id)
+
+@app.post("/api/v1/interpretations/{session_id}/execute", response_model=WorkbenchResponse)
+def execute_interpretation(session_id: str, request: InterpretationExecutionRequest):
+    return service.execute_interpretation(session_id, contract_fingerprint=request.contract_fingerprint, requested_k=request.requested_k)
 
 @app.get("/api/v1/traces/{trace_id}")
 def trace(trace_id: str):

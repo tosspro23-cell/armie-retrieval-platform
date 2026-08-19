@@ -1,0 +1,28 @@
+{
+  "benchmark_id": "v0.5.1-nl-contract-extraction-v1",
+  "schema_identity": "nl-constraint-interpretation-v1",
+  "registry_id": "v0.5-c1-capability-registry-1",
+  "annotation_policy_version": "gate1-gold-v1",
+  "serialization": "jsonl-canonical-utf8",
+  "source_policy": "synthetic_or_manually_authored; no unreviewed generated gold",
+  "splits": {
+    "development": "small, manually inspectable, prompt-tuning allowed",
+    "validation": "frozen strata review before Gate 2",
+    "test": "held out from prompt tuning and promotion decisions"
+  },
+  "strata": [
+    "semantic_only", "numeric_minimum", "numeric_maximum_or_range",
+    "vague_numeric", "industry", "role", "seniority", "location",
+    "exclusion", "conjunction", "preference_vs_requirement", "ambiguity",
+    "contradiction", "unknown_category", "mixed_supported_unsupported",
+    "temporal_unsupported", "relationship_unsupported", "paraphrase",
+    "hard_negative_over_extraction"
+  ],
+  "planned_size": {
+    "development": "small_manual_fixture_then_stratum_balanced_pilot",
+    "validation": "frozen_stratum-balanced_set",
+    "test": "held-out_stratum-balanced_set"
+  },
+  "fingerprint": "sha256(canonical_jsonl_bytes)",
+  "immutable_rule": "freeze item ordering, schema, registry and annotation policy before Gate 2"
+}

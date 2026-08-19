@@ -1,6 +1,6 @@
 """ARMIE Retrieval Platform reference implementation."""
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 
 from .models.domain import EvaluationResult, ExecutionObservation, Policy, Query, RetrievalPlan, RetrievalResult, ResultItem
 from .runtime import RetrievalRuntime

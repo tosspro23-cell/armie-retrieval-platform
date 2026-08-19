@@ -43,6 +43,10 @@ CANONICAL_VALUES = {
     "industry": ("healthcare", "financial services", "energy", "retail", "manufacturing", "technology"),
 }
 
+REGISTRY_ID = "v0.5-c1-capability-registry-1"
+REGISTRY_SCHEMA_VERSION = "constraint-registry-v1"
+DISPLAY_LABELS = {value: value.title() for value in CANONICAL_VALUES["industry"]}
+
 
 def capability_registry() -> dict[str, dict]:
     return {
@@ -52,7 +56,7 @@ def capability_registry() -> dict[str, dict]:
             "operators": [op.value for op in item.operators],
             "status": item.status,
             "scope": item.scope,
-            **({"values": list(CANONICAL_VALUES[item.canonical_field])} if item.canonical_field in CANONICAL_VALUES else {}),
+            **({"values": list(CANONICAL_VALUES[item.canonical_field]), "display_labels": dict(DISPLAY_LABELS)} if item.canonical_field in CANONICAL_VALUES else {}),
         }
         for item in SUPPORTED_CONSTRAINTS
     }
@@ -72,4 +76,4 @@ def supported_operators(field: str) -> tuple[str, ...]:
 
 
 def registry_snapshot() -> dict:
-    return {"version": "v0.5-c1-capability-registry-1", "supported": capability_registry(), "deferred": dict(DEFERRED_CONSTRAINTS)}
+    return {"registry_id": REGISTRY_ID, "version": REGISTRY_ID, "schema_version": REGISTRY_SCHEMA_VERSION, "compatibility": {"patch": "display aliases only; canonical semantics unchanged", "minor": "new supported field/operator with explicit registry version", "breaking": "canonical value or operator meaning changes"}, "supported": capability_registry(), "deferred": dict(DEFERRED_CONSTRAINTS)}

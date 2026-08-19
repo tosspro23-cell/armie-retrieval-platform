@@ -1,0 +1,42 @@
+{
+  "benchmark_id": "v0.5.1-nl-constraint-extraction-eval-v1",
+  "fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+  "item_count": 120,
+  "model": {
+    "identity": "ollama-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+    "attempted": 120,
+    "first_attempt_success": 0,
+    "eventual_success": 0,
+    "coverage": 0.0,
+    "status": "BLOCKED_BOUNDED_RUNTIME",
+    "failure_class": "MODEL_CALL_FAILURE / TIMEOUT",
+    "note": "Warm-up requests succeeded, but the full-set run exceeded the bounded execution window before a complete result artifact could be emitted. No semantic metrics were computed."
+  },
+  "hybrid": {
+    "identity": "hybrid-rule-plus-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+    "attempted": 0,
+    "first_attempt_success": 0,
+    "eventual_success": 0,
+    "coverage": 0.0,
+    "status": "NOT_RUN",
+    "failure_class": "UPSTREAM_MODEL_COVERAGE_BLOCKER",
+    "note": "Hybrid was not started after the model full-set path remained operationally unsuitable."
+  },
+  "diagnostic": {
+    "ollama_model": "qwen3:4b",
+    "runtime": "macOS 26.5.2 arm64; local Ollama daemon; device detail not exposed by API",
+    "cold_request_ms": 6069.6,
+    "cold_model_load_ms": 4756.5,
+    "warm_request_ms": 1387.4,
+    "structured_json_valid": true,
+    "prompt_template_identity": "gate2-structured-v1",
+    "schema_adapter_identity": "ollama-structured-qwen3-4b-v1",
+    "timeout_seconds": 15,
+    "max_retries": 1,
+    "retry_policy": "retry TIMEOUT/MODEL_CALL_FAILURE once; never retry semantic errors",
+    "root_cause": "per-request generation throughput remains too slow/variable for bounded 120-item serial execution; not schema incompatibility"
+  },
+  "automatic_execution": false,
+  "c1_called": false,
+  "gate4_active": false
+}

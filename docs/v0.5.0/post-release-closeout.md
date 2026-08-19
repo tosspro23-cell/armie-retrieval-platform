@@ -18,8 +18,10 @@ and targets release commit `05e661f7da0947aee9fa15a9e635fc602ac53626`.
 
 Remote verification confirmed:
 
-- `origin/main` → `05e661f7da0947aee9fa15a9e635fc602ac53626`
-- `origin/v0.5.0` → the same release commit
+- Release tag target: `05e661f7da0947aee9fa15a9e635fc602ac53626`
+- Final local `main`: `f181960ecefb2ccb025cf4bf83c21e9b8aa864de`
+- Final `origin/main`: `f181960ecefb2ccb025cf4bf83c21e9b8aa864de`
+- `origin/v0.5.0` → the immutable release commit above
 
 The final closeout file is intentionally a follow-up documentation commit; the
 annotated release tag is not amended or recreated.

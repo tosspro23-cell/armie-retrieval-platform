@@ -1,0 +1,2018 @@
+{
+  "annotation_policy": "gate3gr-role-policy-v1",
+  "benchmark_id": "v0.5.1-staged-interpretation-promotion-v2",
+  "candidate_identity": "deterministic-staged-v2-gate3fr",
+  "items": [
+    {
+      "id": "g3gr-001",
+      "pattern_family": "required-eligibility",
+      "request": "I need candidates who can work in London",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "I need candidates who can work in London",
+          "value": "london"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-002",
+      "pattern_family": "required-non-negotiable",
+      "request": "London-based applicants are a non-negotiable requirement",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "London-based applicants are a non-negotiable requirement",
+          "value": "london"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-003",
+      "pattern_family": "required-only",
+      "request": "The role is eligible only for senior search engineers",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "The role is eligible only for senior search engineers",
+          "value": "senior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-004",
+      "pattern_family": "required-mandatory",
+      "request": "Please treat Healthcare expertise as mandatory",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Please treat Healthcare expertise as mandatory",
+          "value": "healthcare"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-005",
+      "pattern_family": "required-threshold",
+      "request": "A minimum of 15 years of experience is needed",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "A minimum of 15 years of experience is needed",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "id": "g3gr-006",
+      "pattern_family": "required-threshold",
+      "request": "Applicants must demonstrate over 12 years in the field",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gt",
+          "role": "REQUIRED",
+          "text": "Applicants must demonstrate over 12 years in the field",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "id": "g3gr-007",
+      "pattern_family": "required-threshold",
+      "request": "Exactly 8 years is the eligibility threshold",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Exactly 8 years is the eligibility threshold",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "id": "g3gr-008",
+      "pattern_family": "required-only",
+      "request": "Only principal-level candidates should be returned",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "Only principal-level candidates should be returned",
+          "value": "principal"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-009",
+      "pattern_family": "required-eligibility",
+      "request": "Eligibility depends on being based in Lisbon",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Eligibility depends on being based in Lisbon",
+          "value": "lisbon"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-010",
+      "pattern_family": "required-explicit",
+      "request": "We require an Energy specialist for this search",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "We require an Energy specialist for this search",
+          "value": "energy"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-011",
+      "pattern_family": "required-negated-minimum",
+      "request": "Do not include anyone below 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "Do not include anyone below 10 years of experience",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "g3gr-012",
+      "pattern_family": "required-threshold",
+      "request": "Candidates need at least 20 years to qualify",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "Candidates need at least 20 years to qualify",
+          "value": 20
+        }
+      ]
+    },
+    {
+      "id": "g3gr-013",
+      "pattern_family": "required-explicit",
+      "request": "The shortlist must contain Manufacturing experts",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "The shortlist must contain Manufacturing experts",
+          "value": "manufacturing"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-014",
+      "pattern_family": "required-explicit",
+      "request": "A seniority of senior or higher is required",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "A seniority of senior or higher is required",
+          "value": "senior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-015",
+      "pattern_family": "required-restriction",
+      "request": "This request is restricted to Berlin locations",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "This request is restricted to Berlin locations",
+          "value": "berlin"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-016",
+      "pattern_family": "required-non-negotiable",
+      "request": "Non-negotiably, applicants need Retail experience",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Non-negotiably, applicants need Retail experience",
+          "value": "retail"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-017",
+      "pattern_family": "required-threshold",
+      "request": "The minimum acceptable experience is 5 years",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "The minimum acceptable experience is 5 years",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "g3gr-018",
+      "pattern_family": "required-only",
+      "request": "Please return Technology specialists, and no others",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Please return Technology specialists, and no others",
+          "value": "technology"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-019",
+      "pattern_family": "required-threshold",
+      "request": "To qualify, a person must have more than 18 years",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gt",
+          "role": "REQUIRED",
+          "text": "To qualify, a person must have more than 18 years",
+          "value": 18
+        }
+      ]
+    },
+    {
+      "id": "g3gr-020",
+      "pattern_family": "required-eligibility",
+      "request": "A Paris base is essential for this assignment",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "A Paris base is essential for this assignment",
+          "value": "paris"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-021",
+      "pattern_family": "required-explicit",
+      "request": "The requirement is a Principal engineer",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "The requirement is a Principal engineer",
+          "value": "principal"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-022",
+      "pattern_family": "required-eligibility",
+      "request": "Healthcare is an eligibility condition, not background context",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Healthcare is an eligibility condition, not background context",
+          "value": "healthcare"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-023",
+      "pattern_family": "required-threshold",
+      "request": "Applicants need no fewer than 7 years",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "Applicants need no fewer than 7 years",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": "g3gr-024",
+      "pattern_family": "required-only",
+      "request": "Only Energy candidates satisfy this brief",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Only Energy candidates satisfy this brief",
+          "value": "energy"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-025",
+      "pattern_family": "required-explicit",
+      "request": "A Dublin location is required for eligibility",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "A Dublin location is required for eligibility",
+          "value": "dublin"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-026",
+      "pattern_family": "excluded-explicit",
+      "request": "Please leave out Financial Services profiles",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Please leave out Financial Services profiles",
+          "value": "financial services"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-027",
+      "pattern_family": "excluded-negation",
+      "request": "Retail backgrounds are not eligible here",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Retail backgrounds are not eligible here",
+          "value": "retail"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-028",
+      "pattern_family": "excluded-negation",
+      "request": "Do not return anyone based in Madrid",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Do not return anyone based in Madrid",
+          "value": "madrid"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-029",
+      "pattern_family": "excluded-negation",
+      "request": "The shortlist must not contain junior candidates",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "The shortlist must not contain junior candidates",
+          "value": "junior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-030",
+      "pattern_family": "excluded-explicit",
+      "request": "Exclude Energy from the result set",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Exclude Energy from the result set",
+          "value": "energy"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-031",
+      "pattern_family": "excluded-negation",
+      "request": "No London-based profiles should appear",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "No London-based profiles should appear",
+          "value": "london"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-032",
+      "pattern_family": "excluded-negation",
+      "request": "Avoid candidates with fewer than 10 years",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "EXCLUDED",
+          "text": "Avoid candidates with fewer than 10 years",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "g3gr-033",
+      "pattern_family": "excluded-explicit",
+      "request": "Financial Services is explicitly out of scope",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Financial Services is explicitly out of scope",
+          "value": "financial services"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-034",
+      "pattern_family": "excluded-negation",
+      "request": "We cannot accept a principal-level profile",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "We cannot accept a principal-level profile",
+          "value": "principal"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-035",
+      "pattern_family": "excluded-explicit",
+      "request": "Manufacturing should be excluded from this search",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Manufacturing should be excluded from this search",
+          "value": "manufacturing"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-036",
+      "pattern_family": "excluded-negation",
+      "request": "Profiles in Berlin are prohibited",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Profiles in Berlin are prohibited",
+          "value": "berlin"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-037",
+      "pattern_family": "excluded-explicit",
+      "request": "Keep Healthcare out of the candidate pool",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Keep Healthcare out of the candidate pool",
+          "value": "healthcare"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-038",
+      "pattern_family": "excluded-negation",
+      "request": "The request rules out senior applicants",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "The request rules out senior applicants",
+          "value": "senior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-039",
+      "pattern_family": "excluded-negation",
+      "request": "Do not include under-five-year profiles",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "EXCLUDED",
+          "text": "Do not include under-five-year profiles",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "g3gr-040",
+      "pattern_family": "excluded-negation",
+      "request": "Paris is not an acceptable base",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Paris is not an acceptable base",
+          "value": "paris"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-041",
+      "pattern_family": "excluded-explicit",
+      "request": "Avoid Technology specialists for this brief",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Avoid Technology specialists for this brief",
+          "value": "technology"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-042",
+      "pattern_family": "excluded-negation",
+      "request": "No Energy advisers should be suggested",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "No Energy advisers should be suggested",
+          "value": "energy"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-043",
+      "pattern_family": "excluded-negation",
+      "request": "Applicants from Dublin are disallowed",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Applicants from Dublin are disallowed",
+          "value": "dublin"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-044",
+      "pattern_family": "excluded-negation",
+      "request": "The result must contain nobody below senior",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "EXCLUDED",
+          "text": "The result must contain nobody below senior",
+          "value": "senior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-045",
+      "pattern_family": "excluded-explicit",
+      "request": "We specifically exclude Retail experience",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "We specifically exclude Retail experience",
+          "value": "retail"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-046",
+      "pattern_family": "excluded-negation",
+      "request": "Never return anyone with fewer than 15 years",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "EXCLUDED",
+          "text": "Never return anyone with fewer than 15 years",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "id": "g3gr-047",
+      "pattern_family": "excluded-negation",
+      "request": "London is a prohibited location",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "London is a prohibited location",
+          "value": "london"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-048",
+      "pattern_family": "excluded-negation",
+      "request": "Do not surface Manufacturing consultants",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Do not surface Manufacturing consultants",
+          "value": "manufacturing"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-049",
+      "pattern_family": "excluded-negation",
+      "request": "Junior is outside the requested seniority range",
+      "spans": [
+        {
+          "field": "seniority",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Junior is outside the requested seniority range",
+          "value": "junior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-050",
+      "pattern_family": "excluded-explicit",
+      "request": "Financial Services must be omitted",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Financial Services must be omitted",
+          "value": "financial services"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-051",
+      "pattern_family": "preferred-hedged",
+      "request": "Senior would be a welcome qualification",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Senior would be a welcome qualification"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-052",
+      "pattern_family": "preferred-indirect",
+      "request": "A London base would be helpful",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A London base would be helpful"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-053",
+      "pattern_family": "preferred-nice-to-have",
+      "request": "Healthcare experience is a nice-to-have",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Healthcare experience is a nice-to-have"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-054",
+      "pattern_family": "preferred-indirect",
+      "request": "It would be good to see Energy exposure",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "It would be good to see Energy exposure"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-055",
+      "pattern_family": "preferred-contrast",
+      "request": "We would like, but do not require, principal profiles",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "We would like, but do not require, principal profiles"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-056",
+      "pattern_family": "preferred-hedged",
+      "request": "A Retail background is desirable",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A Retail background is desirable"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-057",
+      "pattern_family": "preferred-nice-to-have",
+      "request": "Candidates with Lisbon experience are a plus",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Candidates with Lisbon experience are a plus"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-058",
+      "pattern_family": "preferred-explicit",
+      "request": "Ideally the person is senior",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Ideally the person is senior"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-059",
+      "pattern_family": "preferred-strong",
+      "request": "The brief has a strong preference for Technology",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "The brief has a strong preference for Technology"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-060",
+      "pattern_family": "preferred-indirect",
+      "request": "An experienced Manufacturing background would be useful",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "An experienced Manufacturing background would be useful"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-061",
+      "pattern_family": "preferred-explicit",
+      "request": "Preference goes to Paris-based people",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Preference goes to Paris-based people"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-062",
+      "pattern_family": "preferred-contrast",
+      "request": "Senior would be nice, though not essential",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Senior would be nice, though not essential"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-063",
+      "pattern_family": "preferred-indirect",
+      "request": "A Healthcare focus would strengthen the application",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A Healthcare focus would strengthen the application"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-064",
+      "pattern_family": "preferred-nice-to-have",
+      "request": "Bonus points for Berlin experience",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Bonus points for Berlin experience"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-065",
+      "pattern_family": "preferred-indirect",
+      "request": "We lean toward Energy specialists",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "We lean toward Energy specialists"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-066",
+      "pattern_family": "preferred-hedged",
+      "request": "A Dublin base is favored",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A Dublin base is favored"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-067",
+      "pattern_family": "preferred-indirect",
+      "request": "More than 10 years would be advantageous",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "More than 10 years would be advantageous"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-068",
+      "pattern_family": "preferred-contrast",
+      "request": "Principal is preferred rather than mandatory",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Principal is preferred rather than mandatory"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-069",
+      "pattern_family": "preferred-indirect",
+      "request": "Financial Services familiarity is welcome",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Financial Services familiarity is welcome"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-070",
+      "pattern_family": "preferred-explicit",
+      "request": "Ideally, include Retail practitioners",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Ideally, include Retail practitioners"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-071",
+      "pattern_family": "preferred-nice-to-have",
+      "request": "It would be a plus to have London context",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "It would be a plus to have London context"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-072",
+      "pattern_family": "preferred-hedged",
+      "request": "A senior profile is desirable",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A senior profile is desirable"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-073",
+      "pattern_family": "preferred-indirect",
+      "request": "We would appreciate Technology experience",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "We would appreciate Technology experience"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-074",
+      "pattern_family": "preferred-indirect",
+      "request": "Energy would be a useful domain",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Energy would be a useful domain"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-075",
+      "pattern_family": "preferred-contrast",
+      "request": "A Paris location is preferred, not required",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "A Paris location is preferred, not required"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-076",
+      "pattern_family": "context-project-domain",
+      "request": "People who worked on Healthcare products are relevant context",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "People who worked on Healthcare products are relevant context"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-077",
+      "pattern_family": "context-location",
+      "request": "The team has collaborated with London delivery groups",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The team has collaborated with London delivery groups"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-078",
+      "pattern_family": "context-seniority",
+      "request": "Senior stakeholders shaped the programme",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Senior stakeholders shaped the programme"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-079",
+      "pattern_family": "context-domain",
+      "request": "The expert built systems for banks",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The expert built systems for banks"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-080",
+      "pattern_family": "context-project-domain",
+      "request": "Their projects included Retail clients",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Their projects included Retail clients"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-081",
+      "pattern_family": "context-project-domain",
+      "request": "They delivered Energy analytics in practice",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "They delivered Energy analytics in practice"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-082",
+      "pattern_family": "context-project-domain",
+      "request": "A background involving Manufacturing teams is informative",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "A background involving Manufacturing teams is informative"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-083",
+      "pattern_family": "context-location",
+      "request": "The profile mentions Berlin partnerships",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The profile mentions Berlin partnerships"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-084",
+      "pattern_family": "context-domain",
+      "request": "Healthcare appears in the project history",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Healthcare appears in the project history"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-085",
+      "pattern_family": "context-seniority",
+      "request": "They worked alongside principal engineers",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "They worked alongside principal engineers"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-086",
+      "pattern_family": "context-project-domain",
+      "request": "The candidate supported Technology programmes",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The candidate supported Technology programmes"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-087",
+      "pattern_family": "context-project-domain",
+      "request": "Experience spans Financial Services projects",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Experience spans Financial Services projects"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-088",
+      "pattern_family": "context-location",
+      "request": "Their London teams were distributed",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Their London teams were distributed"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-089",
+      "pattern_family": "context-seniority",
+      "request": "The biography describes a senior stakeholder role",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The biography describes a senior stakeholder role"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-090",
+      "pattern_family": "context-project-domain",
+      "request": "They built an Energy forecasting platform",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "They built an Energy forecasting platform"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-091",
+      "pattern_family": "context-location",
+      "request": "The profile covers Paris delivery work",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The profile covers Paris delivery work"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-092",
+      "pattern_family": "context-domain",
+      "request": "Retail appears in the candidate's case studies",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Retail appears in the candidate's case studies"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-093",
+      "pattern_family": "context-project-domain",
+      "request": "They partnered with Manufacturing groups",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "They partnered with Manufacturing groups"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-094",
+      "pattern_family": "context-domain",
+      "request": "The person has worked with Healthcare teams",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The person has worked with Healthcare teams"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-095",
+      "pattern_family": "context-seniority",
+      "request": "Senior reviewers approved the design",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Senior reviewers approved the design"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-096",
+      "pattern_family": "context-domain",
+      "request": "Their customers included Technology firms",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Their customers included Technology firms"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-097",
+      "pattern_family": "context-location",
+      "request": "The resume describes Dublin collaboration",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The resume describes Dublin collaboration"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-098",
+      "pattern_family": "context-domain",
+      "request": "They advised an Energy programme",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "They advised an Energy programme"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-099",
+      "pattern_family": "context-project-domain",
+      "request": "The work involved Financial Services users",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The work involved Financial Services users"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-100",
+      "pattern_family": "context-project-domain",
+      "request": "The project supported Retail operations",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "The project supported Retail operations"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-101",
+      "pattern_family": "unsupported-relationship",
+      "request": "They worked with Partner Alpha",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They worked with Partner Alpha"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-102",
+      "pattern_family": "unsupported-temporal",
+      "request": "The work occurred in the last three years",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The work occurred in the last three years"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-103",
+      "pattern_family": "unsupported-relationship",
+      "request": "They advised Client Beacon",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They advised Client Beacon"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-104",
+      "pattern_family": "unsupported-delivery",
+      "request": "The person delivered three launches",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The person delivered three launches"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-105",
+      "pattern_family": "unsupported-employer",
+      "request": "They worked at Employer Delta",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They worked at Employer Delta"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-106",
+      "pattern_family": "unsupported-outcome",
+      "request": "The project achieved a 40 percent uplift",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The project achieved a 40 percent uplift"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-107",
+      "pattern_family": "unsupported-recency",
+      "request": "They recently served a public-sector customer",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They recently served a public-sector customer"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-108",
+      "pattern_family": "unsupported-relationship",
+      "request": "They collaborated with Vendor Echo",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They collaborated with Vendor Echo"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-109",
+      "pattern_family": "unsupported-delivery",
+      "request": "The profile records five production deployments",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The profile records five production deployments"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-110",
+      "pattern_family": "unsupported-relationship",
+      "request": "They advised a London client",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They advised a London client"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-111",
+      "pattern_family": "unsupported-recency",
+      "request": "Their last engagement ended recently",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "Their last engagement ended recently"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-112",
+      "pattern_family": "unsupported-delivery",
+      "request": "They delivered a regulated migration",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They delivered a regulated migration"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-113",
+      "pattern_family": "unsupported-employer",
+      "request": "They worked for Customer Foxtrot",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They worked for Customer Foxtrot"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-114",
+      "pattern_family": "unsupported-outcome",
+      "request": "The outcome reduced cost by half",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The outcome reduced cost by half"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-115",
+      "pattern_family": "unsupported-temporal",
+      "request": "They were active between 2019 and 2022",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They were active between 2019 and 2022"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-116",
+      "pattern_family": "unsupported-relationship",
+      "request": "They advised a Healthcare board",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They advised a Healthcare board"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-117",
+      "pattern_family": "unsupported-delivery",
+      "request": "They completed four deployments",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They completed four deployments"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-118",
+      "pattern_family": "unsupported-relationship",
+      "request": "They worked with Group Golf",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They worked with Group Golf"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-119",
+      "pattern_family": "unsupported-recency",
+      "request": "The last project was in Energy",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The last project was in Energy"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-120",
+      "pattern_family": "unsupported-outcome",
+      "request": "They achieved an audited result",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They achieved an audited result"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-121",
+      "pattern_family": "unsupported-delivery",
+      "request": "They delivered a customer portal",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They delivered a customer portal"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-122",
+      "pattern_family": "unsupported-employer",
+      "request": "They worked at Company Hotel",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They worked at Company Hotel"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-123",
+      "pattern_family": "unsupported-recency",
+      "request": "Their recent assignment involved Retail",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "Their recent assignment involved Retail"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-124",
+      "pattern_family": "unsupported-relationship",
+      "request": "They advised a Berlin client",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "They advised a Berlin client"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-125",
+      "pattern_family": "unsupported-outcome",
+      "request": "The project met every service target",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "The project met every service target"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-126",
+      "pattern_family": "ambiguous-numeric",
+      "request": "Around fifteen years might be relevant",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Around fifteen years might be relevant"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-127",
+      "pattern_family": "ambiguous-scope",
+      "request": "Maybe senior, depending on the need",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Maybe senior, depending on the need"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-128",
+      "pattern_family": "ambiguous-attachment",
+      "request": "Healthcare or London, unclear priority",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Healthcare or London, unclear priority"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-129",
+      "pattern_family": "ambiguous-negation",
+      "request": "Not necessarily Financial Services",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Not necessarily Financial Services"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-130",
+      "pattern_family": "ambiguous-role",
+      "request": "Principal or senior could work",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Principal or senior could work"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-131",
+      "pattern_family": "ambiguous-numeric",
+      "request": "Roughly ten years, perhaps",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Roughly ten years, perhaps"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-132",
+      "pattern_family": "ambiguous-mandatory",
+      "request": "The preference and requirement are not clear",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "The preference and requirement are not clear"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-133",
+      "pattern_family": "ambiguous-referent",
+      "request": "Energy in some sense",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Energy in some sense"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-134",
+      "pattern_family": "ambiguous-attachment",
+      "request": "Based in London or working with London teams",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Based in London or working with London teams"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-135",
+      "pattern_family": "ambiguous-referent",
+      "request": "Senior if that means technical leadership",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Senior if that means technical leadership"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-136",
+      "pattern_family": "ambiguous-numeric",
+      "request": "About eight years, give or take",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "About eight years, give or take"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-137",
+      "pattern_family": "ambiguous-attachment",
+      "request": "Healthcare may refer to the project, not the person",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Healthcare may refer to the project, not the person"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-138",
+      "pattern_family": "ambiguous-mandatory",
+      "request": "Possibly Retail, but it is uncertain",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Possibly Retail, but it is uncertain"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-139",
+      "pattern_family": "ambiguous-scope",
+      "request": "The senior requirement is unclear",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "The senior requirement is unclear"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-140",
+      "pattern_family": "ambiguous-attachment",
+      "request": "Around Energy and maybe Technology",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Around Energy and maybe Technology"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-141",
+      "pattern_family": "ambiguous-attachment",
+      "request": "Could be London-based or London-facing",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Could be London-based or London-facing"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-142",
+      "pattern_family": "ambiguous-numeric",
+      "request": "Somewhere above ten years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Somewhere above ten years"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-143",
+      "pattern_family": "ambiguous-negation",
+      "request": "The wording leaves exclusion unclear",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "The wording leaves exclusion unclear"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-144",
+      "pattern_family": "ambiguous-role",
+      "request": "Senior stakeholders or senior candidates",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Senior stakeholders or senior candidates"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-145",
+      "pattern_family": "ambiguous-role",
+      "request": "Perhaps principal, perhaps not",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Perhaps principal, perhaps not"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-146",
+      "pattern_family": "ambiguous-scope",
+      "request": "Healthcare is mentioned without a clear condition",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Healthcare is mentioned without a clear condition"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-147",
+      "pattern_family": "ambiguous-numeric",
+      "request": "Roughly five to ten years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Roughly five to ten years"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-148",
+      "pattern_family": "ambiguous-negation",
+      "request": "Maybe exclude Energy, maybe not",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Maybe exclude Energy, maybe not"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-149",
+      "pattern_family": "ambiguous-attachment",
+      "request": "London context could mean location",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "London context could mean location"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-150",
+      "pattern_family": "ambiguous-mandatory",
+      "request": "A preference may be intended",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "A preference may be intended"
+        }
+      ]
+    },
+    {
+      "id": "g3gr-151",
+      "pattern_family": "compositional-mixed",
+      "request": "At least 15 years and senior search engineers are required",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "At least 15 years",
+          "value": 15
+        },
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "senior search engineers are required",
+          "value": "senior"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-152",
+      "pattern_family": "compositional-mixed",
+      "request": "Prefer Healthcare specialists, but exclude junior profiles",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Prefer Healthcare specialists"
+        },
+        {
+          "field": "seniority",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude junior profiles",
+          "value": "junior"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-153",
+      "pattern_family": "compositional-mixed",
+      "request": "Only London-based principal candidates, excluding Energy",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "London-based",
+          "value": "london"
+        },
+        {
+          "field": "seniority",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "principal candidates",
+          "value": "principal"
+        },
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "excluding Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-154",
+      "pattern_family": "compositional-mixed",
+      "request": "A Retail background is preferred; at least 10 years is mandatory",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "Retail background is preferred"
+        },
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "at least 10 years is mandatory",
+          "value": 10
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-155",
+      "pattern_family": "compositional-mixed",
+      "request": "Senior Technology experts with no fewer than 20 years",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Senior Technology experts",
+          "value": "technology"
+        },
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "no fewer than 20 years",
+          "value": 20
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-156",
+      "pattern_family": "compositional-mixed",
+      "request": "Context includes Healthcare delivery, while London is required",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "Healthcare delivery"
+        },
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "London is required",
+          "value": "london"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-157",
+      "pattern_family": "compositional-mixed",
+      "request": "Do not include Retail advisers; principal level is preferred",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "Do not include Retail advisers",
+          "value": "retail"
+        },
+        {
+          "role": "PREFERRED",
+          "text": "principal level is preferred"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-158",
+      "pattern_family": "compositional-mixed",
+      "request": "Maybe Energy, but exactly 8 years is required",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "Maybe Energy"
+        },
+        {
+          "field": "years_experience",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "exactly 8 years is required",
+          "value": 8
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-159",
+      "pattern_family": "compositional-mixed",
+      "request": "Advisory work is unsupported; senior Manufacturing is mandatory",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "Advisory work"
+        },
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "senior Manufacturing is mandatory",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "MIXED"
+    },
+    {
+      "id": "g3gr-160",
+      "pattern_family": "compositional-mixed",
+      "request": "A Paris location and Healthcare experience are both required",
+      "spans": [
+        {
+          "field": "location",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Paris location",
+          "value": "paris"
+        },
+        {
+          "field": "industry",
+          "operator": "eq",
+          "role": "REQUIRED",
+          "text": "Healthcare experience",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "MIXED"
+    }
+  ],
+  "registry_id": "v0.5-c1-capability-registry-1",
+  "schema_version": "staged-promotion-benchmark-v1"
+}

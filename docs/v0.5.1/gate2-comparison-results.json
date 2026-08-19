@@ -1,0 +1,2378 @@
+{
+  "arms": [
+    {
+      "arm": "rule-baseline-v1",
+      "completed": 20,
+      "metrics": {
+        "ambiguity_state_correct": 0.95,
+        "by_stratum": {
+          "ambiguous": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "conjunction": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "contradiction": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "exclusion": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "hard": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "industry": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "location": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "maximum": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "mixed": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "numeric": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "paraphrase": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "range": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "relationship": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "role": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "semantic": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "seniority": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "soft": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "temporal": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "unknown": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "unsupported": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          }
+        },
+        "constraint_false_positives": 0.0,
+        "constraint_missed_hard": 0.1,
+        "constraint_precision": 1.0,
+        "constraint_recall": 0.95,
+        "contradiction_state_correct": 0.95,
+        "exact_candidate_contract_match": 0.75,
+        "false_exclusion_count": 0.0,
+        "false_hard_query": 0.0,
+        "latency_ms_mean": 0.13342494999999815,
+        "latency_ms_p50": 0.03627100000000438,
+        "latency_ms_p95": 0.23245799999999095,
+        "missed_hard_query": 0.1,
+        "unsupported_items_correct": 0.9
+      },
+      "outputs": [
+        {
+          "error": null,
+          "latency_ms": 1.6901250000000145,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Find experts experienced with Azure AI architecture.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "semantic-only-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts experienced with Azure AI architecture.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "semantic-only-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.04504100000002342,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "at least 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "at least 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years of experience.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "numeric-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "numeric-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.23245799999999095,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 2,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              },
+              {
+                "field": "industry",
+                "source": "financial services"
+              }
+            ],
+            "exclusions": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "financial services",
+                "operator": "neq",
+                "polarity": "exclusion",
+                "rationale": null,
+                "raw_value": "financial services",
+                "source_span": "financial services",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find Healthcare experts excluding Financial Services.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "exclusion-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts excluding Financial Services.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "exclusion-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.09225000000001593,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "seniority",
+                "source": "preference language"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Prefer senior candidates, ideally with Azure certification.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "soft-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior candidates, ideally with Azure certification.",
+            "soft_preferences": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "preference language",
+                "strength": "soft",
+                "support_state": "supported"
+              }
+            ],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "soft-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.041292000000026086,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": false
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "PARTIALLY_SUPPORTED",
+            "natural_language_request": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "unsupported-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": [
+              "last 3 years",
+              "delivered projects for Microsoft"
+            ]
+          },
+          "query_id": "unsupported-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.02725000000003419,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "AMBIGUOUS",
+            "natural_language_request": "Find experts with around 20 years of experience.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "ambiguous-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with around 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [
+              "around 20 years"
+            ],
+            "unsupported_items": []
+          },
+          "query_id": "ambiguous-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.03379199999997695,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 1,
+            "constraint_precision": 1.0,
+            "constraint_recall": 0.5,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": false,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "at least 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "at least 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years and fewer than 10 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "contradiction-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years and fewer than 10 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "contradiction-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.046667000000000236,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "seniority",
+                "source": "preference language"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "hard-negative-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "soft_preferences": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "preference language",
+                "strength": "soft",
+                "support_state": "supported"
+              }
+            ],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "hard-negative-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.028874999999983775,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "manufacturing",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "manufacturing",
+                "source_span": "manufacturing",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "manufacturing"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Only Manufacturing experts.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "industry-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Only Manufacturing experts.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "industry-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.07841599999997007,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "role",
+                "normalized_value": "search / retrieval engineer",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "search / retrieval engineer",
+                "source_span": "Search / Retrieval Engineer",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "role",
+                "source": "Search / Retrieval Engineer"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Required: a Search / Retrieval Engineer.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "role-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Required: a Search / Retrieval Engineer.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "role-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.027916999999988423,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "principal",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "principal",
+                "source_span": "principal",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "seniority",
+                "source": "principal"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find principal-level engineers.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "seniority-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find principal-level engineers.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "seniority-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.07312500000000721,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "location",
+                "normalized_value": "portugal",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "portugal",
+                "source_span": "based in Portugal",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "location",
+                "source": "based in Portugal"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Experts must be based in Portugal.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "location-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Experts must be based in Portugal.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "location-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.04466599999997101,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 3,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "at least 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              },
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              },
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "senior",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "at least 20 years"
+              },
+              {
+                "field": "industry",
+                "source": "healthcare"
+              },
+              {
+                "field": "seniority",
+                "source": "senior"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find senior Healthcare experts with at least 20 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "conjunction-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find senior Healthcare experts with at least 20 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "conjunction-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.030957999999969843,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "lt",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "under 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "under 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts under 20 years of experience.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "maximum-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts under 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "maximum-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.029624999999977586,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": [
+                  10,
+                  20
+                ],
+                "operator": "between",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": [
+                  10,
+                  20
+                ],
+                "source_span": "between 10 and 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "between 10 and 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with between 10 and 20 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "range-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with between 10 and 20 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "range-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.02229200000003484,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": false
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Find experts in quantum gardening.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "unknown-category-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts in quantum gardening.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "unknown-category-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.03304099999995591,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "PARTIALLY_SUPPORTED",
+            "natural_language_request": "Find experts active in Healthcare in the last three years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "temporal-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts active in Healthcare in the last three years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": [
+              "last three years"
+            ]
+          },
+          "query_id": "temporal-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.02495899999999107,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "UNSUPPORTED",
+            "natural_language_request": "Find experts who delivered projects for Microsoft.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "relationship-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts who delivered projects for Microsoft.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": [
+              "delivered projects for Microsoft"
+            ]
+          },
+          "query_id": "relationship-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.026999999999999247,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": false,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "People who have led teams building search relevance systems.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "paraphrase-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "People who have led teams building search relevance systems.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "paraphrase-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 0.038750000000031815,
+          "metadata": {
+            "registry_id": "v0.5-c1-capability-registry-1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 1,
+            "constraint_precision": 1.0,
+            "constraint_recall": 0.5,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              },
+              {
+                "field": "seniority",
+                "source": "preference language"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Senior Healthcare experts, ideally based in Portugal.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "mixed-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Senior Healthcare experts, ideally based in Portugal.",
+            "soft_preferences": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "preference language",
+                "strength": "soft",
+                "support_state": "supported"
+              }
+            ],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "mixed-001",
+          "status": "COMPLETED"
+        }
+      ],
+      "sample_scope": "all",
+      "status": "COMPLETED",
+      "total": 20
+    },
+    {
+      "arm": "ollama-structured-qwen3-4b-v1",
+      "completed": 8,
+      "metrics": {
+        "ambiguity_state_correct": 0.875,
+        "by_stratum": {
+          "ambiguous": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "contradiction": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "exclusion": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "hard": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "numeric": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "semantic": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "soft": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "unsupported": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          }
+        },
+        "constraint_false_positives": 0.0,
+        "constraint_missed_hard": 0.75,
+        "constraint_precision": 0.5,
+        "constraint_recall": 0.5,
+        "contradiction_state_correct": 0.875,
+        "exact_candidate_contract_match": 0.0,
+        "false_exclusion_count": 0.0,
+        "false_hard_query": 0.0,
+        "latency_ms_mean": 2687.0720623750003,
+        "latency_ms_p50": 2709.2842704999994,
+        "latency_ms_p95": 3532.659833,
+        "missed_hard_query": 0.5,
+        "unsupported_items_correct": 0.875
+      },
+      "outputs": [
+        {
+          "error": null,
+          "latency_ms": 1786.63125,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts experienced with Azure AI architecture.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "semantic-only-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts experienced with Azure AI architecture.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "semantic-only-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 1748.325917,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 1,
+            "constraint_precision": 0.0,
+            "constraint_recall": 0.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years of experience.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "numeric-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "numeric-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2814.9381249999997,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 2,
+            "constraint_precision": 0.0,
+            "constraint_recall": 0.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find Healthcare experts excluding Financial Services.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "exclusion-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts excluding Financial Services.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "exclusion-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2603.6304159999995,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Prefer senior candidates, ideally with Azure certification.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "soft-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior candidates, ideally with Azure certification.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "soft-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 3682.6993330000005,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 1,
+            "constraint_precision": 0.0,
+            "constraint_recall": 0.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": false
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "unsupported-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "unsupported-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2392.9065830000004,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": false,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with around 20 years of experience.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "ambiguous-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with around 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "ambiguous-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 3532.659833,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 2,
+            "constraint_precision": 0.0,
+            "constraint_recall": 0.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": false,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years and fewer than 10 years.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "contradiction-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years and fewer than 10 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "contradiction-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2934.7850420000013,
+          "metadata": {
+            "model": "qwen3:4b",
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "structured_output": true,
+            "temperature": 0
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "normalization": {
+              "arm": "ollama-structured-qwen3-4b-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "hard-negative-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "hard-negative-001",
+          "status": "COMPLETED"
+        }
+      ],
+      "sample_scope": "first_8_development_items",
+      "status": "COMPLETED",
+      "total": 8
+    },
+    {
+      "arm": "hybrid-rule-plus-structured-qwen3-4b-v1",
+      "completed": 8,
+      "metrics": {
+        "ambiguity_state_correct": 1.0,
+        "by_stratum": {
+          "ambiguous": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "contradiction": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 1.0
+          },
+          "exclusion": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "hard": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "numeric": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "semantic": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "soft": {
+            "count": 1,
+            "exact_match": 1.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          },
+          "unsupported": {
+            "count": 1,
+            "exact_match": 0.0,
+            "false_hard_query_rate": 0.0,
+            "missed_hard_rate": 0.0
+          }
+        },
+        "constraint_false_positives": 0.0,
+        "constraint_missed_hard": 0.125,
+        "constraint_precision": 1.0,
+        "constraint_recall": 0.9375,
+        "contradiction_state_correct": 0.875,
+        "exact_candidate_contract_match": 0.75,
+        "false_exclusion_count": 0.0,
+        "false_hard_query": 0.0,
+        "latency_ms_mean": 3090.0090935000017,
+        "latency_ms_p50": 2899.348916500003,
+        "latency_ms_p95": 3374.52454200001,
+        "missed_hard_query": 0.125,
+        "unsupported_items_correct": 0.875
+      },
+      "outputs": [
+        {
+          "error": null,
+          "latency_ms": 2469.757834000003,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Find experts experienced with Azure AI architecture.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "semantic-only-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts experienced with Azure AI architecture.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "semantic-only-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2446.652040999996,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "at least 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "at least 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years of experience.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "numeric-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "numeric-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2797.4669159999976,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 2,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              },
+              {
+                "field": "industry",
+                "source": "financial services"
+              }
+            ],
+            "exclusions": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "financial services",
+                "operator": "neq",
+                "polarity": "exclusion",
+                "rationale": null,
+                "raw_value": "financial services",
+                "source_span": "financial services",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find Healthcare experts excluding Financial Services.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "exclusion-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts excluding Financial Services.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "exclusion-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2838.2730420000044,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "seniority",
+                "source": "preference language"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Prefer senior candidates, ideally with Azure certification.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "soft-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior candidates, ideally with Azure certification.",
+            "soft_preferences": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "preference language",
+                "strength": "soft",
+                "support_state": "supported"
+              }
+            ],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "soft-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 4602.332958000005,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": false
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "industry",
+                "normalized_value": "healthcare",
+                "operator": "eq",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "healthcare",
+                "source_span": "healthcare",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "industry",
+                "source": "healthcare"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "PARTIALLY_SUPPORTED",
+            "natural_language_request": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "unsupported-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find Healthcare experts who delivered projects for Microsoft in the last 3 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": [
+              "last 3 years",
+              "delivered projects for Microsoft"
+            ]
+          },
+          "query_id": "unsupported-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 2960.4247910000013,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [],
+            "exclusions": [],
+            "interpretation_state": "AMBIGUOUS",
+            "natural_language_request": "Find experts with around 20 years of experience.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "ambiguous-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with around 20 years of experience.",
+            "soft_preferences": [],
+            "unresolved_items": [
+              "around 20 years"
+            ],
+            "unsupported_items": []
+          },
+          "query_id": "ambiguous-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 3374.52454200001,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 1,
+            "constraint_precision": 1.0,
+            "constraint_recall": 0.5,
+            "constraint_true_positives": 1,
+            "contradiction_state_correct": false,
+            "exact_candidate_contract_match": false,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": true,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [
+              {
+                "ambiguity_state": null,
+                "field": "years_experience",
+                "normalized_value": 20,
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": 20,
+                "source_span": "at least 20 years",
+                "strength": "hard",
+                "support_state": "supported"
+              }
+            ],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "years_experience",
+                "source": "at least 20 years"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NEEDS_CONFIRMATION",
+            "natural_language_request": "Find experts with at least 20 years and fewer than 10 years.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "contradiction-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Find experts with at least 20 years and fewer than 10 years.",
+            "soft_preferences": [],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "contradiction-001",
+          "status": "COMPLETED"
+        },
+        {
+          "error": null,
+          "latency_ms": 3230.640623999996,
+          "metadata": {
+            "model_arm": "ollama-structured-qwen3-4b-v1",
+            "reconciliation": "rules_authoritative_explicit_patterns",
+            "rule_arm": "rule-baseline-v1"
+          },
+          "metrics": {
+            "ambiguity_state_correct": true,
+            "constraint_false_positives": 0,
+            "constraint_missed_hard": 0,
+            "constraint_precision": 1.0,
+            "constraint_recall": 1.0,
+            "constraint_true_positives": 0,
+            "contradiction_state_correct": true,
+            "exact_candidate_contract_match": true,
+            "false_exclusion_count": 0,
+            "false_hard_constraint_count": 0,
+            "false_hard_query": false,
+            "missed_hard_query": false,
+            "semantic_intent_evaluated_separately": true,
+            "unsupported_items_correct": true
+          },
+          "predicted": {
+            "constraints": [],
+            "contradictions": [],
+            "evidence": [
+              {
+                "field": "seniority",
+                "source": "preference language"
+              }
+            ],
+            "exclusions": [],
+            "interpretation_state": "NO_HARD_CONSTRAINTS",
+            "natural_language_request": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "normalization": {
+              "arm": "rule-baseline-v1"
+            },
+            "registry_id": "v0.5-c1-capability-registry-1",
+            "request_id": "hard-negative-001",
+            "schema_version": "nl-constraint-interpretation-v1",
+            "semantic_query": "Prefer senior experts; seniority is a bonus, not a requirement.",
+            "soft_preferences": [
+              {
+                "ambiguity_state": null,
+                "field": "seniority",
+                "normalized_value": "senior",
+                "operator": "gte",
+                "polarity": "positive",
+                "rationale": null,
+                "raw_value": "senior",
+                "source_span": "preference language",
+                "strength": "soft",
+                "support_state": "supported"
+              }
+            ],
+            "unresolved_items": [],
+            "unsupported_items": []
+          },
+          "query_id": "hard-negative-001",
+          "status": "COMPLETED"
+        }
+      ],
+      "sample_scope": "first_8_development_items",
+      "status": "COMPLETED",
+      "total": 8
+    }
+  ],
+  "automatic_execution": false,
+  "benchmark_id": "v0.5.1-nl-contract-extraction-v1",
+  "c1_called": false,
+  "fingerprint": "924fe087dfe5716e07e874738ea132fa87df3a68a467f4eb6fce1bf65dedb605",
+  "fixture": "tests/fixtures/v051_gate1_gold.jsonl",
+  "item_count": 20,
+  "registry_id": "v0.5-c1-capability-registry-1",
+  "schema_version": "nl-constraint-interpretation-v1"
+}

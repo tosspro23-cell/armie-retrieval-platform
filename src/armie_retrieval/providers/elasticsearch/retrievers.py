@@ -10,12 +10,14 @@ from armie_retrieval.indexing.elasticsearch.client import ElasticsearchClient
 from armie_retrieval.models import Query, ResultItem, RetrievalPlan, RetrievalResult
 from armie_retrieval.constraints import ElasticsearchConstraintCompiler, registry_snapshot
 from armie_retrieval.indexing.constraint_projection import PROJECTION_SCHEMA_VERSION
+from armie_retrieval.indexing.elasticsearch.identity import configured_dense_index
 
 PROJECTION_IMPLEMENTATION = "constraint-projection-0.2-gate6b"
 EXPECTED_MAPPING_FINGERPRINT = "e7f3acf23f2d90964e4e771da14bb033b93d386a6e73c4d351a91a40cfba5a0d"
 DATASET_LINEAGE = "v2-realism-full"
 DATASET_CHECKSUM = "514ab2f7bd6378a51d1915f8f399506a61e6e9589a61eef674eccc1a8043d4bc"
 EMBEDDING_MODEL = "BAAI/bge-m3"
+PROVENANCE_SCHEMA_VERSION = "constraint-execution-provenance-v1"
 
 
 class _BaseElasticsearchRetriever:
@@ -56,7 +58,7 @@ class ElasticsearchDenseRetriever(_BaseElasticsearchRetriever):
     capabilities = frozenset({"dense", "elasticsearch", "knn"})
 
     def __init__(self, client: ElasticsearchClient, *, index: str | None = None, embedding_provider, require_compatible_index: bool = True) -> None:
-        super().__init__(client, index=index or os.getenv("ARMIE_V050_C1_INDEX", "armie-experts-v1-v2-gate6b-dense-10000"))
+        super().__init__(client, index=index or configured_dense_index())
         self.embedding_provider = embedding_provider
         self.require_compatible_index = require_compatible_index
 
@@ -69,6 +71,12 @@ class ElasticsearchDenseRetriever(_BaseElasticsearchRetriever):
         if not self.require_compatible_index or not isinstance(self.client, ElasticsearchClient):
             return {"status": "not_checked", "reason": "non_elasticsearch_adapter"}
         try:
+            alias_body = None
+            try:
+                alias_body = self.client.request("GET", f"_alias/{self.index}").json()
+            except Exception:
+                # A physical index override remains supported for local rebuilds.
+                alias_body = None
             body = self.client.request("GET", f"{self.index}/_mapping").json()
             mappings = next(iter(body.values())).get("mappings", {}) if body else {}
             meta = mappings.get("_meta", {})
@@ -80,7 +88,7 @@ class ElasticsearchDenseRetriever(_BaseElasticsearchRetriever):
             observed_fingerprint = meta.get("mapping_fingerprint")
             if missing or embedding.get("dims") != 1024 or (observed_fingerprint and observed_fingerprint != EXPECTED_MAPPING_FINGERPRINT):
                 return {"status": "incompatible", "reason": "projection_fields_or_embedding_mismatch", "missing_fields": missing, "embedding_dimensions": embedding.get("dims"), "expected_dimensions": 1024}
-            return {"status": "compatible", "projection_schema_version": meta.get("projection_schema_version"), "projection_implementation_version": meta.get("projection_implementation_version"), "mapping_version": meta.get("mapping_version"), "embedding_model": meta.get("embedding_model"), "embedding_dimensions": embedding.get("dims"), "mapping_fingerprint": meta.get("mapping_fingerprint")}
+            return {"status": "compatible", "logical_index": self.index, "resolved_indices": sorted(alias_body or body), "projection_schema_version": meta.get("projection_schema_version"), "projection_implementation_version": meta.get("projection_implementation_version"), "mapping_version": meta.get("mapping_version"), "embedding_model": meta.get("embedding_model"), "embedding_dimensions": embedding.get("dims"), "mapping_fingerprint": meta.get("mapping_fingerprint"), "mapping_fingerprint_status": "verified" if meta.get("mapping_fingerprint") else "unavailable_legacy_metadata"}
         except Exception as exc:
             return {"status": "incompatible", "reason": "index_metadata_unavailable", "error": str(exc)[:240]}
 
@@ -91,7 +99,7 @@ class ElasticsearchDenseRetriever(_BaseElasticsearchRetriever):
     def _empty_contract_result(self, query, plan, started, *, compiled, state: str, error_category: str, compatibility: dict[str, Any] | None = None, contract=None):
         contract = contract or query.retrieval_contract
         diagnostics = {"contract_id": getattr(contract, "contract_id", None), "contract_version": getattr(contract, "contract_version", None), "validation_state": state, "error_category": error_category, "supported_constraint_count": sum(item.executable for item in compiled), "excluded_constraint_count": sum(item.polarity.value == "EXCLUDED" for item in compiled), "unsupported_constraint_count": sum(not item.executable for item in compiled), "constraint_trace": self._semantic_trace(compiled), "unknown_policy": "UNKNOWN does not satisfy hard constraints", "candidate_pool_count": 0, "eligible_candidate_count": 0, "requested_k": plan.top_k, "returned_k": 0, "requested_top_k": plan.top_k, "returned_result_count": 0, "strict_shortfall_count": plan.top_k, "shortfall": {"requested": plan.top_k, "returned": 0, "count": plan.top_k, "reason": error_category}}
-        provenance = {"retrievers": [self.name], "provider": self.name, "index": self.index, "index_identity": self.index, "strategy_identity": "C1", "runtime_strategy": "constraint_prefilter", "runtime_source": "elasticsearch_native_prefilter", "contract_state": state, "contract_schema_version": getattr(contract, "contract_version", None), "error_category": error_category, "requested_k": plan.top_k, "candidate_pool_count": 0, "eligible_candidate_count": 0, "returned_k": 0, "shortfall": diagnostics["shortfall"], "projection_identity": {"implementation": PROJECTION_IMPLEMENTATION, "schema_version": PROJECTION_SCHEMA_VERSION, "mapping_fingerprint": EXPECTED_MAPPING_FINGERPRINT, "dataset_lineage": DATASET_LINEAGE, "dataset_checksum": DATASET_CHECKSUM}, "embedding_identity": {"model": EMBEDDING_MODEL, "dimensions": 1024}, "ann_configuration": {"field": "embedding"}, "filter_applied": False, "constraint_diagnostics": diagnostics, "capability_registry": registry_snapshot(), "index_compatibility": compatibility or {"status": "not_checked"}, "latency_stages": {"contract_validation_ms": (time.perf_counter() - started) * 1000, "dense_filter_execution_ms": 0.0, "total_retrieval_ms": (time.perf_counter() - started) * 1000}}
+        provenance = {"provenance_schema_version": PROVENANCE_SCHEMA_VERSION, "retrievers": [self.name], "provider": self.name, "index": self.index, "index_identity": self.index, "strategy_identity": "C1", "runtime_strategy": "constraint_prefilter", "runtime_source": "elasticsearch_native_prefilter", "contract_state": state, "contract_schema_version": getattr(contract, "contract_version", None), "error_category": error_category, "requested_k": plan.top_k, "candidate_pool_count": 0, "eligible_candidate_count": 0, "returned_k": 0, "shortfall": diagnostics["shortfall"], "projection_identity": {"implementation": PROJECTION_IMPLEMENTATION, "schema_version": PROJECTION_SCHEMA_VERSION, "mapping_fingerprint": EXPECTED_MAPPING_FINGERPRINT, "dataset_lineage": DATASET_LINEAGE, "dataset_checksum": DATASET_CHECKSUM}, "embedding_identity": {"model": EMBEDDING_MODEL, "dimensions": 1024}, "ann_configuration": {"field": "embedding"}, "filter_applied": False, "constraint_diagnostics": diagnostics, "capability_registry": registry_snapshot(), "index_compatibility": compatibility or {"status": "not_checked"}, "latency_stages": {"contract_validation_ms": (time.perf_counter() - started) * 1000, "dense_filter_execution_ms": 0.0, "total_retrieval_ms": (time.perf_counter() - started) * 1000}}
         return RetrievalResult(items=(), plan_id=plan.plan_id, strategy=plan.strategy, latency_ms=(time.perf_counter() - started) * 1000, provenance=provenance, trace=(f"constraint:{error_category.lower()}",))
 
     def retrieve(self, query: Query, plan: RetrievalPlan) -> RetrievalResult:
@@ -133,6 +141,7 @@ class ElasticsearchDenseRetriever(_BaseElasticsearchRetriever):
         returned_hits = hits[: plan.top_k]
         result = self._result(query, plan, returned_hits, started, "elasticsearch_dense_score")
         provenance = dict(result.provenance)
+        provenance["provenance_schema_version"] = PROVENANCE_SCHEMA_VERSION
         provenance["strategy_identity"] = "C1" if contract is not None else "C0"
         provenance["runtime_strategy"] = "constraint_prefilter" if contract is not None else "dense"
         provenance["runtime_source"] = "elasticsearch_native_prefilter" if contract is not None else "elasticsearch_dense"

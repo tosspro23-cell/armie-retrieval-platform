@@ -1,5 +1,22 @@
 # ARMIE Retrieval Platform
 
+## v0.5.1 Governed Natural-Language → C1 Retrieval
+
+v0.5.1 adds a governed natural-language intent layer on top of the v0.5.0
+deterministic C1 substrate. A supported request is interpreted into bounded
+intent, ambiguity is surfaced for explicit user resolution, and a final
+confirmation is required before the existing `RetrievalContract` compiler and
+native Elasticsearch C1 path execute. The Workbench preserves execution and
+constraint provenance, including distinct not-executed, executed-zero, and
+executed-with-results states.
+
+This is not unrestricted semantic-role interpretation or conversational-agent
+functionality. Uncertainty does not silently become a hard requirement or
+exclusion; unsupported meaning cannot fabricate C1 capability; preferred and
+context-only meaning remain non-hard; user clarification does not broaden the
+registry/runtime support. Manual structured C1 and the unconstrained H2 Dense
+path remain available. See the [v0.5.1 release notes](docs/v0.5.1/release-notes.md).
+
 ## v0.5.0 Constraint-Aware Retrieval
 
 v0.5.0 supports deterministic structured hard-constraint expert retrieval over
@@ -32,7 +49,7 @@ PYTHONPATH=src python3 examples/build_v040_dataset.py --size 10000
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
 
-Elasticsearch is local-only and optional for the deterministic foundation. Start it with `docker compose -f docker-compose.elasticsearch.yml up -d`; no Docker data volumes, secrets, or model weights are committed.
+Elasticsearch is local-only and optional for the deterministic foundation. Start it with `docker compose -f docker-compose.elasticsearch.yml up -d`. The Compose configuration uses the local named volume `armie-elasticsearch-data` for Elasticsearch data persistence; neither its contents, secrets, nor model weights are committed.
 
 ### Gate 6 Workbench Acceptance / Relevance Experiment UX
 

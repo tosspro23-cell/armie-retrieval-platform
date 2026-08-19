@@ -11,6 +11,8 @@ import json
 import os
 import math
 import subprocess
+import hashlib
+import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from uuid import uuid4
@@ -33,12 +35,23 @@ from armie_retrieval.rerankers import MetadataBoostReranker
 from armie_retrieval.benchmarks import default_profiles
 from armie_retrieval.relevance import generate_benchmark_queries
 from armie_retrieval.constraints import registry_snapshot
-from armie_retrieval.contracts import RetrievalContract, ValidationState, validate_contract
+from armie_retrieval.contracts import (Constraint, ConstraintCategory, ConstraintOperator,
+                                       ConstraintStrength, RetrievalContract,
+                                       UnsupportedConstraint, ValidationState,
+                                       validate_contract)
 from armie_retrieval.embeddings import create_embedding_provider, EmbeddingPrerequisiteError
 from armie_retrieval.indexing.elasticsearch import ElasticsearchClient
+from armie_retrieval.indexing.elasticsearch.identity import configured_dense_index, physical_dense_index
+from armie_retrieval.providers.elasticsearch.retrievers import PROVENANCE_SCHEMA_VERSION
 from armie_retrieval.models import RetrievalPlan
 from armie_retrieval.providers.elasticsearch import ElasticsearchDenseRetriever
 from pydantic import ValidationError
+from armie_retrieval.interpretation import (
+    CandidateInterpretation, CandidateConstraint, ClarificationItem, ClarificationResolution,
+    ClarificationType, InterpretationState, apply_resolution, confirm,
+    start_session, validate_contract as validate_interpretation_contract, question_for,
+)
+from armie_retrieval.interpretation.models import Polarity, SupportState
 
 
 @dataclass
@@ -84,6 +97,9 @@ class WorkbenchService:
         self._benchmark_payload = self._load_benchmark_payload()
         self._benchmark_experts = self._load_benchmark_experts()
         self._c1_retriever = None
+        self.interpretation_sessions: dict[str, object] = {}
+        self.interpretation_contracts: dict[str, RetrievalContract] = {}
+        self.interpretation_fingerprints: dict[str, str] = {}
 
     def _load_benchmark_experts(self):
         if not self._benchmark_payload:
@@ -107,20 +123,138 @@ class WorkbenchService:
             return None
 
     def health(self) -> dict[str, Any]:
-        return {"status": "ok", "service": "armie-retrieval-workbench", "version": __version__, "package_version": __version__, "package_source": self.package_source, "api_version": "v1", "frontend_version": "0.5.0", "git_commit": self.git_commit, "dataset": "Expert Discovery v2" if self._benchmark_payload else "Legacy v1 (fallback)", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_v2_available": bool(self._benchmark_payload), "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}}
+        return {"status": "ok", "service": "armie-retrieval-workbench", "version": __version__, "package_version": __version__, "package_source": self.package_source, "api_version": "v1", "frontend_version": "0.5.1", "git_commit": self.git_commit, "dataset": "Expert Discovery v2" if self._benchmark_payload else "Legacy v1 (fallback)", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_v2_available": bool(self._benchmark_payload), "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}}
 
     def capabilities(self) -> dict[str, Any]:
-        return {"api_version": "v1", "application_version": __version__, "package_version": __version__, "package_source": self.package_source, "frontend_version": "0.5.0", "git_commit": self.git_commit, "active_dataset": "expert-discovery-v2" if self._benchmark_payload else "legacy-v1", "default_profile": "H2" if self._benchmark_payload else "baseline", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry": registry_snapshot()}, "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks", "benchmark_query_library", "constraint_evaluation", "profile_comparison"]}
+        return {"api_version": "v1", "application_version": __version__, "package_version": __version__, "package_source": self.package_source, "frontend_version": "0.5.1", "git_commit": self.git_commit, "active_dataset": "expert-discovery-v2" if self._benchmark_payload else "legacy-v1", "default_profile": "H2" if self._benchmark_payload else "baseline", "profiles": ["H1", "H2", "H3", "H4", "baseline", "model-enhanced"], "benchmark_profiles": [profile.profile_id for profile in default_profiles()], "retrieval_strategies": ["dense", "sparse", "hybrid", "graph"], "constraint_runtime": {"promoted_strategy": "C1", "default_semantic_strategy": "dense", "native_prefilter": True, "registry": registry_snapshot()}, "features": ["sessions", "follow_up", "evidence", "verification", "audit_trail", "query_lab", "relevance_benchmarks", "benchmark_query_library", "constraint_evaluation", "profile_comparison"]}
 
     def benchmark_manifest(self) -> dict[str, Any]:
         if not self._benchmark_payload:
             return {"available": False, "reason": "Dataset v2 benchmark artifacts are not available locally."}
         m = self._benchmark_payload["manifest"]
-        return {"available": True, "git_commit": os.getenv("ARMIE_BENCHMARK_COMMIT", "9973367910d6ab3a0b52d123c1151ee0507e7f24"), "dataset_version": m.get("dataset_version"), "dataset_checksum": m.get("checksum"), "query_set_version": m.get("query_set_version"), "judgement_set_version": m.get("judgement_set_version"), "elasticsearch_version": "8.15.3", "bm25_index": os.getenv("ARMIE_V050_BM25_INDEX", "armie-experts-v1-v2-gate55b-bm25-r2"), "dense_index": os.getenv("ARMIE_V050_C1_INDEX", "armie-experts-v1-v2-gate6b-dense-10000"), "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "projection_schema_version": "armie-v0.5-constraint-projection-v1", "constraint_projection": "constraint-projection-0.2-gate6b", "constraint_runtime": {"strategy": "C1", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}, "reranker_model": "BAAI/bge-reranker-v2-m3", "candidate_boundaries": {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60}}
+        return {"available": True, "git_commit": os.getenv("ARMIE_BENCHMARK_COMMIT", "9973367910d6ab3a0b52d123c1151ee0507e7f24"), "dataset_version": m.get("dataset_version"), "dataset_checksum": m.get("checksum"), "query_set_version": m.get("query_set_version"), "judgement_set_version": m.get("judgement_set_version"), "elasticsearch_version": "8.15.3", "bm25_index": os.getenv("ARMIE_V050_BM25_INDEX", "armie-experts-v1-v2-gate55b-bm25-r2"), "dense_index": configured_dense_index(), "dense_physical_index": physical_dense_index(), "embedding_model": "BAAI/bge-m3", "embedding_dimensions": 1024, "projection_schema_version": "armie-v0.5-constraint-projection-v1", "constraint_projection": "constraint-projection-0.2-gate6b", "provenance_schema_version": PROVENANCE_SCHEMA_VERSION, "constraint_runtime": {"strategy": "C1", "native_prefilter": True, "registry_version": registry_snapshot()["version"]}, "reranker_model": "BAAI/bge-reranker-v2-m3", "candidate_boundaries": {"retrieval_candidate_k": 100, "fusion_candidate_k": 100, "rerank_candidate_k": 30, "final_top_k": 5, "rrf_k": 60}}
 
     def constraint_registry(self) -> dict[str, Any]:
         """Expose the bounded runtime contract without exposing backend DSL."""
         return registry_snapshot()
+
+    def interpret(self, text: str) -> dict[str, Any]:
+        """Create a UI-independent clarification session; no retrieval executes."""
+        if not text or not text.strip():
+            raise WorkbenchError("invalid_query", "Query text must not be empty.")
+        raw = text.strip()
+        base = CandidateInterpretation(str(uuid4()), raw, raw, constraints=self._candidate_constraints(raw), exclusions=self._candidate_exclusions(raw), unsupported_items=self._unsupported_items(raw))
+        items = []
+        lower = raw.lower()
+        if any(token in lower for token in ("around ", "roughly ", "maybe ")):
+            span = next((token for token in ("around ", "roughly ", "maybe ") if token in lower), "ambiguous phrase")
+            question, choices = question_for(ClarificationType.NUMERIC_INTENT if "year" in lower else ClarificationType.REQUIREMENT_STRENGTH, span.strip())
+            items.append(ClarificationItem(f"c-{uuid4().hex[:8]}", base.request_id, span.strip(), raw, "AMBIGUOUS", ClarificationType.NUMERIC_INTENT if "year" in lower else ClarificationType.REQUIREMENT_STRENGTH, choices, question, choices, provenance=({"stage": "deterministic_protocol", "source": span.strip()},)))
+        if "not necessarily" in lower or "maybe exclude" in lower:
+            span = "not necessarily" if "not necessarily" in lower else "maybe exclude"
+            question, choices = question_for(ClarificationType.EXCLUSION_SCOPE, span)
+            items.append(ClarificationItem(f"c-{uuid4().hex[:8]}", base.request_id, span, raw, "AMBIGUOUS", ClarificationType.EXCLUSION_SCOPE, choices, question, choices, provenance=({"stage": "deterministic_protocol", "source": span},)))
+        session = start_session(base, tuple(items)); session_id = str(uuid4()); self.interpretation_sessions[session_id] = session
+        return self._interpretation_payload(session_id, session)
+
+    @staticmethod
+    def _candidate_constraints(raw: str) -> tuple:
+        """Extract only explicit, registry-supported facts for Gate 5."""
+        lower = raw.lower()
+        rows = []
+        match = re.search(r"(?:at least|minimum of|over)\s+(\d+)\s+years", lower)
+        if match and "around" not in lower and "roughly" not in lower:
+            rows.append(CandidateConstraint("years_experience", "gte", int(match.group(1)), int(match.group(1)), source_span=match.group(0)))
+        for value in ("senior", "principal"):
+            if re.search(rf"\b{value}(?:-level)?\b", lower):
+                rows.append(CandidateConstraint("seniority", "gte", value, value, source_span=value))
+                break
+        industries = {"healthcare": "healthcare", "financial services": "financial_services", "manufacturing": "manufacturing"}
+        for phrase, value in industries.items():
+            if phrase in lower and not re.search(rf"excluding\s+{re.escape(phrase)}", lower):
+                rows.append(CandidateConstraint("industry", "eq", value, value, source_span=phrase))
+        return tuple(rows)
+
+    @staticmethod
+    def _candidate_exclusions(raw: str) -> tuple:
+        lower = raw.lower()
+        for phrase, value in (("financial services", "financial_services"), ("healthcare", "healthcare"), ("manufacturing", "manufacturing")):
+            if re.search(rf"(?:exclude|excluding)\s+{re.escape(phrase)}", lower):
+                return (CandidateConstraint("industry", "eq", value, value, polarity=Polarity.EXCLUSION, source_span=phrase),)
+        return ()
+
+    @staticmethod
+    def _unsupported_items(raw: str) -> tuple[str, ...]:
+        lower = raw.lower()
+        if any(phrase in lower for phrase in ("worked at ", "advised ", "delivered for ")):
+            return ("relationship constraint requires deferred evidence support",)
+        return ()
+
+    def _contract_from_session(self, session) -> RetrievalContract:
+        candidate = session.interpretation
+        hard, exclusions, soft = [], [], []
+        for item in candidate.constraints:
+            if item.support_state is SupportState.UNSUPPORTED:
+                continue
+            category = ConstraintCategory.NUMERIC if item.field == "years_experience" else ConstraintCategory.SENIORITY if item.field == "seniority" else ConstraintCategory.CATEGORICAL
+            hard.append(Constraint(canonical_field=item.field, operator=ConstraintOperator(item.operator), expected_value=item.normalized_value if item.normalized_value is not None else item.raw_value, category=category, strength=ConstraintStrength.HARD, provenance=item.source_span or "confirmed_interpretation"))
+        for item in candidate.exclusions:
+            exclusions.append(Constraint(canonical_field=item.field, operator=ConstraintOperator.NOT_IN, expected_value=[item.normalized_value if item.normalized_value is not None else item.raw_value], category=ConstraintCategory.CATEGORICAL, strength=ConstraintStrength.HARD, provenance=item.source_span or "confirmed_interpretation"))
+        for resolution in session.resolutions:
+            if resolution.selected_resolution == "MINIMUM":
+                match = re.search(r"(\d+)\s+years", session.interpretation.natural_language_request.lower())
+                if match:
+                    hard.append(Constraint(canonical_field="years_experience", operator=ConstraintOperator.GTE, expected_value=int(match.group(1)), category=ConstraintCategory.NUMERIC, provenance=resolution.clarification_id))
+            elif resolution.selected_resolution == "EXCLUDED":
+                match = re.search(r"(?:exclude|excluding)\s+([a-z ]+)", session.interpretation.natural_language_request.lower())
+                if match:
+                    exclusions.append(Constraint(canonical_field="industry", operator=ConstraintOperator.EQ, expected_value=match.group(1).strip().replace(" ", "_"), category=ConstraintCategory.CATEGORICAL, provenance=resolution.clarification_id))
+            elif resolution.selected_resolution in {"PREFERRED", "CONTEXT_ONLY", "REMOVE_FROM_CONSTRAINT_INTERPRETATION", "APPROXIMATE", "MAXIMUM", "EXACT"}:
+                continue
+        unsupported = tuple(UnsupportedConstraint(expression=item, reason="No executable Gate 5 C1 mapping", provenance="confirmed_interpretation") for item in candidate.unsupported_items)
+        return RetrievalContract(semantic_query=candidate.semantic_query, hard_constraints=tuple(hard), exclusions=tuple(exclusions), soft_preferences=tuple(soft), unsupported_constraints=unsupported)
+
+    def _interpretation_payload(self, session_id, session):
+        contract = self.interpretation_contracts.get(session_id)
+        blocking = sum(1 for item in session.clarifications if item.status.value == "NEEDS_CLARIFICATION")
+        return {"session_id": session_id, "request_id": session.interpretation.request_id, "state": session.interpretation.interpretation_state.value, "interpretation": session.interpretation.to_dict(), "clarifications": [c.__dict__ for c in session.clarifications], "resolutions": [r.__dict__ for r in session.resolutions], "blocking_clarification_count": blocking, "confirmation_required": session.interpretation.interpretation_state is InterpretationState.INTERPRETATION_COMPLETE, "contract": contract.model_dump(mode="json") if contract else None, "contract_fingerprint": self.interpretation_fingerprints.get(session_id)}
+
+    def interpretation(self, session_id: str):
+        try: return self._interpretation_payload(session_id, self.interpretation_sessions[session_id])
+        except KeyError as exc: raise WorkbenchError("interpretation_session_not_found", "Interpretation session was not found.", status_code=404) from exc
+
+    def resolve_interpretation(self, session_id: str, resolution: dict[str, Any], *, edit: bool = False):
+        try: session = self.interpretation_sessions[session_id]
+        except KeyError as exc: raise WorkbenchError("interpretation_session_not_found", "Interpretation session was not found.", status_code=404) from exc
+        try: updated = apply_resolution(session, ClarificationResolution(**resolution), edit=edit)
+        except (TypeError, ValueError) as exc: raise WorkbenchError("invalid_clarification_resolution", str(exc)) from exc
+        self.interpretation_sessions[session_id] = updated; return self._interpretation_payload(session_id, updated)
+
+    def confirm_interpretation(self, session_id: str):
+        try: session = self.interpretation_sessions[session_id]; confirmed = confirm(session); validated = validate_interpretation_contract(confirmed)
+        except KeyError as exc: raise WorkbenchError("interpretation_session_not_found", "Interpretation session was not found.", status_code=404) from exc
+        except ValueError as exc: raise WorkbenchError("interpretation_not_ready", str(exc)) from exc
+        contract = self._contract_from_session(validated)
+        validation = validate_contract(contract)
+        if not validation.valid or contract.unsupported_constraints:
+            raise WorkbenchError("unsupported_executable_intent", "The confirmed interpretation contains meaning that cannot be executed by Gate 5 C1.", details={"validation": validation.model_dump(mode="json")})
+        self.interpretation_sessions[session_id] = validated
+        self.interpretation_contracts[session_id] = contract
+        self.interpretation_fingerprints[session_id] = contract.contract_id or ""
+        return self._interpretation_payload(session_id, validated)
+
+    def execute_interpretation(self, session_id: str, *, contract_fingerprint: str | None = None, requested_k: int = 5):
+        try: session = self.interpretation_sessions[session_id]
+        except KeyError as exc: raise WorkbenchError("interpretation_session_not_found", "Interpretation session was not found.", status_code=404) from exc
+        if session.interpretation.interpretation_state is not InterpretationState.VALIDATED_CONTRACT:
+            raise WorkbenchError("interpretation_not_confirmed", "Explicit confirmation and validation are required before C1 execution.")
+        contract = self.interpretation_contracts.get(session_id)
+        if contract is None or (contract_fingerprint and contract_fingerprint != self.interpretation_fingerprints.get(session_id)):
+            raise WorkbenchError("stale_contract", "The confirmed contract is stale; review and confirm again.")
+        if not contract.hard_constraints and not contract.exclusions:
+            # Removing/softening every hard condition is explicitly semantic-only.
+            return self.query(session.interpretation.semantic_query, profile="H2")
+        return self.structured_query(session.interpretation.semantic_query, contract.model_dump(mode="json"), requested_k=requested_k)
 
     def benchmark_profiles(self) -> list[dict[str, Any]]:
         return [{"id": "H1", "label": "H1 — BM25", "description": "Fast lexical baseline", "strategy": "sparse", "retrievers": ["elasticsearch_bm25"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Fast lexical baseline", "score_semantics": "BM25 score"}, {"id": "H2", "label": "H2 — Dense", "description": "Practical quality/cost baseline", "strategy": "dense", "retrievers": ["elasticsearch_dense"], "fusion": None, "reranker": "metadata_boost", "architecture_label": "Practical quality/cost baseline", "score_semantics": "Dense score"}, {"id": "H3", "label": "H3 — Hybrid RRF", "description": "Lexical + semantic complementarity", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "metadata_boost", "architecture_label": "Lexical + semantic complementarity", "score_semantics": "RRF fused score"}, {"id": "H4", "label": "H4 — Hybrid + BGE", "description": "Cross-encoder reranking experiment", "strategy": "hybrid", "retrievers": ["elasticsearch_bm25", "elasticsearch_dense"], "fusion": "reciprocal_rank_fusion", "reranker": "bge_cross_encoder", "architecture_label": "Cross-encoder reranking experiment", "score_semantics": "BGE reranker score"}]
@@ -153,9 +287,17 @@ class WorkbenchService:
         self._session(session_id)
         del self.sessions[session_id]
 
-    def query(self, text: str, *, session_id: str | None = None, profile: str = "baseline", query_case_id: str | None = None, benchmark_query_id: str | None = None) -> dict[str, Any]:
+    def query(self, text: str, *, session_id: str | None = None, profile: str = "baseline", governed: bool = False, query_case_id: str | None = None, benchmark_query_id: str | None = None) -> dict[str, Any]:
         if not text or not text.strip():
             raise WorkbenchError("invalid_query", "Query text must not be empty.")
+        if governed and session_id not in self.interpretation_sessions:
+            return {**self.interpret(text), "governed_mode": True, "execution_status": "blocked"}
+        # A reviewed NL session owns its execution lifecycle.  The legacy
+        # query endpoint may route through the canonical governed executor,
+        # but must never create a semantic bypass around clarification or
+        # confirmation.
+        if session_id in self.interpretation_sessions:
+            return self.execute_interpretation(session_id, contract_fingerprint=self.interpretation_fingerprints.get(session_id))
         if profile not in {"baseline", "model-enhanced", "H1", "H2", "H3", "H4"}:
             raise WorkbenchError("invalid_profile", f"Unknown profile: {profile}")
         session = self._session(session_id) if session_id else self._new_session()
@@ -396,6 +538,7 @@ class WorkbenchService:
         if benchmark: metrics.update(benchmark["metrics"])
         response = {"schema_version": __version__, "request_id": trace.query_id, "trace_id": trace_id, "session_id": session_id, "profile": profile, "dataset_context": {"dataset": "Expert Discovery v2" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "Legacy v1 fixture", "path": "v0.5.0" if profile in {"H1", "H2", "H3", "H4"} and self._benchmark_payload else "legacy", "quality_status": "labelled" if benchmark_case else "unlabelled"}, "query": {"raw": raw, "resolved": resolved}, "execution": {"status": "completed", "latency_ms": latency, "started_at": time.time()}, "execution_context": self._execution_context(trace), "plan": trace.planner.parsed_plan, "answer_summary": summary, "results": items, "evidence": evidence, "evidence_by_result": {item["id"]: self._evidence_detail(trace, item["id"]) for item in items}, "verification": verification, "metrics": metrics, "benchmark": benchmark, "experiment_manifest": self.benchmark_manifest() if benchmark_case else None, "stage_summaries": self._stage_summaries(trace), "warnings": list(trace.warnings) + list(trace.planner.warnings), "fallbacks": [trace.planner.fallback] if trace.planner.fallback else [], "raw_trace": trace.to_dict(), "trace_url": f"/api/v1/traces/{trace_id}"}
         response["schema_version"] = "0.5.0"
+        response["provenance_schema_version"] = PROVENANCE_SCHEMA_VERSION
         if response["dataset_context"]["dataset"] == "Expert Discovery v2": response["dataset_context"]["path"] = "v0.5.0"
         response["repeatability"] = {"plan_fingerprint": trace.planner.parsed_plan.get("plan_id"), "result_ids": [item["id"] for item in items], "actual_provider": trace.planner.actual_provider, "fallback": bool(trace.planner.fallback), "planner_latency_ms": trace.planner.latency_ms, "total_latency_ms": latency, "verification_status": verification["status"]}
         return response

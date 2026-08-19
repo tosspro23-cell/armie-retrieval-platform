@@ -1,0 +1,2170 @@
+{
+  "annotation_policy": "gate3g-role-policy-v1",
+  "benchmark_id": "v0.5.1-staged-interpretation-promotion-v1",
+  "candidate_identity": "deterministic-staged-v2-gate3fr",
+  "items": [
+    {
+      "id": "g3g-001",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-002",
+      "request": "exclude Healthcare",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Healthcare",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-003",
+      "request": "preferably based in London",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in London"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-004",
+      "request": "worked on Healthcare AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Healthcare AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-005",
+      "request": "worked with Partner1",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner1"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-006",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-007",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-008",
+      "request": "exclude Financial Services",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Financial Services",
+          "value": "financial services"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-009",
+      "request": "preferably based in Lisbon",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Lisbon"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-010",
+      "request": "worked on Financial Services AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Financial Services AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-011",
+      "request": "worked with Partner2",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner2"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-012",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-013",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-014",
+      "request": "exclude Energy",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-015",
+      "request": "preferably based in Berlin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Berlin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-016",
+      "request": "worked on Energy AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Energy AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-017",
+      "request": "worked with Partner3",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner3"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-018",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-019",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-020",
+      "request": "exclude Retail",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Retail",
+          "value": "retail"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-021",
+      "request": "preferably based in Dublin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Dublin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-022",
+      "request": "worked on Retail AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Retail AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-023",
+      "request": "worked with Partner4",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner4"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-024",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-025",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-026",
+      "request": "exclude Manufacturing",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Manufacturing",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-027",
+      "request": "preferably based in Paris",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Paris"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-028",
+      "request": "worked on Manufacturing AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Manufacturing AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-029",
+      "request": "worked with Partner5",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner5"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-030",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-031",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-032",
+      "request": "exclude Technology",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Technology",
+          "value": "technology"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-033",
+      "request": "preferably based in Madrid",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Madrid"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-034",
+      "request": "worked on Technology AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Technology AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-035",
+      "request": "worked with Partner6",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner6"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-036",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-037",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-038",
+      "request": "exclude Healthcare",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Healthcare",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-039",
+      "request": "preferably based in London",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in London"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-040",
+      "request": "worked on Healthcare AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Healthcare AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-041",
+      "request": "worked with Partner7",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner7"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-042",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-043",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-044",
+      "request": "exclude Financial Services",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Financial Services",
+          "value": "financial services"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-045",
+      "request": "preferably based in Lisbon",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Lisbon"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-046",
+      "request": "worked on Financial Services AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Financial Services AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-047",
+      "request": "worked with Partner8",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner8"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-048",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-049",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-050",
+      "request": "exclude Energy",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-051",
+      "request": "preferably based in Berlin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Berlin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-052",
+      "request": "worked on Energy AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Energy AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-053",
+      "request": "worked with Partner9",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner9"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-054",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-055",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-056",
+      "request": "exclude Retail",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Retail",
+          "value": "retail"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-057",
+      "request": "preferably based in Dublin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Dublin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-058",
+      "request": "worked on Retail AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Retail AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-059",
+      "request": "worked with Partner10",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner10"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-060",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-061",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-062",
+      "request": "exclude Manufacturing",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Manufacturing",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-063",
+      "request": "preferably based in Paris",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Paris"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-064",
+      "request": "worked on Manufacturing AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Manufacturing AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-065",
+      "request": "worked with Partner11",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner11"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-066",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-067",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-068",
+      "request": "exclude Technology",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Technology",
+          "value": "technology"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-069",
+      "request": "preferably based in Madrid",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Madrid"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-070",
+      "request": "worked on Technology AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Technology AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-071",
+      "request": "worked with Partner12",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner12"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-072",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-073",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-074",
+      "request": "exclude Healthcare",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Healthcare",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-075",
+      "request": "preferably based in London",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in London"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-076",
+      "request": "worked on Healthcare AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Healthcare AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-077",
+      "request": "worked with Partner13",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner13"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-078",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-079",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-080",
+      "request": "exclude Financial Services",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Financial Services",
+          "value": "financial services"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-081",
+      "request": "preferably based in Lisbon",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Lisbon"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-082",
+      "request": "worked on Financial Services AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Financial Services AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-083",
+      "request": "worked with Partner14",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner14"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-084",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-085",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-086",
+      "request": "exclude Energy",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-087",
+      "request": "preferably based in Berlin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Berlin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-088",
+      "request": "worked on Energy AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Energy AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-089",
+      "request": "worked with Partner15",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner15"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-090",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-091",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-092",
+      "request": "exclude Retail",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Retail",
+          "value": "retail"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-093",
+      "request": "preferably based in Dublin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Dublin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-094",
+      "request": "worked on Retail AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Retail AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-095",
+      "request": "worked with Partner16",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner16"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-096",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-097",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-098",
+      "request": "exclude Manufacturing",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Manufacturing",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-099",
+      "request": "preferably based in Paris",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Paris"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-100",
+      "request": "worked on Manufacturing AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Manufacturing AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-101",
+      "request": "worked with Partner17",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner17"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-102",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-103",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-104",
+      "request": "exclude Technology",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Technology",
+          "value": "technology"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-105",
+      "request": "preferably based in Madrid",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Madrid"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-106",
+      "request": "worked on Technology AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Technology AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-107",
+      "request": "worked with Partner18",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner18"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-108",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-109",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-110",
+      "request": "exclude Healthcare",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Healthcare",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-111",
+      "request": "preferably based in London",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in London"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-112",
+      "request": "worked on Healthcare AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Healthcare AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-113",
+      "request": "worked with Partner19",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner19"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-114",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-115",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-116",
+      "request": "exclude Financial Services",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Financial Services",
+          "value": "financial services"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-117",
+      "request": "preferably based in Lisbon",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Lisbon"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-118",
+      "request": "worked on Financial Services AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Financial Services AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-119",
+      "request": "worked with Partner20",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner20"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-120",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-121",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-122",
+      "request": "exclude Energy",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-123",
+      "request": "preferably based in Berlin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Berlin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-124",
+      "request": "worked on Energy AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Energy AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-125",
+      "request": "worked with Partner21",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner21"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-126",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-127",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-128",
+      "request": "exclude Retail",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Retail",
+          "value": "retail"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-129",
+      "request": "preferably based in Dublin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Dublin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-130",
+      "request": "worked on Retail AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Retail AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-131",
+      "request": "worked with Partner22",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner22"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-132",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-133",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-134",
+      "request": "exclude Manufacturing",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Manufacturing",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-135",
+      "request": "preferably based in Paris",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Paris"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-136",
+      "request": "worked on Manufacturing AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Manufacturing AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-137",
+      "request": "worked with Partner23",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner23"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-138",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-139",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-140",
+      "request": "exclude Technology",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Technology",
+          "value": "technology"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-141",
+      "request": "preferably based in Madrid",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Madrid"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-142",
+      "request": "worked on Technology AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Technology AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-143",
+      "request": "worked with Partner24",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner24"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-144",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-145",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-146",
+      "request": "exclude Healthcare",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Healthcare",
+          "value": "healthcare"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-147",
+      "request": "preferably based in London",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in London"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-148",
+      "request": "worked on Healthcare AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Healthcare AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-149",
+      "request": "worked with Partner25",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner25"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-150",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-151",
+      "request": "must have at least 10 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 10 years of experience",
+          "value": 10
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-152",
+      "request": "exclude Financial Services",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Financial Services",
+          "value": "financial services"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-153",
+      "request": "preferably based in Lisbon",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Lisbon"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-154",
+      "request": "worked on Financial Services AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Financial Services AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-155",
+      "request": "worked with Partner26",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner26"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-156",
+      "request": "around 10 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 10 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-157",
+      "request": "must have at least 15 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 15 years of experience",
+          "value": 15
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-158",
+      "request": "exclude Energy",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Energy",
+          "value": "energy"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-159",
+      "request": "preferably based in Berlin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Berlin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-160",
+      "request": "worked on Energy AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Energy AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-161",
+      "request": "worked with Partner27",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner27"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-162",
+      "request": "around 15 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 15 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-163",
+      "request": "must have at least 20 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 20 years of experience",
+          "value": 20
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-164",
+      "request": "exclude Retail",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Retail",
+          "value": "retail"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-165",
+      "request": "preferably based in Dublin",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Dublin"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-166",
+      "request": "worked on Retail AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Retail AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-167",
+      "request": "worked with Partner28",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner28"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-168",
+      "request": "around 20 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 20 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-169",
+      "request": "must have at least 25 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 25 years of experience",
+          "value": 25
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-170",
+      "request": "exclude Manufacturing",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Manufacturing",
+          "value": "manufacturing"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-171",
+      "request": "preferably based in Paris",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Paris"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-172",
+      "request": "worked on Manufacturing AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Manufacturing AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-173",
+      "request": "worked with Partner29",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner29"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-174",
+      "request": "around 25 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 25 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    },
+    {
+      "id": "g3g-175",
+      "request": "must have at least 30 years of experience",
+      "spans": [
+        {
+          "field": "years_experience",
+          "operator": "gte",
+          "role": "REQUIRED",
+          "text": "must have at least 30 years of experience",
+          "value": 30
+        }
+      ],
+      "stratum": "REQUIRED"
+    },
+    {
+      "id": "g3g-176",
+      "request": "exclude Technology",
+      "spans": [
+        {
+          "field": "industry",
+          "operator": "neq",
+          "role": "EXCLUDED",
+          "text": "exclude Technology",
+          "value": "technology"
+        }
+      ],
+      "stratum": "EXCLUDED"
+    },
+    {
+      "id": "g3g-177",
+      "request": "preferably based in Madrid",
+      "spans": [
+        {
+          "role": "PREFERRED",
+          "text": "preferably based in Madrid"
+        }
+      ],
+      "stratum": "PREFERRED"
+    },
+    {
+      "id": "g3g-178",
+      "request": "worked on Technology AI products",
+      "spans": [
+        {
+          "role": "CONTEXT_ONLY",
+          "text": "worked on Technology AI products"
+        }
+      ],
+      "stratum": "CONTEXT_ONLY"
+    },
+    {
+      "id": "g3g-179",
+      "request": "worked with Partner30",
+      "spans": [
+        {
+          "role": "UNSUPPORTED",
+          "text": "worked with Partner30"
+        }
+      ],
+      "stratum": "UNSUPPORTED"
+    },
+    {
+      "id": "g3g-180",
+      "request": "around 30 years",
+      "spans": [
+        {
+          "role": "AMBIGUOUS",
+          "text": "around 30 years"
+        }
+      ],
+      "stratum": "AMBIGUOUS"
+    }
+  ],
+  "purpose": "prospective_held_out_promotion_evidence",
+  "registry_id": "v0.5-c1-capability-registry-1",
+  "schema_version": "staged-promotion-benchmark-v1"
+}

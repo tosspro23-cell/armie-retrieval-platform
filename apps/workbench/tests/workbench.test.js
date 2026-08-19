@@ -33,3 +33,9 @@ test('Constraint UX distinguishes semantic intent from registry-backed filters',
     assert.ok(source.includes(marker), `missing constraint UX marker: ${marker}`);
   }
 });
+
+test('Clarification UX preserves resolution and confirmation boundaries', () => {
+  for (const marker of ['InterpretationPanel', 'Interpretation review', 'Review intent', 'clarification_id', 'Confirm interpretation', 'VALIDATED_CONTRACT', 'Search with confirmed constraints', 'never executes C1']) {
+    assert.ok(source.includes(marker), `missing clarification marker: ${marker}`);
+  }
+});

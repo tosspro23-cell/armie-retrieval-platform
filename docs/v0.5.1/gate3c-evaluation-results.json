@@ -1,0 +1,144 @@
+{
+  "aggregation": "gate3c-aggregation-v1",
+  "benchmark_id": "v0.5.1-nl-constraint-extraction-eval-v1",
+  "harness": "gate3c-resumable-v1",
+  "promotion_thresholds_unchanged": true,
+  "repeatability": {
+    "hybrid": {
+      "exact_interpretation_stability": 1.0,
+      "hard_contract_stability": 1.0,
+      "repetitions": 3,
+      "subset_size": 6
+    },
+    "model": {
+      "exact_interpretation_stability": 1.0,
+      "hard_contract_stability": 1.0,
+      "repetitions": 3,
+      "subset_size": 6
+    }
+  },
+  "runs": {
+    "hybrid": {
+      "execution": {
+        "attempted": 120,
+        "infrastructure_failures": 0,
+        "max_wall_clock_seconds": 1200.0,
+        "retry_policy": {
+          "max_retries": 1
+        },
+        "structured_output_failures": 0,
+        "successful_structured_outputs": 120,
+        "terminal": 120,
+        "wall_clock_seconds": 348.252729166
+      },
+      "frozen_identity": {
+        "arm_identity": "hybrid-rule-plus-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+        "benchmark_fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+        "checkpoint_schema": "gate3c-item-checkpoint-v1",
+        "decoding": {
+          "format": "json",
+          "stream": false,
+          "temperature": 0,
+          "think": false
+        },
+        "harness_version": "gate3c-resumable-v1",
+        "implementation_identity": "hybrid-rule-plus-structured-qwen3-4b-v1-gate3",
+        "item_count": 120,
+        "max_retries": 1,
+        "model": "qwen3:4b",
+        "model_identity": "hybrid-rule-plus-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+        "prompt_fingerprint": "gate3-structured-v1",
+        "registry_identity": "v0.5-c1-capability-registry-1",
+        "schema_identity": "nl-constraint-interpretation-v1",
+        "timeout_seconds": 15.0
+      },
+      "integrity": {
+        "all_terminal": true,
+        "duplicate_ids": 0,
+        "expected": 120,
+        "missing_ids": [],
+        "represented": 120
+      },
+      "metrics": {
+        "constraint_missed_hard": 0.475,
+        "constraint_precision": 0.6625,
+        "constraint_recall": 0.6277777777777779,
+        "contradiction_state_correct": 0.9583333333333334,
+        "coverage": 1.0,
+        "exact_candidate_contract_match": 0.2833333333333333,
+        "false_exclusion_count": 0.0,
+        "false_hard_constraint_count": 0.10833333333333334,
+        "false_hard_constraint_rate": 0.09166666666666666,
+        "false_hard_query": 0.09166666666666666,
+        "latency_ms_mean": 2900.498293516667,
+        "latency_ms_p50": 2883.148584499999,
+        "latency_ms_p95": 3614.439542999975,
+        "latency_ms_total": 348059.7952220001,
+        "semantic_only_overextraction_rate": 0.0,
+        "unsupported_items_correct": 0.825
+      },
+      "run_id": "gate3-hybrid-qwen3-4b-frozen-eval-v1"
+    },
+    "model": {
+      "execution": {
+        "attempted": 120,
+        "infrastructure_failures": 0,
+        "max_wall_clock_seconds": 900.0,
+        "retry_policy": {
+          "max_retries": 1
+        },
+        "structured_output_failures": 0,
+        "successful_structured_outputs": 120,
+        "terminal": 120,
+        "wall_clock_seconds": 306.39762824999997
+      },
+      "frozen_identity": {
+        "arm_identity": "ollama-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+        "benchmark_fingerprint": "74f19a21dffe975c97673736fe33292ee7d5a286b3d612e007dfe4b1008df800",
+        "checkpoint_schema": "gate3c-item-checkpoint-v1",
+        "decoding": {
+          "format": "json",
+          "stream": false,
+          "temperature": 0,
+          "think": false
+        },
+        "harness_version": "gate3c-resumable-v1",
+        "implementation_identity": "ollama-structured-qwen3-4b-v1-gate3",
+        "item_count": 120,
+        "max_retries": 1,
+        "model": "qwen3:4b",
+        "model_identity": "ollama-structured-qwen3-4b-v1-gate3b-warm-persistent-v1",
+        "prompt_fingerprint": "gate3-structured-v1",
+        "registry_identity": "v0.5-c1-capability-registry-1",
+        "schema_identity": "nl-constraint-interpretation-v1",
+        "timeout_seconds": 15.0
+      },
+      "integrity": {
+        "all_terminal": true,
+        "duplicate_ids": 0,
+        "expected": 120,
+        "missing_ids": [],
+        "represented": 120
+      },
+      "metrics": {
+        "constraint_missed_hard": 1.05,
+        "constraint_precision": 0.3,
+        "constraint_recall": 0.3,
+        "contradiction_state_correct": 0.95,
+        "coverage": 1.0,
+        "exact_candidate_contract_match": 0.0,
+        "false_exclusion_count": 0.0,
+        "false_hard_constraint_count": 0.0,
+        "false_hard_constraint_rate": 0.0,
+        "false_hard_query": 0.0,
+        "latency_ms_mean": 2551.808559058334,
+        "latency_ms_p50": 2489.7001045000025,
+        "latency_ms_p95": 3257.6317500000014,
+        "latency_ms_total": 306217.0270870002,
+        "semantic_only_overextraction_rate": 0.0,
+        "unsupported_items_correct": 0.8
+      },
+      "run_id": "gate3-qwen3-4b-frozen-eval-v1"
+    }
+  }
+}
