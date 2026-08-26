@@ -463,3 +463,31 @@ capability, C1 semantic change, Dataset v2 change, or benchmark change.
 published GitHub Release object.
 
 **Revisit when:** the Founder explicitly authorizes a successor Work Object.
+
+### D-036 — CI Revival 2026-08 accepted and merged
+
+The Founder (repo owner) reviewed PR #1
+(https://github.com/tosspro23-cell/armie-retrieval-platform/pull/1) in this
+session and explicitly authorized both this Company OS write-back and
+merging the branch into `main` with a regular merge commit. This acceptance
+is recorded because the Founder gave it directly in this dispatch — it is
+not inferred from CI passing or from prior agent execution.
+
+The Work Object (`ci-revival-2026-08`) restored a passing GitHub Actions CI
+baseline using only test-harness and CI-configuration changes: no change to
+`src/armie_retrieval/`, `services/`, or any retrieval/planning/ranking/C1
+behavior. Four independently-verified root causes were fixed in commit
+`02a816a`; a Python-3.9-only dependency gap (`eval_type_backport`, `httpx`)
+surfaced once the 3.11 leg started passing was fixed in `05a6f8e`; and a
+Codex automated-review finding about a test that could silently no-op-pass
+was fixed in `edb80ee`. A second Codex finding, requesting this Company OS
+backfill be bundled into the CI-fix commits themselves, was declined as
+out of the spec's declared scope and completed instead as this separate,
+explicit, Founder-authorized step.
+
+**Evidence:** `company-os/CURRENT_WORK.md` (`ci-revival-2026-08`), PR #1 and
+its commits, and the passing CI runs recorded there for both the `3.9` and
+`3.11` matrix legs.
+
+**Revisit when:** the Founder authorizes a successor Work Object, or CI
+regresses again requiring a further fix.
