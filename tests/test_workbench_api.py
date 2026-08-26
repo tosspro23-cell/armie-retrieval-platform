@@ -1,7 +1,9 @@
+import os
 import unittest
 from pathlib import Path
 from fastapi.testclient import TestClient
 
+from armie_retrieval import __version__
 from services.api.app import app
 
 
@@ -17,11 +19,11 @@ class WorkbenchApiTests(unittest.TestCase):
         health = self.client.get("/api/v1/health")
         capabilities = self.client.get("/api/v1/capabilities")
         self.assertEqual(health.status_code, 200)
-        self.assertEqual(health.json()["package_version"], "0.5.0")
-        self.assertTrue(health.json()["package_source"].endswith("/src/armie_retrieval"))
-        self.assertEqual(health.json()["frontend_version"], "0.5.0")
+        self.assertEqual(health.json()["package_version"], __version__)
+        self.assertTrue(health.json()["package_source"].endswith("/armie_retrieval"))
+        self.assertEqual(health.json()["frontend_version"], __version__)
         self.assertIn("hybrid", capabilities.json()["retrieval_strategies"])
-        self.assertEqual(capabilities.json()["application_version"], "0.5.0")
+        self.assertEqual(capabilities.json()["application_version"], __version__)
 
     def test_v040_dataset_and_benchmark_discovery(self):
         datasets = self.client.get("/api/v1/datasets")
@@ -68,12 +70,40 @@ class WorkbenchApiTests(unittest.TestCase):
 
     def test_score_semantics_and_execution_context(self):
         baseline = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "profile": "baseline"}).json()
-        model = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "profile": "model-enhanced"}).json()
         self.assertTrue(all(item["score_type"] == "RRF fused score" for item in baseline["results"]))
+
+    @unittest.skipUnless(
+        os.getenv("ARMIE_RUN_MODEL_ENHANCED_INTEGRATION") == "1",
+        "set ARMIE_RUN_MODEL_ENHANCED_INTEGRATION=1 with a running Ollama daemon and "
+        "cached BGE cross-encoder weights to exercise the real model-enhanced path",
+    )
+    def test_model_enhanced_score_semantics_and_execution_context(self):
+        model = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "profile": "model-enhanced"}).json()
         self.assertTrue(all(item["score_type"] == "Cross-Encoder score" for item in model["results"]))
         self.assertEqual(model["execution_context"]["planner"]["actual_provider"], "ollama")
         self.assertEqual(model["execution_context"]["reranker"]["actual_provider"], "bge_cross_encoder")
         self.assertIn("reranker_raw", model["results"][0]["score_stack"])
+
+    def test_model_enhanced_falls_back_without_ollama(self):
+        """When Ollama/BGE are unavailable, the app must degrade explicitly, not silently."""
+        model = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "profile": "model-enhanced"}).json()
+        planner_ctx = model["execution_context"]["planner"]
+        reranker_ctx = model["execution_context"]["reranker"]
+        if planner_ctx["actual_provider"] == "ollama" and reranker_ctx["actual_provider"] == "bge_cross_encoder":
+            self.skipTest(
+                "Ollama and the BGE cross-encoder are both reachable in this environment, "
+                "so no fallback occurred for this test to observe. Guaranteed to be exercised "
+                "on runners without a local Ollama daemon (e.g. CI); run "
+                "test_model_enhanced_score_semantics_and_execution_context (env-gated) instead "
+                "to verify the real model-enhanced path here."
+            )
+        if planner_ctx["actual_provider"] != "ollama":
+            self.assertIn("fallback", model["execution_context"])
+            self.assertTrue(model["execution_context"]["fallback"])
+        if reranker_ctx["actual_provider"] == "bge_cross_encoder":
+            self.assertTrue(all(item["score_type"] == "Cross-Encoder score" for item in model["results"]))
+        else:
+            self.assertTrue(all(item["score_type"] != "Cross-Encoder score" for item in model["results"]))
 
     @unittest.skipUnless(V2_BENCHMARK_ARTIFACTS, "optional v0.5.0 Dataset v2 Workbench artifacts are unavailable")
     def test_benchmark_profile_score_semantics(self):

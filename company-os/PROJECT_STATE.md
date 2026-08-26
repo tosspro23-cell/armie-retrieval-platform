@@ -4,7 +4,7 @@
 **State basis:** verified Git/remote facts, current local governance records,
 Result Packages, and explicit Founder decisions. Local-uncommitted evidence is
 never treated as committed or released.
-**Last verified:** 2026-08-20
+**Last verified:** 2026-08-26
 
 ## Objective
 
@@ -15,7 +15,17 @@ dataset boundaries.
 ## Authoritative current state
 
 **Active Work Object:** none. The latest closed Work Object is
-`armie-retrieval-v051-release-stabilization-closeout`.
+`ci-revival-2026-08`; the prior closed Work Object,
+`armie-retrieval-v051-release-stabilization-closeout`, remains preserved as
+an archived record in `CURRENT_WORK.md`.
+
+`ci-revival-2026-08` (closed 2026-08-26) restored a passing GitHub Actions
+CI baseline on `main` using only test-harness and CI-configuration changes —
+no change to `src/armie_retrieval/`, `services/`, or any retrieval/planning/
+ranking/C1 behavior. It fixed four independently-verified CI root causes
+plus two narrowly-scoped follow-ups surfaced by the 3.9 matrix leg and by
+Codex's automated PR review. Full detail, evidence, and the Founder
+authorization for this write-back and merge are in `CURRENT_WORK.md`.
 
 The Founder accepted Gate 5, including the bounded F/F2/F3 fixes, froze the
 v0.5.1 capability boundary, and authorized stabilization, GitHub publication,
@@ -107,6 +117,7 @@ audit and remediation record is
 | v0.5.1 Gate 5-F2 | Founder-verified F4/F5; superseded by F3 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md` |
 | v0.5.1 Gate 5-F3 | Closed as part of Founder-accepted Gate 5 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md`, `tests/test_v051_gate4_workbench.py`, `apps/workbench/tests/gate7c.integration.spec.ts` |
 | v0.5.1 release / closeout | Released, Founder-authorized, closed | `c4bf57f`, annotated `v0.5.1`, [GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1), `company-os/CURRENT_WORK.md` |
+| `ci-revival-2026-08` | Completed, Founder-authorized write-back and merge | [PR #1](https://github.com/tosspro23-cell/armie-retrieval-platform/pull/1), commits `02a816a`/`05a6f8e`/`edb80ee`, `company-os/CURRENT_WORK.md` |
 
 ## Constraints and accepted boundaries
 
