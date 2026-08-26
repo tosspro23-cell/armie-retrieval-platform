@@ -89,6 +89,14 @@ class WorkbenchApiTests(unittest.TestCase):
         model = self.client.post("/api/v1/query", json={"query": "Find healthcare experts with Azure AI experience", "profile": "model-enhanced"}).json()
         planner_ctx = model["execution_context"]["planner"]
         reranker_ctx = model["execution_context"]["reranker"]
+        if planner_ctx["actual_provider"] == "ollama" and reranker_ctx["actual_provider"] == "bge_cross_encoder":
+            self.skipTest(
+                "Ollama and the BGE cross-encoder are both reachable in this environment, "
+                "so no fallback occurred for this test to observe. Guaranteed to be exercised "
+                "on runners without a local Ollama daemon (e.g. CI); run "
+                "test_model_enhanced_score_semantics_and_execution_context (env-gated) instead "
+                "to verify the real model-enhanced path here."
+            )
         if planner_ctx["actual_provider"] != "ollama":
             self.assertIn("fallback", model["execution_context"])
             self.assertTrue(model["execution_context"]["fallback"])
