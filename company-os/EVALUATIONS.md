@@ -14,6 +14,20 @@ annotated tag `v0.5.1`, verified `origin/main`, and a published
 [GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
 There is no active Work Object. v0.6 remains inactive.
 
+## GOV-CONV-001 — governance-interface validation (not a retrieval evaluation)
+
+The Founder accepted the governance-only convergence sample on 2026-08-30.
+Validation covered local Markdown references, the Company OS consistency check,
+and a clean diff check in an isolated worktree based on verified `origin/main`
+`bebc34d`. No retrieval, benchmark, model, CI workflow, deployment, or release
+test was run or implied. Execution-readiness fields are deliberately
+`not_applicable` for this Work Object and must be supplied by the next
+authorized executable Work Object.
+
+**Evidence:** `company-os/GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`,
+`company-os/GOVERNANCE_SURFACE.md`, and
+`scripts/check_company_os_consistency.py`.
+
 ## v0.5.1 release Result Package
 
 - `c4bf57f` — frozen v0.5.1 release commit, pushed and retained in `main`

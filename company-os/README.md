@@ -11,6 +11,7 @@ truth.
 **Project ID:** `armie-retrieval-platform`<br>
 **Company OS Core reference:** `/Users/ting/Documents/New project/armie-company-os-core/`<br>
 **Project Adapter:** [PROJECT_ADAPTER.md](PROJECT_ADAPTER.md)
+**Governance Surface:** [GOVERNANCE_SURFACE.md](GOVERNANCE_SURFACE.md)
 
 The Core supplies shared vocabulary and handoff semantics. These local
 `company-os/` records remain the authoritative project state, decisions,
@@ -118,3 +119,9 @@ latest closed release contract is
 [V051_RELEASE_START_GATE.md](V051_RELEASE_START_GATE.md); the latest
 synchronization record is
 [GOVERNANCE_AUDIT_2026-08-17.md](GOVERNANCE_AUDIT_2026-08-17.md).
+
+The Governance Surface is a small, source-pointed read model shared with the
+ARMIE Company OS Core. It exposes the project’s governance entrypoints,
+current Work Object, material milestone, evidence boundary, and alignment
+state without duplicating GitHub, CI/CD, or Project OS history. See the Core
+Governance Convergence Standard for the shared interface.

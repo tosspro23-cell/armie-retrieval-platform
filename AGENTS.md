@@ -39,6 +39,10 @@ Before state-changing execution:
 5. Confirm the dispatch names the Project ID, Core reference, active Work
    Object, Task Contract, allowed paths/systems, evidence profile, acceptance
    authority, and expected Result Package.
+6. Read `company-os/GOVERNANCE_SURFACE.md`. When the task claims an executable
+   capability, also read the current Core Executable Readiness Standard and
+   name the local Traceability Matrix, no-model smoke, and unit/integration/
+   live evidence tiers in the Task Contract.
 
 If the Work Object or required state package is missing, or the records are
 stale, do not begin normal execution. Reconcile the state or create/activate
@@ -62,6 +66,11 @@ Code complete or tests passing is not governance-complete until the verified
 state is written back to the semantically affected Company OS records. Record
 objective facts automatically where appropriate; record
 `READY_FOR_FOUNDER_ACCEPTANCE` or `PENDING` for founder-gated decisions.
+
+The Governance Surface is a concise, source-pointed read model for Company OS
+and any future dashboard. It is not a second Project State, GitHub/CI ledger,
+or source of acceptance. Update it only through material Start Gate, Result
+Package, acceptance/write-back, or drift review.
 
 Agents must not independently mark architecture promotion, release acceptance,
 material scope changes, version freezes, or roadmap decisions `ACCEPTED` unless

@@ -1,4 +1,26 @@
-# Latest Closed Work Object — CI Revival 2026-08
+# Latest Closed Work Object — GOV-CONV-001
+
+**Work Object:** `GOV-CONV-001`
+**State:** accepted / closed
+**Authority:** Founder accepted the Result Package and authorized the bounded
+governance write-back, commit, and GitHub push on 2026-08-30. This records a
+governance-interface adoption decision only; it does not authorize a version,
+release, product, CI, or retrieval-behavior transition.
+
+**Task Contract / Start Gate:**
+[GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md](GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md)
+
+**Result Package:**
+[GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md](GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md)
+
+This Work Object aligned the governance interface only: Governance Surface,
+adapter mapping, Agent entry guidance, and metadata consistency checking. The
+Founder accepted the bounded result. It does not change retrieval behavior, CI
+workflow, release facts, or authorize v0.6.
+
+---
+
+# Archived Work Object — CI Revival 2026-08
 
 **Work Object:** `ci-revival-2026-08`
 **State:** closed / merged

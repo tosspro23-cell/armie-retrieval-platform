@@ -491,3 +491,31 @@ its commits, and the passing CI runs recorded there for both the `3.9` and
 
 **Revisit when:** the Founder authorizes a successor Work Object, or CI
 regresses again requiring a further fix.
+
+### D-037 — GOV-CONV-001 governance-interface sample accepted
+
+The Founder accepted the bounded Retrieval governance-interface Result Package
+on 2026-08-30 and authorized its Company OS write-back, repository commit, and
+GitHub push. The accepted scope is limited to a source-pointed Governance
+Surface, local adapter and agent-entry guidance, and consistency validation.
+It does not change retrieval behavior, CI workflows, release identity, or
+authorize v0.6.
+
+The governance surface is a read model that points to engineering, CI, Project
+OS, and release truth; it is not a second GitHub/CI ledger. Future executable
+Work Objects must name their traceability matrix, no-model smoke, and relevant
+Unit/Integration/Live evidence. This governance-only Work Object makes no
+retroactive capability-readiness claim.
+
+The accepted repository branch remains distinct from canonical `main` until it
+is merged. Until then, normal main-branch dispatches must treat this as an
+accepted alignment candidate rather than claim the local governance interface
+is already present on `main`.
+
+**Evidence:** `company-os/GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md`,
+`company-os/GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`,
+`company-os/GOVERNANCE_SURFACE.md`, `AGENTS.md`, and
+`scripts/check_company_os_consistency.py`.
+
+**Revisit when:** the branch is merged into the canonical repository branch,
+or the next material executable Work Object exposes a schema or control gap.

@@ -4,7 +4,7 @@
 **State basis:** verified Git/remote facts, current local governance records,
 Result Packages, and explicit Founder decisions. Local-uncommitted evidence is
 never treated as committed or released.
-**Last verified:** 2026-08-26
+**Last verified:** 2026-08-30
 
 ## Objective
 
@@ -14,10 +14,18 @@ dataset boundaries.
 
 ## Authoritative current state
 
-**Active Work Object:** none. The latest closed Work Object is
-`ci-revival-2026-08`; the prior closed Work Object,
-`armie-retrieval-v051-release-stabilization-closeout`, remains preserved as
-an archived record in `CURRENT_WORK.md`.
+**Active Work Object:** none. `GOV-CONV-001` is Founder-accepted and closed as
+the latest governance-interface alignment Work Object. It is a governance-only
+adoption record; no product, CI, release, or version transition follows from
+it. Earlier closed Work Objects remain preserved as archived records in
+`CURRENT_WORK.md`.
+
+GOV-CONV-001 adds a source-pointed Governance Surface and common Core mapping
+without changing product behavior, release state, version scope, or CI
+workflow. The Founder accepted the Result Package on 2026-08-30. Its Start
+Gate and Result Package are
+`GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md` and
+`GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`.
 
 `ci-revival-2026-08` (closed 2026-08-26) restored a passing GitHub Actions
 CI baseline on `main` using only test-harness and CI-configuration changes —
@@ -42,9 +50,10 @@ annotated tag `v0.5.1` has tag object
 published GitHub Release object is
 [`v0.5.1`](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1).
 
-The active Task Contract/Start Gate is
-[`V051_RELEASE_START_GATE.md`](V051_RELEASE_START_GATE.md). The 2026-08-17 governance
-audit and remediation record is
+The latest closed governance Task Contract/Start Gate is
+[`GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md`](GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md).
+The earlier closed release contract remains
+[`V051_RELEASE_START_GATE.md`](V051_RELEASE_START_GATE.md). The 2026-08-17 governance audit and remediation record is
 [`GOVERNANCE_AUDIT_2026-08-17.md`](GOVERNANCE_AUDIT_2026-08-17.md).
 
 - v0.4.0 Gate 5 relevance benchmark is completed and committed at the
@@ -118,6 +127,7 @@ audit and remediation record is
 | v0.5.1 Gate 5-F3 | Closed as part of Founder-accepted Gate 5 | `docs/v0.5.1/gate5-confirmed-c1-e2e.md`, `company-os/CURRENT_WORK.md`, `tests/test_v051_gate4_workbench.py`, `apps/workbench/tests/gate7c.integration.spec.ts` |
 | v0.5.1 release / closeout | Released, Founder-authorized, closed | `c4bf57f`, annotated `v0.5.1`, [GitHub Release](https://github.com/tosspro23-cell/armie-retrieval-platform/releases/tag/v0.5.1), `company-os/CURRENT_WORK.md` |
 | `ci-revival-2026-08` | Completed, Founder-authorized write-back and merge | [PR #1](https://github.com/tosspro23-cell/armie-retrieval-platform/pull/1), commits `02a816a`/`05a6f8e`/`edb80ee`, `company-os/CURRENT_WORK.md` |
+| `GOV-CONV-001` | Founder-accepted governance-interface alignment; no executable capability claim | `company-os/GOVERNANCE_SURFACE.md`, `company-os/GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`, `company-os/DECISIONS.md` D-037 |
 
 ## Constraints and accepted boundaries
 
@@ -154,8 +164,9 @@ audit and remediation record is
 
 ## Open questions
 
-No release-open question remains. A future version requires a new Work Object,
-accepted Task Contract, and explicit Founder authorization.
+No active Work Object or release-open question remains. A future version or
+executable task requires a new Work Object, accepted Task Contract, and
+explicit Founder authorization.
 
 ## Next actions
 
