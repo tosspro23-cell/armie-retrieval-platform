@@ -26,6 +26,10 @@ workflow. The Founder accepted the Result Package on 2026-08-30. Its Start
 Gate and Result Package are
 `GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md` and
 `GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`.
+Its accepted governance files are committed at
+`718392c50bcb07deb56aa7bcc7374318bfa3f2a1` and fast-forwarded into verified
+`origin/main`; Retrieval is the current `DIRECT` reference sample for the
+common governance interface.
 
 `ci-revival-2026-08` (closed 2026-08-26) restored a passing GitHub Actions
 CI baseline on `main` using only test-harness and CI-configuration changes —

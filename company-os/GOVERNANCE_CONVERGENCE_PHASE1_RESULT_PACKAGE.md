@@ -42,18 +42,17 @@ execution_readiness:
 
 ## Accepted transition
 
-`PENDING_ALIGNMENT → ACCEPTED_ALIGNMENT_PENDING_CANONICAL_MERGE` for the
-Retrieval governance-interface sample. The Founder accepted the result and
-authorized project and Company OS write-back, commit, and GitHub push on
-2026-08-30. Canonical `main` adoption remains distinct from acceptance and
-requires the repository branch to be merged.
+`PENDING_ALIGNMENT → DIRECT` for the Retrieval governance-interface sample.
+The Founder accepted the result and authorized project and Company OS
+write-back, commit, and GitHub push on 2026-08-30. Commit `718392c` was then
+fast-forwarded into verified canonical `origin/main`; acceptance and
+canonical-branch adoption are both complete.
 
 ## Acceptance and write-back
 
 The Founder acceptance has been recorded in `CURRENT_WORK.md`,
 `PROJECT_STATE.md`, and `DECISIONS.md`. The Company OS Project Registry is
-updated to show the accepted branch-level alignment and its pending canonical
-merge boundary.
+updated to show the `DIRECT` canonical alignment.
 
 No version, release, capability, benchmark, or architecture transition is
 proposed by this Result Package.

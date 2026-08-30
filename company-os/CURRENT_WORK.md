@@ -18,6 +18,11 @@ adapter mapping, Agent entry guidance, and metadata consistency checking. The
 Founder accepted the bounded result. It does not change retrieval behavior, CI
 workflow, release facts, or authorize v0.6.
 
+**Post-acceptance reconciliation:** commit `718392c50bcb07deb56aa7bcc7374318bfa3f2a1`
+was fast-forwarded into verified `origin/main` on 2026-08-30. The local
+governance interface is therefore available to ordinary canonical-branch
+dispatches.
+
 ---
 
 # Archived Work Object — CI Revival 2026-08

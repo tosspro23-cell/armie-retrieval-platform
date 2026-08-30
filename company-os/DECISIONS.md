@@ -507,15 +507,15 @@ Work Objects must name their traceability matrix, no-model smoke, and relevant
 Unit/Integration/Live evidence. This governance-only Work Object makes no
 retroactive capability-readiness claim.
 
-The accepted repository branch remains distinct from canonical `main` until it
-is merged. Until then, normal main-branch dispatches must treat this as an
-accepted alignment candidate rather than claim the local governance interface
-is already present on `main`.
+Commit `718392c` was fast-forwarded into verified canonical `origin/main` on
+2026-08-30. Normal main-branch dispatches must therefore read the local
+governance interface. This does not retroactively certify prior executable
+work or authorize v0.6.
 
 **Evidence:** `company-os/GOVERNANCE_CONVERGENCE_PHASE1_START_GATE.md`,
 `company-os/GOVERNANCE_CONVERGENCE_PHASE1_RESULT_PACKAGE.md`,
 `company-os/GOVERNANCE_SURFACE.md`, `AGENTS.md`, and
 `scripts/check_company_os_consistency.py`.
 
-**Revisit when:** the branch is merged into the canonical repository branch,
-or the next material executable Work Object exposes a schema or control gap.
+**Revisit when:** the next material executable Work Object exposes a schema or
+control gap.

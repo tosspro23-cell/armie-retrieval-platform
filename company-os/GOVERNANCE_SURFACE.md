@@ -46,10 +46,9 @@ execution_readiness:
   live_evidence: not_applicable
 
 portfolio:
-  company_writeback: "Founder-accepted 2026-08-30; registry records accepted branch-level alignment pending canonical repository merge."
+  company_writeback: "Founder-accepted 2026-08-30; commit 718392c is verified on canonical origin/main and registered as DIRECT."
   dependencies: [ARMIE_COMPANY_OS_CORE]
   material_risks:
     - "Future executable tasks must map their own traceability matrix and no-model smoke; this governance task does not retroactively certify historical capabilities."
-    - "The accepted governance files must be merged into the repository's canonical branch before ordinary main-branch dispatches can rely on them."
-  alignment_state: pending_canonical_merge
+  alignment_state: direct
 ```
